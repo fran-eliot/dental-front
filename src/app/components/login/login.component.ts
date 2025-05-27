@@ -13,9 +13,8 @@ import { Router, RouterModule } from '@angular/router';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  credentials: Login = { username_users: '', password_users: '' };
+  credentials: Login = { username_users: '', password_users: '', rol_users:'' };
   errorMessage: string = '';
-
 
   constructor (
     private readonly loginService:LoginService,
@@ -27,13 +26,26 @@ export class LoginComponent {
     this.loginService.login(this.credentials).subscribe({
       next: (data) => {
         const token = data.access_token;
-        //me guarda el token de acceso de sesion desde el back
+        const rol = data.user.rol;
+
+        //me guarda el token de acceso de sesion desde el back y tb el role
         localStorage.setItem('access_token', token);
-        //Añado desde aqui la ruta si el acceso es valido y me devuelve un token
-        this.router.navigate(['/availabilities']);
+        localStorage.setItem('user_role', rol);
+
+        //Depende del role me redirige a una ruta u otra
+        switch (rol) {
+          case 'admin':
+            this.router.navigate(['/admin']);
+            break;
+          case 'dentista':
+            this.router.navigate(['']);
+            break;
+          default:
+            this.router.navigate(['']); // ruta por defecto
+        }
       },
       error: (err) => {
-        this.errorMessage = 'Credenciales inválidas';
+        this.errorMessage = 'Usuario o contraseña incorrecta';
         console.error(err);
       },
     });

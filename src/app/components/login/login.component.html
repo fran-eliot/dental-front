@@ -3,10 +3,11 @@
     <h1>Inicio de sesión</h1>
   </div>
   <div class="body-wrapper-login">
-    <form (ngSubmit)="login()" class="form-login">
+    <form class="form-login">
       <input type="email" name="email" placeholder="Introduce tu email" [(ngModel)]="credentials.username_users">
       <input type="password" name="password" placeholder="Introduce tu contraseña" [(ngModel)]="credentials.password_users">
-      <button type="submit">Log in</button>
+      <button type="submit" (click)="login()">Log in</button>
+      <div>{{errorMessage}}</div>
     </form>
   </div>
 </div>

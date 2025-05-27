@@ -1,0 +1,56 @@
+.main-container-admin {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  padding: 24px;
+}
+
+.card {
+  background-color: white;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  color: inherit;
+}
+
+.card:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-3px);
+}
+
+/* Colores individuales por categoría */
+.card-blue h2 {
+  color: #1d4ed8;
+
+  .badge {
+    margin-top: 12px;
+    display: inline-block;
+    background-color: #facc15; /* Amarillo */
+    color: #1f2937; /* Gris oscuro */
+    padding: 4px 10px;
+    font-size: 13px;
+    font-weight: bold;
+    border-radius: 999px;
+  }
+
+}
+
+.card-green h2 {
+  color: #059669;
+}
+
+.card-purple h2 {
+  color: #7c3aed;
+}
+
+.card-yellow h2 {
+  color: #d97706;
+}
+
+.card p {
+  color: #4b5563;
+  margin-top: 8px;
+  font-size: 14px;
+}

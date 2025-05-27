@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './views/home/home.component';
 import { ProfessionalsAvailabilitiesComponent } from './components/professionals-availabilities/professionals-availabilities.component';
+import { AdminComponent } from './views/admin/admin/admin.component';
 
 export const routes: Routes = [
   {
@@ -15,5 +16,10 @@ export const routes: Routes = [
   {
     path:'availabilities',
     component: ProfessionalsAvailabilitiesComponent
+  },
+  {
+    //proteger rutas?
+    path:'admin',
+    component: AdminComponent
   }
 ];
