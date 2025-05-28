@@ -1,13 +1,28 @@
 <div class="main-container-login">
-  <div class="title-wrapper-login">
-    <h1>Inicio de sesión</h1>
-  </div>
-  <div class="body-wrapper-login">
-    <form class="form-login">
-      <input type="email" name="email" placeholder="Introduce tu email" [(ngModel)]="credentials.username_users">
-      <input type="password" name="password" placeholder="Introduce tu contraseña" [(ngModel)]="credentials.password_users">
-      <button type="submit" (click)="login()">Log in</button>
-      <div>{{errorMessage}}</div>
+  <div class="login-box">
+    <div class="avatar-wrapper">
+      <div class="avatar-icon">👤</div>
+    </div>
+    <div class="title-wrapper-login">
+      <h1>Inicio de sesión</h1>
+    </div>
+    <form class="form-login" (submit)="login()">
+      <div class="input-group">
+        <input type="email" name="email" placeholder="Email ID" [(ngModel)]="credentials.username_users" required>
+      </div>
+
+      <div class="input-group">
+        <input type="password" name="password" placeholder="Password" [(ngModel)]="credentials.password_users" required>
+      </div>
+
+      <div class="form-options">
+        <a class="forgot-link" href="#">¿Olvidaste tu contraseña?</a>
+      </div>
+
+      <button type="submit">LOGIN</button>
+
+      <div class="error-message">{{ errorMessage }}</div>
     </form>
   </div>
 </div>
+

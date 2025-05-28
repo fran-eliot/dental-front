@@ -1,0 +1,135 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #c3aed6, #7367f0, #5c7cfa);
+  background-size: cover;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+.main-container-login {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.login-box {
+  position: relative;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 60px 30px 40px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  overflow: hidden;
+}
+
+.avatar-wrapper {
+  position: absolute;
+  top: 35px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.avatar-icon {
+  font-size: 40px;
+  background-color: white;
+  color: white;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  line-height: 80px;
+  border: 5px solid white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.title-wrapper-login h1 {
+  margin-top: 50px;
+  margin-bottom: 30px;
+  font-size: 1.8rem;
+  color: #fff;
+}
+
+.form-login {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px 16px 12px 44px;
+  border: none;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.25);
+  color: #fff;
+  font-size: 1rem;
+  background-repeat: no-repeat;
+  background-position: 14px center;
+  background-size: 20px;
+  display: block;
+  box-sizing: border-box;
+}
+
+.input-group input[type="email"] {
+  background-image: url('https://cdn-icons-png.flaticon.com/512/1077/1077114.png');
+}
+
+.input-group input[type="password"] {
+  background-image: url('https://cdn-icons-png.flaticon.com/512/3064/3064155.png');
+}
+
+
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  color: #f1f1f1;
+}
+
+.form-options input[type="checkbox"] {
+  margin-right: 6px;
+}
+
+.forgot-link {
+  color: grey;
+  text-decoration: none;
+}
+
+.forgot-link:hover {
+  text-decoration: underline;
+}
+
+.form-login button {
+  padding: 12px;
+  background-color: #2f3e9e;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: background 0.3s ease;
+}
+
+.form-login button:hover {
+  background-color: #1d2c80;
+}
+
+/* Mensaje de error */
+.error-message {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: #ff4d4d;
+}
