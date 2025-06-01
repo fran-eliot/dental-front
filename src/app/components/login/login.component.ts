@@ -21,8 +21,8 @@ export class LoginComponent {
     private readonly router: Router
   ){}
 
+  //Inicio de sesion
   login(): void {
-    console.log("Acceso Login", this.credentials);
     this.loginService.login(this.credentials).subscribe({
       next: (data) => {
         const token = data.access_token;
@@ -50,4 +50,5 @@ export class LoginComponent {
       },
     });
   }
+
 }

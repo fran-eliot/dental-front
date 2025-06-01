@@ -11,8 +11,15 @@ export class LoginService {
 
   constructor(private http:HttpClient ) { }
 
+  //Inicio de sesion
   login(credentials: Login): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<any>(this.urlLogin, credentials, { headers });
+  }
+
+  //Cierre de sesion, esta en el componente de navegacion
+  logOut(){
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('user_role');
   }
 }

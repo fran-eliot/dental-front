@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { LoginService } from '../../service/login/login.service';
 
 @Component({
   selector: 'app-navigation',
@@ -9,5 +10,16 @@ import { RouterModule } from '@angular/router';
   styleUrl: './navigation.component.css'
 })
 export class NavigationComponent {
+  
 
+  constructor(
+    private loginService:LoginService,
+    private readonly router: Router
+  ){}
+
+  //Cierre de sesión
+  onlogOut(){
+    this.loginService.logOut();
+    this.router.navigate(['/login']);
+  }
 }

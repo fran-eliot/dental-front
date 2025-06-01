@@ -4,6 +4,8 @@ import { HomeComponent } from './views/home/home.component';
 import { ProfessionalsAvailabilitiesComponent } from './components/professionals-availabilities/professionals-availabilities.component';
 import { AdminComponent } from './views/admin/admin/admin.component';
 import { AppointmentsComponent } from './components/appointments/appointments.component';
+import { RegisterComponent } from './components/register-user/register/register.component';
+import { ProfessionalsComponent } from './components/professionals/professionals.component';
 
 export const routes: Routes = [
   {
@@ -27,6 +29,21 @@ export const routes: Routes = [
 
     path:'appointments',
     component: AppointmentsComponent
+  },
+  /*{
+
+    path:'register',
+    component: RegisterComponent
+  },*/
+  {
+
+    path:'dentistas',
+    component: ProfessionalsComponent,
+    children: [
+      { path: 'registrar', component: RegisterComponent }
+      //{ path: 'editar', component: EditarDentistaComponent },
+      //{ path: 'lista', component: ListaDentistasComponent }
+    ]
   }
 ];
 
