@@ -7,9 +7,9 @@ export class Professional{
   phone_professionals:string;
   email_professionals:string;
   assigned_room_professionals: string;
-  is_active_professionals: number;
+  is_active_professionals: boolean;
 
-  constructor(user_id?: number, nif_professionals?: string, license_number_professionals?: string, name_professionals?: string, last_name_professionals?: string, phone_professionals?: string, email_professionals?: string, assigned_room_professionals?: string, is_active_professionals?: number) {
+  constructor(user_id?: number, nif_professionals?: string, license_number_professionals?: string, name_professionals?: string, last_name_professionals?: string, phone_professionals?: string, email_professionals?: string, assigned_room_professionals?: string, is_active_professionals?: boolean) {
     this.user_id = user_id || 0;
     this.nif_professionals = nif_professionals || '';
     this.license_number_professionals = license_number_professionals || '';
@@ -18,6 +18,6 @@ export class Professional{
     this.phone_professionals = phone_professionals || '';
     this.email_professionals = email_professionals || '';
     this.assigned_room_professionals = assigned_room_professionals || '';
-    this.is_active_professionals = is_active_professionals || 1; 
+    this.is_active_professionals = is_active_professionals || true;
   }
 }

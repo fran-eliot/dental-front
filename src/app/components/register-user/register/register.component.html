@@ -30,15 +30,16 @@
     <input type="text" placeholder="Apellido" [(ngModel)]="professional.last_name_professionals">
     <input type="text" placeholder="Teléfono" [(ngModel)]="professional.phone_professionals">
     <input type="email" placeholder="Email" [(ngModel)]="professional.email_professionals" readonly>
-    <input type="text" placeholder="Sala Asignada" [(ngModel)]="professional.assigned_room_professionals">
+    <!--<input type="text" placeholder="Sala Asignada" [(ngModel)]="professional.assigned_room_professionals">
 
-    <!--<label>
-      <input type="checkbox" [checked]="professional.is_active_professionals === 1"
-             (change)="professional.is_active_professionals = $event.target.checked ? 1 : 0">
+    <label>
+      <input type="checkbox" [checked]="professional.is_active_professionals === true">
       Activo
     </label>-->
 
-    <button >Guardar Profesional</button>
+    <button (click)="newProfessional()">Guardar Profesional</button>
+    <div *ngIf="messageNewProfessional" class="message-success">{{ messageNewProfessional }}</div>
+    <div *ngIf="errorNewProfessional" class="message-error">{{ errorNewProfessional }}</div>
   </div>
 
 </div>

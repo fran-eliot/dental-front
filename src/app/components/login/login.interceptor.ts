@@ -10,10 +10,10 @@ export const LoginInterceptor: HttpInterceptorFn = (req, next) => {
     const cloned = req.clone({
       headers: req.headers.set('Authorization', `Bearer ${token}`)
     });
-    console.log('🟢 LoginInterceptor activo: token añadido');
+    console.log('LoginInterceptor activo: token añadido');
     return next(cloned);
   }
 
-  console.log('🔵 LoginInterceptor activo: sin token');
+  console.log('LoginInterceptor activo: sin token');
   return next(req);
 }

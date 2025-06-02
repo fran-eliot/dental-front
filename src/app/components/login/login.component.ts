@@ -13,7 +13,7 @@ import { Router, RouterModule } from '@angular/router';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  credentials: Login = { username_users: '', password_users: '', rol_users:'' };
+  credentials: Login = { username_users: '', password_users: '', rol_users:'', is_active_users:true };
   errorMessage: string = '';
 
   constructor (
