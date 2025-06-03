@@ -1,10 +1,23 @@
-<p>Componente Navegacion</p>
 <div class="main-container-navigation">
   <div class="logo-wrapper-navigation">
     <h2>Aqui va el logo</h2>
   </div>
   <div class="login-wrapper-navigation">
-    <button [routerLink]="['/login']">INICIO DE SESION</button>
-    <button (click)="onlogOut()">CERRAR SESION</button>
+    <button
+      *ngIf="!isLoggedIn"
+      [routerLink]="['/login']"
+      class="btn-login"
+    >
+      Iniciar Sesión
+    </button>
+
+    <button
+      *ngIf="isLoggedIn"
+      (click)="onlogOut()"
+      class="btn-login"
+    >
+      Cerrar Sesión
+    </button>
   </div>
 </div>
+

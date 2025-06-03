@@ -113,8 +113,8 @@ body {
 
 .form-login button {
   padding: 12px;
-  background-color: #2f3e9e;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--text-color-light);
   font-weight: bold;
   border: none;
   border-radius: 10px;
@@ -124,7 +124,7 @@ body {
 }
 
 .form-login button:hover {
-  background-color: #1d2c80;
+  background-color: var(--secondary-color);
 }
 
 /* Mensaje de error */

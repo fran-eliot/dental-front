@@ -1,0 +1,24 @@
+.main-container-navigation{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.login-wrapper-navigation button {
+  background-color:var(--primary-color);
+  color: var(--text-color-light);
+  border: none;
+  border-radius: 999px; /* Botón completamente redondeado */
+  padding: 10px 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 1rem;
+}
+
+.login-wrapper-navigation button:hover {
+  background-color: var(--secondary-color); /* Un tono más oscuro al pasar el mouse */
+}
+
+
