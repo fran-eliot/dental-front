@@ -1,23 +1,25 @@
 <div class="main-container-login">
   <div class="login-box">
     <div class="avatar-wrapper">
-      <div class="avatar-icon">👤</div>
+      <div class="avatar-icon">
+        <i class="fa-regular fa-user"></i>
+      </div>
     </div>
     <div class="title-wrapper-login">
       <h1>Inicio de sesión</h1>
     </div>
     <form class="form-login" (submit)="login()">
-      <div class="input-group">
+      <div class="input-group email">
         <input type="email" name="email" placeholder="Email ID" [(ngModel)]="credentials.username_users" required>
       </div>
 
-      <div class="input-group">
+      <div class="input-group password">
         <input type="password" name="password" placeholder="Password" [(ngModel)]="credentials.password_users" required>
       </div>
 
-      <div class="form-options">
+      <!--<div class="form-options">
         <a class="forgot-link" href="#">¿Olvidaste tu contraseña?</a>
-      </div>
+      </div>-->
 
       <button type="submit">LOGIN</button>
 

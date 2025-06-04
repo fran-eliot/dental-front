@@ -10,7 +10,9 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class ProfessionalsComponent {
 
-  constructor(private router: Router){}
+  constructor(
+    private router: Router,
+  ){}
 
   goTo(ruta: string) {
     this.router.navigate([`/dentistas/${ruta}`]);

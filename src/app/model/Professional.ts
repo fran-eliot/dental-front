@@ -1,5 +1,6 @@
 export class Professional{
-  user_id: number;
+  id_professionals: number;
+  user_id:number;
   nif_professionals: string;
   license_number_professionals: string;
   name_professionals: string;
@@ -9,8 +10,9 @@ export class Professional{
   assigned_room_professionals: string;
   is_active_professionals: boolean;
 
-  constructor(user_id?: number, nif_professionals?: string, license_number_professionals?: string, name_professionals?: string, last_name_professionals?: string, phone_professionals?: string, email_professionals?: string, assigned_room_professionals?: string, is_active_professionals?: boolean) {
-    this.user_id = user_id || 0;
+  constructor(id_professionals?: number, user_id?:number, nif_professionals?: string, license_number_professionals?: string, name_professionals?: string, last_name_professionals?: string, phone_professionals?: string, email_professionals?: string, assigned_room_professionals?: string, is_active_professionals?: boolean) {
+    this.id_professionals = id_professionals;
+    this.user_id = user_id;
     this.nif_professionals = nif_professionals || '';
     this.license_number_professionals = license_number_professionals || '';
     this.name_professionals = name_professionals || '';

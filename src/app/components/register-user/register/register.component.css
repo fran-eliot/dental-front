@@ -6,11 +6,16 @@
 }
 
 .title-wrapper-register p {
-  font-size: 1.8rem;
+  font-size: 1.3rem;
   font-weight: bold;
-  color: #1976d2;
+  color: var(--text-color);
   margin-bottom: 1rem;
 }
+.step-text {
+  font-size: 0.9rem;
+  color: var(--secondary-color);
+}
+
 
 .body-wrapper-register {
   background-color: #fff;
@@ -31,16 +36,17 @@
   border-radius: 8px;
   font-size: 1rem;
   transition: border-color 0.2s ease;
+  color: var(--text-color);
 }
 
 .body-wrapper-register input:focus,
 .body-wrapper-register select:focus {
-  border-color: #1976d2;
+  border-color: var(--primary-color);
   outline: none;
 }
 
 .body-wrapper-register button {
-  background-color: #1976d2;
+  background-color: var(--primary-color);
   color: white;
   border: none;
   border-radius: 8px;
@@ -51,7 +57,7 @@
 }
 
 .body-wrapper-register button:hover {
-  background-color: #125ea2;
+  background-color: var(--secondary-color);
 }
 
 .message-success {

@@ -14,7 +14,7 @@
 }
 
 .card {
-  background-color: #ffffff;
+  background-color: var(--background-color);
   border-radius: 16px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   padding: 2rem;
@@ -27,18 +27,18 @@
 .card:hover {
   transform: translateY(-5px);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-  border-color: #1976d2;
+  border-color: var(--primary-color);
 }
 
 .card h4 {
   margin: 0 0 0.5rem;
   font-size: 1.25rem;
-  color: #1976d2;
+  color: var(--primary-color);
 }
 
 .card p {
   margin: 0;
-  color: #444;
+  color: var(--text-color);
   font-size: 0.95rem;
 }
 

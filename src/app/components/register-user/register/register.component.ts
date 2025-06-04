@@ -21,6 +21,8 @@ export class RegisterComponent implements OnInit{
   errorNewProfessional = "";
   roles: string[] = [];
   currentStep = 1; //Empezamos con el paso 1/2
+  //para desactivar el formulario del profesional
+  formDisabled: boolean = false;
 
   constructor( private registerService: RegisterService){}
 
@@ -39,6 +41,7 @@ export class RegisterComponent implements OnInit{
       rol_users: "",
       is_active_users: true
     }
+
   };
 
   //Rgistrar nuevo usuario paso 1/2
@@ -78,6 +81,8 @@ export class RegisterComponent implements OnInit{
         this.messageNewProfessional = "Profesional creado correctamente";
         this.errorNewProfessional = "";
         this.resetDataProfessional();
+        this.formDisabled = true;
+
       },
       error =>{
         const backendMessage = error?.error?.message || "Error al crear el profesional";

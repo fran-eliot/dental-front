@@ -1,0 +1,51 @@
+<div class="main-update-professional-container">
+  <table class="professional-table">
+  <thead>
+    <tr>
+      <th>NIF</th>
+      <th>Licencia</th>
+      <th>Nombre</th>
+      <th>Apellido</th>
+      <th>Teléfono</th>
+      <th>Email</th>
+      <th>Activo</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let professional of professionals; let i = index">
+      <td>{{ professional.nif_professionals }}</td>
+      <td>{{ professional.license_number_professionals }}</td>
+      <td>{{ professional.name_professionals }}</td>
+      <td>{{ professional.last_name_professionals }}</td>
+
+      <!-- Lo que se puede editar -->
+      <td>
+        <input type="text" *ngIf="editIndex === i" [(ngModel)]="professional.phone_professionals" />
+        <span *ngIf="editIndex !== i">{{ professional.phone_professionals }}</span>
+      </td>
+
+      <td>{{ professional.email_professionals }}</td>
+
+      <!-- Checkbox activo o no activo -->
+      <td>
+        <input
+          type="checkbox"
+          *ngIf="editIndex === i"
+          [(ngModel)]="professional.is_active_professionals"
+        />
+        <span *ngIf="editIndex !== i">
+          {{ professional.is_active_professionals ? 'Sí' : 'No' }}
+        </span>
+      </td>
+
+      <td>
+        <button *ngIf="editIndex !== i" (click)="editar(i)"><i class="fa-solid fa-user-pen"></i></button>
+        <button *ngIf="editIndex === i" (click)="updateProfessionals()"><i class="fa-solid fa-floppy-disk"></i></button>
+        <!--<button *ngIf="editIndex === i" (click)="cancelar()">Cancelar</button>-->
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+</div>

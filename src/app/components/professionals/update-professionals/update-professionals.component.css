@@ -1,0 +1,108 @@
+.main-update-professional-container {
+  max-width: 900px;
+  margin: 30px auto;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 20px 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  color: #e0e0e0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.professional-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+  color: var(--text-color);
+  table-layout: auto;
+}
+
+.professional-table thead tr {
+  background-color: var(--primary-color);
+
+}
+
+.professional-table th,
+.professional-table td {
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 12px 15px;
+  text-align: left;
+  vertical-align: middle;
+  max-width: 180px; /* max ancho para columnas */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.professional-table th {
+  font-weight: 600;
+  user-select: none;
+  text-align: center;
+}
+
+.professional-table tbody tr:nth-child(odd) {
+  background-color: rgba(255, 255, 255, 0.07);
+}
+
+.professional-table tbody tr:hover {
+  background-color: rgba(0, 195, 178, 0.05);
+}
+
+/* Inputs de texto */
+.professional-table input[type="text"] {
+  width: 100%;
+  min-width: 100px; /* ancho mínimo razonable */
+  max-width: 180px; /* max ancho igual a celda */
+  box-sizing: border-box;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 3px solid rgba(0, 195, 178, 0.3);
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--text-color);
+  font-size: 0.8rem;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+  outline: none;
+}
+
+.professional-table input[type="text"]:focus {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: var(--primary-color);
+  color: #000;
+}
+
+/* Checkbox */
+.professional-table input[type="checkbox"] {
+  transform: scale(1.2);
+  margin: 0 auto;
+  cursor: pointer;
+  width: auto;
+  height: 18px;
+  accent-color: var(--secondary-color);
+}
+
+/* Botones */
+.professional-table button {
+  background-color: var(--primary-color);
+  border: none;
+  padding: 8px 14px;
+  border-radius: 10px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.professional-table button:hover {
+  background-color: var(--secondary-color);
+}
+
+/* Quitar ancho fijo en las columnas editables para evitar desbordes */
+.professional-table td:nth-child(5),
+.professional-table td:nth-child(7) {
+  max-width: 180px;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+

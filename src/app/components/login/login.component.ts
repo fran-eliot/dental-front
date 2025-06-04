@@ -23,6 +23,10 @@ export class LoginComponent {
 
   //Inicio de sesion
   login(): void {
+    if (!this.credentials.username_users || !this.credentials.password_users) {
+      this.errorMessage = 'Debes completar ambos campos.';
+    return;
+    }
     this.loginService.login(this.credentials).subscribe({
       next: (data) => {
         const token = data.access_token;

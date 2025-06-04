@@ -2,8 +2,8 @@
 
   <!-- Título dinámico -->
   <div class="title-wrapper-register">
-    <p *ngIf="currentStep === 1">Registro de Usuario Paso 1/2</p>
-    <p *ngIf="currentStep === 2">Datos del Profesional Paso 2/2</p>
+    <p *ngIf="currentStep === 1">Registro de Usuario <span class="step-text">Paso 1/2</span></p>
+    <p *ngIf="currentStep === 2">Datos del Profesional <span class="step-text">Paso 2/2</span></p>
   </div>
 
   <!-- Paso 1: Formulario de usuario -->
@@ -24,11 +24,11 @@
 
   <!-- Paso 2: Formulario de profesional -->
   <div class="body-wrapper-register" *ngIf="currentStep === 2">
-    <input type="text" placeholder="NIF" [(ngModel)]="professional.nif_professionals">
-    <input type="text" placeholder="Número de Licencia" [(ngModel)]="professional.license_number_professionals">
-    <input type="text" placeholder="Nombre" [(ngModel)]="professional.name_professionals">
-    <input type="text" placeholder="Apellido" [(ngModel)]="professional.last_name_professionals">
-    <input type="text" placeholder="Teléfono" [(ngModel)]="professional.phone_professionals">
+    <input type="text" placeholder="NIF" [(ngModel)]="professional.nif_professionals" [disabled]="formDisabled">
+    <input type="text" placeholder="Número de Licencia" [(ngModel)]="professional.license_number_professionals" [disabled]="formDisabled">
+    <input type="text" placeholder="Nombre" [(ngModel)]="professional.name_professionals" [disabled]="formDisabled">
+    <input type="text" placeholder="Apellido" [(ngModel)]="professional.last_name_professionals" [disabled]="formDisabled">
+    <input type="text" placeholder="Teléfono" [(ngModel)]="professional.phone_professionals" [disabled]="formDisabled">
     <input type="email" placeholder="Email" [(ngModel)]="professional.email_professionals" readonly>
     <!--<input type="text" placeholder="Sala Asignada" [(ngModel)]="professional.assigned_room_professionals">
 
@@ -37,7 +37,7 @@
       Activo
     </label>-->
 
-    <button (click)="newProfessional()">Guardar Profesional</button>
+    <button (click)="newProfessional()" [disabled]="formDisabled">Guardar Profesional</button>
     <div *ngIf="messageNewProfessional" class="message-success">{{ messageNewProfessional }}</div>
     <div *ngIf="errorNewProfessional" class="message-error">{{ errorNewProfessional }}</div>
   </div>
