@@ -1,0 +1,70 @@
+.selector-disponibilidades-container {
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  color: var(--text-color);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.selector-disponibilidades-container h2 {
+  margin-bottom: 20px;
+  color: var(--primary-color);
+}
+
+.selector-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: stretch;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.form-group label {
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.form-group select,
+.form-group input[type="date"] {
+  padding: 10px;
+  border-radius: 10px;
+  border: 2px solid rgba(0, 195, 178, 0.4);
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--text-color);
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.form-group select:focus,
+.form-group input[type="date"]:focus {
+  border-color: var(--primary-color);
+  background-color: rgba(255, 255, 255, 0.4);
+  outline: none;
+  color: #000;
+}
+
+button[type="submit"] {
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: var(--secondary-color);
+}

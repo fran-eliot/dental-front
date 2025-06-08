@@ -1,0 +1,18 @@
+<div class="main-update-professional-container">
+
+  <h2>Limpiar Disponibilidades</h2>
+
+  <label for="fechaLimite">Eliminar todas las disponibilidades anteriores a:</label>
+  <input type="date" id="fechaLimite" [(ngModel)]="fechaLimite" />
+
+  <button (click)="limpiar()" class="accion-btn">
+    <i class="fa-solid fa-trash"></i> Limpiar Disponibilidades
+  </button>
+
+  <p *ngIf="mensaje" class="mensaje-accion" [ngClass]="{ 'exito': success, 'error': !success }">
+    <i class="fa-solid" [ngClass]="{ 'fa-circle-check': success, 'fa-triangle-exclamation': !success }"></i>
+    {{ mensaje }}
+  </p>
+</div>
+
+

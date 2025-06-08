@@ -1,0 +1,11 @@
+<app-selector-disponibilidades
+  (verDisponibilidades)="actualizarConsulta($event)">
+</app-selector-disponibilidades>
+
+<app-lista-disponibilidades
+  *ngIf="professionalId && date"
+  [professionalId]="professionalId"
+  [date]="date">
+</app-lista-disponibilidades>
+
+
