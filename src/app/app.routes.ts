@@ -7,6 +7,12 @@ import { AppointmentsComponent } from './components/appointments/appointments.co
 import { RegisterComponent } from './components/register-user/register/register.component';
 import { ProfessionalsComponent } from './components/professionals/professionals.component';
 import { UpdateProfessionalsComponent } from './components/professionals/update-professionals/update-professionals.component';
+import { ListaDisponibilidadesComponent } from './components/disponibilidades/lista-disponibilidades/lista-disponibilidades.component';
+import { SelectorDisponibilidadesComponent } from './components/disponibilidades/selector-disponibilidades/selector-disponibilidades.component';
+import { DisponibilidadesDashboardComponent } from './views/disponibilidades-dashboard/disponibilidades-dashboard.component';
+import { GeneradorDisponibilidadesComponent } from './components/disponibilidades/generador-disponibilidades/generador-disponibilidades.component';
+import { LimpiezaDisponibilidadesComponent } from './components/disponibilidades/limpieza-disponibilidades/limpieza-disponibilidades.component';
+import { ConsultaDisponibilidadesComponent } from './components/disponibilidades/consulta-disponibilidades/consulta-disponibilidades.component';
 
 export const routes: Routes = [
   {
@@ -45,6 +51,23 @@ export const routes: Routes = [
       { path: 'editar', component: UpdateProfessionalsComponent }
       //{ path: 'lista', component: ListaDentistasComponent }
     ]
+  },
+  {
+    path: 'disponibilidades',
+    component: DisponibilidadesDashboardComponent,
+    children: [
+    { path: '', component: SelectorDisponibilidadesComponent }, // o cualquier otro selector
+    { path: ':id/:date', component: ListaDisponibilidadesComponent },
+    { path: 'generar', component: GeneradorDisponibilidadesComponent },
+    { path: 'limpiar', component: LimpiezaDisponibilidadesComponent }
+  ]
+  },
+
+  {
+    path: 'dashboard/disponibilidades/consulta',
+    component: ConsultaDisponibilidadesComponent
   }
+
+
 ];
 

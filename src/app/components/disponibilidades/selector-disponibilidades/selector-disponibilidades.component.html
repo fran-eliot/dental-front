@@ -1,0 +1,23 @@
+<div class="selector-disponibilidades-container">
+  <h2>Seleccionar Profesional y Fecha</h2>
+
+  <form (ngSubmit)="emitirSeleccion()" class="selector-form">
+    <div class="form-group">
+      <label for="professional">Profesional</label>
+      <select id="professional" [(ngModel)]="professionalId" name="professionalId" required>
+        <option value="" disabled selected>Seleccione un profesional</option>
+        <option *ngFor="let p of profesionales" [value]="p.id_professionals">
+          {{ p.name_professionals }} {{ p.last_name_professionals }}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="date">Fecha</label>
+      <input id="date" type="date" [(ngModel)]="date" name="date" required />
+    </div>
+
+    <button type="submit">Ver Disponibilidades</button>
+  </form>
+</div>
+

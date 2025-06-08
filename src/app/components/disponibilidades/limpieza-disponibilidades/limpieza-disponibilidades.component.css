@@ -1,0 +1,89 @@
+/* Estilo base similar al de la tabla */
+.main-update-professional-container {
+  max-width: 900px;
+  margin: 30px auto;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  color: var(--text-color);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+}
+
+.main-update-professional-container h2 {
+  margin-bottom: 15px;
+  color: var(--primary-color);
+}
+
+.main-update-professional-container p,
+label {
+  margin-bottom: 15px;
+  display: block;
+  font-size: 1rem;
+}
+
+/* Botón de acción */
+.accion-btn {
+  background-color: var(--primary-color);
+  border: none;
+  padding: 10px 18px;
+  border-radius: 10px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.accion-btn:hover {
+  background-color: var(--secondary-color);
+}
+
+/* Campo de fecha */
+input[type="date"] {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 2px solid rgba(0, 195, 178, 0.3);
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--text-color);
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+  margin-bottom: 10px;
+}
+
+input[type="date"]:focus {
+  border-color: var(--primary-color);
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.mensaje-accion {
+  margin-top: 20px;
+  padding: 10px 15px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-align: center;
+  transition: all 0.3s ease;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Estilo para éxito */
+.exito {
+  background-color: rgba(0, 195, 178, 0.2);
+  color: #00897b;
+  border: 1px solid #00bfa5;
+}
+
+/* Estilo para error */
+.error {
+  background-color: rgba(255, 0, 0, 0.1);
+  color: #c62828;
+  border: 1px solid #ef5350;
+}
+

@@ -1,0 +1,18 @@
+<div class="main-update-professional-container">
+
+  <h2>Generar Disponibilidades</h2>
+
+  <p>Este proceso generará las disponibilidades para todos los profesionales activos durante la próxima semana.</p>
+
+  <button (click)="generar()" class="accion-btn">
+    <i class="fa-solid fa-plus"></i> Generar Disponibilidades
+  </button>
+
+  <p *ngIf="mensaje" class="mensaje-accion" [ngClass]="{ 'exito': success, 'error': !success }">
+    <i class="fa-solid" [ngClass]="{ 'fa-circle-check': success, 'fa-triangle-exclamation': !success }"></i>
+    {{ mensaje }}
+  </p>
+</div>
+
+
+
