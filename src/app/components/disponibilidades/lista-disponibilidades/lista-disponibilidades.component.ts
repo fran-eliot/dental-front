@@ -2,7 +2,6 @@ import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { Status } from '../../../model/Status';
 import { ProfessionalAvailabitity } from './../../../model/ProfessionalAvailability';
 import { AvailabitlityService } from '../../../service/availability/availabitlity.service';
-import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -18,6 +17,8 @@ export class ListaDisponibilidadesComponent implements OnInit, OnChanges {
   @Input() date!: string;
   availabilities: ProfessionalAvailabitity[] = [];
   statusValues = Object.values(Status);
+  filtroPeriodo: string = 'todos';
+  filtroEstado: string = 'todos';
 
    constructor(
     private availabilityService: AvailabitlityService) {}
@@ -62,5 +63,18 @@ export class ListaDisponibilidadesComponent implements OnInit, OnChanges {
     return time.slice(0, 5); // "09:00:00" => "09:00"
   }
 
+  filtrarDisponibilidades() {
+    return this.availabilities.filter(a => {
+      const coincidePeriodo =
+        this.filtroPeriodo === 'todos' ||
+        a.slot.period.toLowerCase() === this.filtroPeriodo.toLowerCase();
+
+      const coincideEstado =
+        this.filtroEstado === 'todos' ||
+        a.status.toLowerCase() === this.filtroEstado.toLowerCase();
+
+      return coincidePeriodo && coincideEstado;
+    });
+  }
 
 }

@@ -1,0 +1,51 @@
+<div class="main-update-professional-container">
+  <h2>Slots libres</h2>
+
+  <!-- Formulario selección profesional y fecha -->
+  <form (ngSubmit)="buscarSlotsLibres()" class="slots-form">
+    <label for="profesional">Profesional:</label>
+    <select id="profesional" [(ngModel)]="selectedProfessional" name="profesional" required>
+      <option *ngFor="let prof of professionals" [value]="prof.id_professionals">
+        {{ prof.name_professionals }} {{ prof.last_name_professionals }}
+      </option>
+    </select>
+
+    <label for="fecha">Fecha:</label>
+    <input id="fecha" type="date" [(ngModel)]="selectedDate" name="fecha" required />
+
+    <button type="submit">Buscar</button>
+  </form>
+  <div class="filtros-disponibilidad">
+    <label for="periodo">Periodo:</label>
+    <select id="periodo" [(ngModel)]="filtroPeriodo" name="periodo">
+      <option value="todos">Todos</option>
+      <option value="Mañana">Mañana</option>
+      <option value="Tarde">Tarde</option>
+    </select>
+  </div>
+
+  <!-- Tabla de resultados -->
+  <table class="professional-table" *ngIf="filtrarSlots()?.length > 0; else noSlots">
+    <thead>
+      <tr>
+        <th>Hora de inicio</th>
+        <th>Hora de fin</th>
+        <th>Periodo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let slot of filtrarSlots()">
+        <td>{{ formatHour(slot.startTime) }}</td>
+        <td>{{ formatHour(slot.endTime)}}</td>
+        <td>{{ slot.period }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Mensaje si no hay resultados -->
+  <ng-template #noSlots>
+    <p *ngIf="slots">No hay slots libres para ese profesional en esa fecha.</p>
+  </ng-template>
+</div>
+
+

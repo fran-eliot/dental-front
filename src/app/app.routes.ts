@@ -13,6 +13,7 @@ import { DisponibilidadesDashboardComponent } from './views/disponibilidades-das
 import { GeneradorDisponibilidadesComponent } from './components/disponibilidades/generador-disponibilidades/generador-disponibilidades.component';
 import { LimpiezaDisponibilidadesComponent } from './components/disponibilidades/limpieza-disponibilidades/limpieza-disponibilidades.component';
 import { ConsultaDisponibilidadesComponent } from './components/disponibilidades/consulta-disponibilidades/consulta-disponibilidades.component';
+import { SlotsLibresComponent } from './components/disponibilidades/slots-libres/slots-libres.component';
 
 export const routes: Routes = [
   {
@@ -66,6 +67,10 @@ export const routes: Routes = [
   {
     path: 'dashboard/disponibilidades/consulta',
     component: ConsultaDisponibilidadesComponent
+  },
+  {
+    path: 'dashboard/slots-libres/consulta',
+    component: SlotsLibresComponent
   }
 
 

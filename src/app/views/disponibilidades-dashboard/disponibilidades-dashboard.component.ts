@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { GeneradorDisponibilidadesComponent } from '../../components/disponibilidades/generador-disponibilidades/generador-disponibilidades.component';
 import { LimpiezaDisponibilidadesComponent } from '../../components/disponibilidades/limpieza-disponibilidades/limpieza-disponibilidades.component';
-import { ConsultaDisponibilidadesComponent } from '../../components/disponibilidades/consulta-disponibilidades/consulta-disponibilidades.component';
 import { ConsultaPreviewComponent } from '../../components/disponibilidades/consulta-preview/consulta-preview.component';
+import { SlotsLibresPreviewComponent } from "../../components/disponibilidades/slots-libres-preview/slots-libres-preview.component";
 
 @Component({
   selector: 'app-disponibilidades-dashboard',
@@ -11,7 +11,7 @@ import { ConsultaPreviewComponent } from '../../components/disponibilidades/cons
   imports: [RouterModule,
     GeneradorDisponibilidadesComponent,
     LimpiezaDisponibilidadesComponent,
-    ConsultaPreviewComponent],
+    ConsultaPreviewComponent, SlotsLibresPreviewComponent],
   templateUrl: './disponibilidades-dashboard.component.html',
   styleUrl: './disponibilidades-dashboard.component.css'
 })
