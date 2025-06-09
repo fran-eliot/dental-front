@@ -1,6 +1,24 @@
 <div class="main-update-professional-container">
   <h2>Disponibilidades para el profesional {{ professionalId }} - Fecha: {{ date }}</h2>
-  <table class="professional-table" *ngIf="availabilities.length > 0; else sinDatos">
+  <div class="filtros-disponibilidad">
+    <div class="filtro-periodo">
+      <label for="periodo">Periodo:</label>
+      <select id="periodo" [(ngModel)]="filtroPeriodo" class="select-filtro">
+        <option value="todos">Todos</option>
+        <option value="mañana">Mañana</option>
+        <option value="tarde">Tarde</option>
+      </select>
+    </div>
+
+    <div class="filtro-estado">
+      <label for="estado">Estado:</label>
+      <select id="estado" [(ngModel)]="filtroEstado" class="select-filtro">
+        <option value="todos">Todos</option>
+        <option *ngFor="let estado of statusValues" [value]="estado">{{ estado }}</option>
+      </select>
+    </div>
+  </div>
+  <table class="professional-table" *ngIf="filtrarDisponibilidades().length > 0; else sinDatos">
     <thead>
       <tr>
         <th>Hora</th>
@@ -10,7 +28,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let a of availabilities">
+      <tr *ngFor="let a of filtrarDisponibilidades()">
         <td>{{ formatHour(a.slot.startTime) }} - {{ formatHour(a.slot.endTime) }}</td>
         <td>{{ a.slot.period }}</td>
         <td>{{ a.status }}</td>

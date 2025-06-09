@@ -161,3 +161,62 @@
   border-color: var(--secondary-color);
   background-color: rgba(255, 255, 255, 0.4);
 }
+
+.slots-form {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin: 1rem 0;
+  align-items: center;
+}
+
+.slots-form label {
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.slots-form input,
+.slots-form select {
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 2px solid var(--primary-color);
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--text-color);
+  font-size: 0.9rem;
+}
+
+.slots-form button {
+  background-color: var(--primary-color);
+  border: none;
+  padding: 8px 14px;
+  border-radius: 10px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.slots-form button:hover {
+  background-color: var(--secondary-color);
+}
+
+.filtro-periodo {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+select {
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--text-color);
+  border: 2px solid rgba(0, 195, 178, 0.3);
+  font-size: 0.9rem;
+  transition: 0.3s;
+}
+select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  background: rgba(255, 255, 255, 0.3);
+}
