@@ -4,3 +4,4 @@ export class Login{
   rol_users:string;
   is_active_users:boolean;
 }
+//com
