@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-professionals',
@@ -12,10 +12,11 @@ export class ProfessionalsComponent {
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute
   ){}
 
   goTo(ruta: string) {
-    this.router.navigate([`/dentistas/${ruta}`]);
+    this.router.navigate([ruta], { relativeTo: this.route });
   }
 
 }

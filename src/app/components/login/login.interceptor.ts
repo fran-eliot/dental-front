@@ -1,6 +1,5 @@
 //Para que Angular mande automáticamente el token en el header Authorization (para el backend), lo mejor es usar un HTTP Interceptor.
 
-
 import { HttpInterceptorFn } from '@angular/common/http';
 
 export const LoginInterceptor: HttpInterceptorFn = (req, next) => {

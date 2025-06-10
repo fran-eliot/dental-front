@@ -9,6 +9,7 @@ import { HttpClient } from '@angular/common/http';
 export class ProfessionalService {
   urlAllProfessionals: string = "http://localhost:3000/professionals/all";
   urlUpdateProfessionals: string = "http://localhost:3000/professionals/actualizacion";
+  
   constructor(private http:HttpClient) {}
 
   getProfessionals():Observable<Professional[]>{

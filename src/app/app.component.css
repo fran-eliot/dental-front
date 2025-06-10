@@ -1,4 +1,10 @@
-.main-container-app{
+.main-container-app {
+  display: grid;
+  gap: 0;
+  height: 100vh;
   width: 90%;
   margin: 0 auto;
 }
+
+
+

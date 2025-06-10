@@ -14,6 +14,8 @@ import { GeneradorDisponibilidadesComponent } from './components/disponibilidade
 import { LimpiezaDisponibilidadesComponent } from './components/disponibilidades/limpieza-disponibilidades/limpieza-disponibilidades.component';
 import { ConsultaDisponibilidadesComponent } from './components/disponibilidades/consulta-disponibilidades/consulta-disponibilidades.component';
 import { SlotsLibresComponent } from './components/disponibilidades/slots-libres/slots-libres.component';
+import { PatientsComponent } from './components/patients/patients.component';
+import { UsersComponent } from './components/users/users/users.component';
 
 export const routes: Routes = [
   {
@@ -31,27 +33,42 @@ export const routes: Routes = [
   {
     //proteger rutas?
     path:'admin',
-    component: AdminComponent
+    component: AdminComponent,
+    children: [
+      {
+        path: '',
+        redirectTo: 'appointments',
+        pathMatch: 'full'  // muy importante para que redirija solo si el path es exacto
+      },
+      {
+        path: 'appointments',
+        component: AppointmentsComponent
+      },
+      {
+        path: 'dentistas',
+        component: ProfessionalsComponent,
+        children: [
+          { path: 'registrar', component: RegisterComponent },
+          { path: 'editar', component: UpdateProfessionalsComponent },
+          { path: 'editarPassword', component: UsersComponent }
+        ]
+      },
+      {
+        path: 'pacientes',
+        component: PatientsComponent // Si tienes este componente definido
+      },
+      {
+        path: 'disponibilidad',
+        component: ProfessionalsAvailabilitiesComponent
+      }
+      //{ path: 'editar', component: UpdateProfessionalsComponent }
+      //{ path: 'editarPassword', component: UsersComponent }
+    ]
   },
   {
 
     path:'appointments',
     component: AppointmentsComponent
-  },
-  /*{
-
-    path:'register',
-    component: RegisterComponent
-  },*/
-  {
-
-    path:'dentistas',
-    component: ProfessionalsComponent,
-    children: [
-      { path: 'registrar', component: RegisterComponent },
-      { path: 'editar', component: UpdateProfessionalsComponent }
-      //{ path: 'lista', component: ListaDentistasComponent }
-    ]
   },
   {
     path: 'disponibilidades',

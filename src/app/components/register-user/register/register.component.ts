@@ -54,7 +54,7 @@ export class RegisterComponent implements OnInit{
       this.professional.user_id = response.id_users;
       this.professional.email_professionals = this.credentials.username_users;
       this.professional.is_active_professionals = true;
-
+      this.formDisabled = true;
       this.currentStep = 2; //Pasamos al paso 2/2
       this.resetForm();
     },
