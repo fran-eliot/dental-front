@@ -60,6 +60,25 @@ export const routes: Routes = [
       {
         path: 'disponibilidad',
         component: ProfessionalsAvailabilitiesComponent
+      },
+      {
+        path: 'disponibilidades',
+        component: DisponibilidadesDashboardComponent,
+        children: [
+          { path: '', component: SelectorDisponibilidadesComponent }, // o cualquier otro selector
+          { path: ':id/:date', component: ListaDisponibilidadesComponent },
+          { path: 'generar', component: GeneradorDisponibilidadesComponent },
+          { path: 'limpiar', component: LimpiezaDisponibilidadesComponent }
+        ]
+      },
+
+      {
+        path: 'dashboard/disponibilidades/consulta',
+        component: ConsultaDisponibilidadesComponent
+      },
+      {
+        path: 'dashboard/slots-libres/consulta',
+        component: SlotsLibresComponent
       }
       //{ path: 'editar', component: UpdateProfessionalsComponent }
       //{ path: 'editarPassword', component: UsersComponent }
@@ -70,15 +89,15 @@ export const routes: Routes = [
     path:'appointments',
     component: AppointmentsComponent
   },
-  {
+  /*{
     path: 'disponibilidades',
     component: DisponibilidadesDashboardComponent,
     children: [
-    { path: '', component: SelectorDisponibilidadesComponent }, // o cualquier otro selector
-    { path: ':id/:date', component: ListaDisponibilidadesComponent },
-    { path: 'generar', component: GeneradorDisponibilidadesComponent },
-    { path: 'limpiar', component: LimpiezaDisponibilidadesComponent }
-  ]
+      { path: '', component: SelectorDisponibilidadesComponent }, // o cualquier otro selector
+      { path: ':id/:date', component: ListaDisponibilidadesComponent },
+      { path: 'generar', component: GeneradorDisponibilidadesComponent },
+      { path: 'limpiar', component: LimpiezaDisponibilidadesComponent }
+    ]
   },
 
   {
@@ -88,8 +107,7 @@ export const routes: Routes = [
   {
     path: 'dashboard/slots-libres/consulta',
     component: SlotsLibresComponent
-  }
-
+  }*/
 
 ];
 
