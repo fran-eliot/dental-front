@@ -7,6 +7,8 @@ import { AppointmentsComponent } from './components/appointments/appointments.co
 import { RegisterComponent } from './components/register-user/register/register.component';
 import { ProfessionalsComponent } from './components/professionals/professionals.component';
 import { UpdateProfessionalsComponent } from './components/professionals/update-professionals/update-professionals.component';
+import { UsersComponent } from './components/users/users/users.component';
+import { PatientsComponent } from './components/patients/patients.component';
 
 export const routes: Routes = [
   {
@@ -24,7 +26,37 @@ export const routes: Routes = [
   {
     //proteger rutas?
     path:'admin',
-    component: AdminComponent
+    component: AdminComponent,
+    children: [
+      {
+        path: '',
+        redirectTo: 'appointments',
+        pathMatch: 'full'  // muy importante para que redirija solo si el path es exacto
+      },
+      {
+        path: 'appointments',
+        component: AppointmentsComponent
+      },
+      {
+        path: 'dentistas',
+        component: ProfessionalsComponent,
+        children: [
+          { path: 'registrar', component: RegisterComponent },
+          { path: 'editar', component: UpdateProfessionalsComponent },
+          { path: 'editarPassword', component: UsersComponent }
+        ]
+      },
+      {
+        path: 'pacientes',
+        component: PatientsComponent // Si tienes este componente definido
+      },
+      {
+        path: 'disponibilidad',
+        component: ProfessionalsAvailabilitiesComponent
+      }
+      //{ path: 'editar', component: UpdateProfessionalsComponent }
+      //{ path: 'editarPassword', component: UsersComponent }
+    ]
   },
   {
 
@@ -36,15 +68,14 @@ export const routes: Routes = [
     path:'register',
     component: RegisterComponent
   },*/
-  {
-
+  /*{
     path:'dentistas',
     component: ProfessionalsComponent,
     children: [
       { path: 'registrar', component: RegisterComponent },
-      { path: 'editar', component: UpdateProfessionalsComponent }
-      //{ path: 'lista', component: ListaDentistasComponent }
+      { path: 'editar', component: UpdateProfessionalsComponent },
+      { path: 'editarPassword', component: UsersComponent }
     ]
-  }
+  }*/
 ];
 

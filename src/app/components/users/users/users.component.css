@@ -1,0 +1,131 @@
+.main-users-container {
+  max-width: 1100px;
+  margin: 30px auto;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 30px 40px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  color: #e0e0e0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.75rem;
+  color: var(--text-color);
+  table-layout: auto;
+}
+
+.user-table thead tr {
+  background-color: var(--primary-color);
+}
+
+.user-table th,
+.user-table td {
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 12px 15px;
+  text-align: left;
+  vertical-align: middle;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-table th {
+  font-weight: 0.75rem;
+  text-align: center;
+  user-select: none;
+}
+
+.user-table tbody tr:nth-child(odd) {
+  background-color: rgba(255, 255, 255, 0.07);
+}
+
+.user-table tbody tr:hover {
+  background-color: rgba(0, 195, 178, 0.05);
+}
+
+.user-table input[type="text"],
+.user-table input[type="password"] {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 2px solid rgba(0, 195, 178, 0.3);
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--text-color);
+  font-size: 0.75rem;
+  outline: none;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+  width: 160px;
+}
+
+.user-table input[type="password"]:focus {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: var(--primary-color);
+  color: #000;
+}
+
+.user-table input[type="checkbox"] {
+  transform: scale(1.2);
+  cursor: pointer;
+  accent-color: var(--secondary-color);
+}
+
+.user-table button {
+  background-color: var(--primary-color);
+  border: none;
+  padding: 8px 14px;
+  border-radius: 10px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-right: 15px;
+}
+
+.user-table button:hover {
+  background-color: var(--secondary-color);
+}
+
+.password-edit-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.password-input-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.password-success {
+  color: #28a745;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  animation: fadeIn 0.3s ease;
+}
+
+.password-input-group button.cancel-button {
+  background-color: #dc3545; /* rojo para cancelar */
+  margin-right: 0; /* sin margen a la derecha porque es el último */
+}
+
+.password-input-group button.cancel-button:hover {
+  background-color: #bb2d3b; /* rojo oscuro al hacer hover */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

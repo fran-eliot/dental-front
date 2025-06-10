@@ -1,56 +1,84 @@
 .main-container-admin {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 20px;
-  padding: 24px;
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /*background-color: var(--background-color);*/
+  color: var(--text-color);
 }
 
-.card {
-  background-color: white;
-  border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+.left-admin-wrapper {
+  width: 220px;
+  background-color: var(--primary-color); /* tu color turquesa */
+  padding: 16px 0;
+  /*box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);*/
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary-color) transparent;
+  height: 100vh;
+  border-radius: 8px;
+}
+
+.left-admin-wrapper::-webkit-scrollbar {
+  width: 6px;
+}
+
+.left-admin-wrapper::-webkit-scrollbar-thumb {
+  background-color: var(--secondary-color);
+  border-radius: 3px;
+}
+
+.menu-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu-list li {
+  margin: 0;
+}
+
+.menu-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  color: var(--text-color-light);
   text-decoration: none;
-  transition: all 0.3s ease;
-  color: inherit;
+  font-weight: 600;
+  font-size: 1.25rem;
+  border-left: 4px solid transparent;
+  transition: background-color 0.2s, border-color 0.2s;
 }
 
-.card:hover {
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-  transform: translateY(-3px);
+.menu-link:hover {
+  background-color: var(--secondary-color);
+  color: var(--text-color-light);
+  border-left-color: var(--background-color);
 }
 
-/* Colores individuales por categoría */
-.card-blue h2 {
-  color: #1d4ed8;
-
-  .badge {
-    margin-top: 12px;
-    display: inline-block;
-    background-color: #facc15; /* Amarillo */
-    color: #1f2937; /* Gris oscuro */
-    padding: 4px 10px;
-    font-size: 13px;
-    font-weight: bold;
-    border-radius: 999px;
-  }
-
+.router-link-active {
+  background-color: var(--secondary-color);
+  color: var(--text-color-light) !important;
+  border-left-color: var(--background-color);
 }
 
-.card-green h2 {
-  color: #059669;
+.badge {
+  background-color: var(--background-color);
+  color: var(--primary-color);
+  padding: 2px 8px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 9999px;
+  min-width: 24px;
+  text-align: center;
+  user-select: none;
 }
 
-.card-purple h2 {
-  color: #7c3aed;
-}
-
-.card-yellow h2 {
-  color: #d97706;
-}
-
-.card p {
-  color: #4b5563;
-  margin-top: 8px;
-  font-size: 14px;
+.right-admin-wrapper {
+  flex-grow: 1;
+  padding: 24px;
+  /*background-color: var(--background-color);*/
+  overflow-y: auto;
+  color: var(--text-color);
 }

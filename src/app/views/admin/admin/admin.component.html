@@ -1,23 +1,35 @@
 <div class="main-container-admin">
-  <a [routerLink]="['/appointments']" routerLinkActive="router-link-active"  class="card card-blue">
-    <h2>Reservas</h2>
-    <p>Gestiona y visualiza todas las reservas de citas.</p>
-    <div class="badge">3 pendientes</div>
-  </a>
+  <nav class="left-admin-wrapper">
+    <ul class="menu-list">
+      <li routerLinkActive="router-link-active" [routerLinkActiveOptions]="{ exact: true }">
+        <a [routerLink]="['/admin/appointments']" class="card card-blue menu-link">
+          <span class="menu-label">Reservas</span>
+          <div class="badge">3 pendientes</div>
+        </a>
+      </li>
 
-  <a href="/pacientes" class="card card-green">
-    <h2>Pacientes</h2>
-    <p>Consulta y administra la información de los pacientes.</p>
-  </a>
+      <li routerLinkActive="router-link-active">
+        <a [routerLink]="['/admin/pacientes']" class="card card-green menu-link">
+          <span class="menu-label">Pacientes</span>
+        </a>
+      </li>
 
-  <a [routerLink]="['/dentistas']" class="card card-purple">
-    <h2>Dentistas</h2>
-    <p>Registrar, editar o eliminar dentistas</p>
-  </a>
+      <li routerLinkActive="router-link-active">
+        <a [routerLink]="['/admin/dentistas']" class="card card-purple menu-link">
+          <span class="menu-label">Dentistas</span>
+        </a>
+      </li>
 
-  <a href="/disponibilidad" class="card card-yellow">
-    <h2>Gestión Disponibilidad</h2>
-    <p>Organiza y ajusta la disponibilidad del equipo médico.</p>
-  </a>
+      <li routerLinkActive="router-link-active">
+        <a [routerLink]="['/admin/disponibilidad']" class="card card-yellow menu-link">
+          <span class="menu-label">Disponibilidad</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="right-admin-wrapper">
+    <router-outlet></router-outlet>
+  </div>
 </div>
 

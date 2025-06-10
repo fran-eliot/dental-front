@@ -1,1 +1,70 @@
-<p>users works!</p>
+<div class="main-users-container">
+  <table class="user-table">
+    <thead>
+      <tr>
+        <th>Nombre Usuario</th>
+        <th>Activo</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users; let i = index">
+        <td>{{ user.username_users }}</td>
+
+        <!-- Estado Activo -->
+        <td>
+          <ng-container *ngIf="editActiveIndex === i; else readOnlyActive">
+            <input
+              type="checkbox"
+              [checked]="user.is_active_users"
+              (change)="updateIsActive(user, $event)"
+            />
+          </ng-container>
+          <ng-template #readOnlyActive>
+            {{ user.is_active_users ? 'Sí' : 'No' }}
+          </ng-template>
+        </td>
+
+        <!-- Acciones -->
+        <td>
+          <div class="password-edit-container">
+            <!-- Botón para editar estado -->
+            <button *ngIf="editActiveIndex !== i" (click)="enableEditActive(i)" title="Editar estado">
+              <i class="fa-solid fa-user-pen"></i>
+            </button>
+
+            <!-- Botón para cambiar contraseña -->
+            <button
+              *ngIf="editPasswordIndex !== i"
+              (click)="enableEditPassword(i)"
+              title="Cambiar contraseña"
+            >
+              <i class="fa-solid fa-lock"></i>
+            </button>
+
+            <!-- Campo y botón para guardar contraseña -->
+            <div *ngIf="editPasswordIndex === i" class="password-input-group">
+              <input
+                type="password"
+                [(ngModel)]="newPassword"
+                placeholder="Nueva contraseña"
+              />
+              <button (click)="updatePassword(i, user)" [disabled]="isLoadingPassword" title="Guardar contraseña">
+                <i *ngIf="!isLoadingPassword" class="fa-solid fa-floppy-disk"></i>
+                <i *ngIf="isLoadingPassword" class="fa-solid fa-spinner fa-spin"></i>
+              </button>
+              <button class="cancel-button" (click)="cancelPasswordEdit()" title="Cancelar">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+
+            <!-- Mensaje de éxito -->
+            <span *ngIf="passwordUpdateSuccessIndex === i" class="password-success">
+              <i class="fa-solid fa-circle-check"></i> {{ successMessage }}
+            </span>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
