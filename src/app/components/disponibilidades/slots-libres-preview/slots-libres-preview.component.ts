@@ -13,7 +13,7 @@ export class SlotsLibresPreviewComponent {
   constructor(private router: Router) {}
 
   irAConsulta() {
-    this.router.navigate(['/dashboard/slots-libres/consulta']);
+    this.router.navigate(['/admin/dashboard/slots-libres/consulta']);
   }
 
 }

@@ -13,7 +13,7 @@ export class ConsultaPreviewComponent {
   constructor(private router: Router) {}
 
   irAConsulta() {
-    this.router.navigate(['/dashboard/disponibilidades/consulta']);
+    this.router.navigate(['/admin/dashboard/disponibilidades/consulta']);
   }
 
 }
