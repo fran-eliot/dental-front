@@ -30,6 +30,10 @@ export class AvailabitlityService {
     return this.http.post(`${this.baseUrl}/genera-semana`, {});
   }
 
+  generateAvailabilitiesForMonth(dto: { month: number; year: number }):Observable<any> {
+    return this.http.post<{ message: string }>(`${this.baseUrl}/genera-mes`, dto);
+  }
+
   cleanOld(beforeDate: string): Observable<any> {
     return this.http.delete(`${this.baseUrl}/limpieza/${beforeDate}`);
   }
