@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './views/home/home.component';
-import { ProfessionalsAvailabilitiesComponent } from './components/professionals-availabilities/professionals-availabilities.component';
 import { AdminComponent } from './views/admin/admin/admin.component';
 import { AppointmentsComponent } from './components/appointments/appointments.component';
 import { RegisterComponent } from './components/register-user/register/register.component';
@@ -16,6 +15,7 @@ import { ConsultaDisponibilidadesComponent } from './components/disponibilidades
 import { SlotsLibresComponent } from './components/disponibilidades/slots-libres/slots-libres.component';
 import { PatientsComponent } from './components/patients/patients.component';
 import { UsersComponent } from './components/users/users/users.component';
+import { DisponibilidadesMensualesComponent } from './components/disponibilidades/disponibilidades-mensuales/disponibilidades-mensuales.component';
 
 export const routes: Routes = [
   {
@@ -25,10 +25,6 @@ export const routes: Routes = [
   {
     path:'login',
     component: LoginComponent
-  },
-  {
-    path:'availabilities',
-    component: ProfessionalsAvailabilitiesComponent
   },
   {
     //proteger rutas?
@@ -58,16 +54,13 @@ export const routes: Routes = [
         component: PatientsComponent // Si tienes este componente definido
       },
       {
-        path: 'disponibilidad',
-        component: ProfessionalsAvailabilitiesComponent
-      },
-      {
         path: 'disponibilidades',
         component: DisponibilidadesDashboardComponent,
         children: [
           { path: '', component: SelectorDisponibilidadesComponent }, // o cualquier otro selector
           { path: ':id/:date', component: ListaDisponibilidadesComponent },
           { path: 'generar', component: GeneradorDisponibilidadesComponent },
+          { path: 'genera-mes', component: DisponibilidadesMensualesComponent},
           { path: 'limpiar', component: LimpiezaDisponibilidadesComponent }
         ]
       },

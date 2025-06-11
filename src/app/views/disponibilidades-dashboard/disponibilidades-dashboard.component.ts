@@ -4,11 +4,13 @@ import { GeneradorDisponibilidadesComponent } from '../../components/disponibili
 import { LimpiezaDisponibilidadesComponent } from '../../components/disponibilidades/limpieza-disponibilidades/limpieza-disponibilidades.component';
 import { ConsultaPreviewComponent } from '../../components/disponibilidades/consulta-preview/consulta-preview.component';
 import { SlotsLibresPreviewComponent } from "../../components/disponibilidades/slots-libres-preview/slots-libres-preview.component";
+import { DisponibilidadesMensualesComponent } from '../../components/disponibilidades/disponibilidades-mensuales/disponibilidades-mensuales.component';
 
 @Component({
   selector: 'app-disponibilidades-dashboard',
   standalone: true,
   imports: [RouterModule,
+    DisponibilidadesMensualesComponent,
     GeneradorDisponibilidadesComponent,
     LimpiezaDisponibilidadesComponent,
     ConsultaPreviewComponent, SlotsLibresPreviewComponent],
