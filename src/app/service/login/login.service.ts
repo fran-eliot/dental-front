@@ -20,6 +20,6 @@ export class LoginService {
   //Cierre de sesion, esta en el componente de navegacion
   logOut(){
     localStorage.removeItem('access_token');
-    localStorage.removeItem('user_role');
+    //localStorage.removeItem('user_role');
   }
 }

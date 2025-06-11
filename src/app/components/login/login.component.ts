@@ -49,7 +49,11 @@ export class LoginComponent {
         }
       },
       error: (err) => {
-        this.errorMessage = 'Usuario o contraseña incorrecta';
+        if (err.error && err.error.message) {
+          this.errorMessage = err.error.message;
+        } else {
+          this.errorMessage = 'Ha ocurrido un error inesperado.';
+        }
         console.error(err);
       },
     });
