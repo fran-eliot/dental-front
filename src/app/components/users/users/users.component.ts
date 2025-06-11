@@ -16,6 +16,8 @@ export class UsersComponent implements OnInit {
   users: User[] = [];
   newPassword: string = '';
   editActiveIndex: number | null = null;
+  editRolIndex: number | null = null;
+  editUsernameIndex: number |null = null;
   editPasswordIndex: number | null = null;
   passwordUpdateSuccessIndex: number | null = null;
   successMessage: string = '';
@@ -92,5 +94,12 @@ export class UsersComponent implements OnInit {
     this.editPasswordIndex = null;
     this.passwordUpdateSuccessIndex = null;
     this.successMessage = '';
+  }
+  updateRol(index: number, user: User): void {
+
+  }
+
+  updateUsername(index:number, user:User):void{
+
   }
 }

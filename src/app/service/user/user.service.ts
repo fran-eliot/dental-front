@@ -26,4 +26,15 @@ export class UserService {
   updateStatus(id_users: number, newStatus: boolean): Observable<User> {
     return this.http.patch<User>(`${this.urlGlobal}/${id_users}/toggle_status`, { is_active_users: newStatus });
   }
+
+  //Actualizar rol
+  updateRol(id_users:number, newRol:string):Observable<User>{
+    return this.http.patch<User>(`${this.urlGlobal}/${id_users}/rol_users`, {rol_users:newRol});
+  }
+
+  //Actualizar username
+  updateUsernam(id_users:number, newUsername:string):Observable<User>{
+    return this.http.patch<User>(`${this.urlGlobal}/${id_users}/username`, {username:newUsername});
+  }
 }
+

@@ -3,14 +3,29 @@
     <thead>
       <tr>
         <th>Nombre Usuario</th>
+        <th>Rol</th>
         <th>Activo</th>
         <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let user of users; let i = index">
-        <td>{{ user.username_users }}</td>
-
+        <td>
+          <ng-container *ngIf="editUsernameIndex === i">
+            <input
+            type="email"
+            [checked]="user.username_users"
+            />
+          </ng-container>
+          {{ user.username_users }}</td>
+        <td>
+          <ng-container *ngIf="editRolIndex === i">
+            <input
+            type="text"
+            [checked]="user.rol_users"
+            />
+          </ng-container>
+        </td>
         <!-- Estado Activo -->
         <td>
           <ng-container *ngIf="editActiveIndex === i; else readOnlyActive">
@@ -57,8 +72,6 @@
                 <i class="fa-solid fa-xmark"></i>
               </button>
             </div>
-
-            <!-- Mensaje de éxito -->
             <span *ngIf="passwordUpdateSuccessIndex === i" class="password-success">
               <i class="fa-solid fa-circle-check"></i> {{ successMessage }}
             </span>
