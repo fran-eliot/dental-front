@@ -10,54 +10,58 @@
     </thead>
     <tbody>
       <tr *ngFor="let user of users; let i = index">
+        <!-- Username -->
         <td>
-          <ng-container *ngIf="editUsernameIndex === i">
-            <input
-            type="email"
-            [checked]="user.username_users"
-            />
+          <ng-container *ngIf="editIndex === i; else showUsername">
+            <input type="email" [(ngModel)]="user.username_users" />
           </ng-container>
-          {{ user.username_users }}</td>
-        <td>
-          <ng-container *ngIf="editRolIndex === i">
-            <input
-            type="text"
-            [checked]="user.rol_users"
-            />
-          </ng-container>
+          <ng-template #showUsername>
+            {{ user.username_users }}
+          </ng-template>
         </td>
-        <!-- Estado Activo -->
+
+        <!-- Rol -->
         <td>
-          <ng-container *ngIf="editActiveIndex === i; else readOnlyActive">
-            <input
-              type="checkbox"
-              [checked]="user.is_active_users"
-              (change)="updateIsActive(user, $event)"
-            />
+          <ng-container *ngIf="editIndex === i; else showRol">
+            <input type="text" [(ngModel)]="user.rol_users" />
           </ng-container>
-          <ng-template #readOnlyActive>
+          <ng-template #showRol>
+            {{ user.rol_users }}
+          </ng-template>
+        </td>
+
+        <!-- Activo -->
+        <td>
+          <ng-container *ngIf="editIndex === i; else showActive">
+            <input type="checkbox" [(ngModel)]="user.is_active_users" />
+          </ng-container>
+          <ng-template #showActive>
             {{ user.is_active_users ? 'Sí' : 'No' }}
           </ng-template>
         </td>
 
         <!-- Acciones -->
         <td>
-          <div class="password-edit-container">
-            <!-- Botón para editar estado -->
-            <button *ngIf="editActiveIndex !== i" (click)="enableEditActive(i)" title="Editar estado">
-              <i class="fa-solid fa-user-pen"></i>
+          <div class="actions-container">
+            <!-- Botón editar o guardar -->
+            <button *ngIf="editIndex !== i" (click)="startEdit(i)" title="Editar usuario">
+              <i class="fa-solid fa-pen"></i>
             </button>
+            <ng-container *ngIf="editIndex === i">
+              <button (click)="updateUserFields(i, user)" title="Guardar cambios">
+                <i class="fa-solid fa-floppy-disk"></i>
+              </button>
+              <button (click)="cancelEdit()" title="Cancelar edición">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </ng-container>
 
-            <!-- Botón para cambiar contraseña -->
-            <button
-              *ngIf="editPasswordIndex !== i"
-              (click)="enableEditPassword(i)"
-              title="Cambiar contraseña"
-            >
+            <!-- Botón cambiar contraseña -->
+            <button *ngIf="editPasswordIndex !== i" (click)="enableEditPassword(i)" title="Cambiar contraseña">
               <i class="fa-solid fa-lock"></i>
             </button>
 
-            <!-- Campo y botón para guardar contraseña -->
+            <!-- Campo cambio de contraseña -->
             <div *ngIf="editPasswordIndex === i" class="password-input-group">
               <input
                 type="password"
@@ -68,10 +72,11 @@
                 <i *ngIf="!isLoadingPassword" class="fa-solid fa-floppy-disk"></i>
                 <i *ngIf="isLoadingPassword" class="fa-solid fa-spinner fa-spin"></i>
               </button>
-              <button class="cancel-button" (click)="cancelPasswordEdit()" title="Cancelar">
+              <button (click)="cancelPasswordEdit()" title="Cancelar">
                 <i class="fa-solid fa-xmark"></i>
               </button>
             </div>
+
             <span *ngIf="passwordUpdateSuccessIndex === i" class="password-success">
               <i class="fa-solid fa-circle-check"></i> {{ successMessage }}
             </span>

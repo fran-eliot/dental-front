@@ -33,8 +33,8 @@ export class UserService {
   }
 
   //Actualizar username
-  updateUsernam(id_users:number, newUsername:string):Observable<User>{
-    return this.http.patch<User>(`${this.urlGlobal}/${id_users}/username`, {username:newUsername});
+  updateUsername(id_users:number, newUsername:string):Observable<User>{
+    return this.http.patch<User>(`${this.urlGlobal}/${id_users}/username`, {username_users:newUsername});
   }
 }
 

@@ -3,7 +3,7 @@ import { UserService } from '../../../service/user/user.service';
 import { User } from '../../../model/User';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-users',
@@ -15,9 +15,7 @@ import { CommonModule } from '@angular/common';
 export class UsersComponent implements OnInit {
   users: User[] = [];
   newPassword: string = '';
-  editActiveIndex: number | null = null;
-  editRolIndex: number | null = null;
-  editUsernameIndex: number |null = null;
+  editIndex: number | null = null;
   editPasswordIndex: number | null = null;
   passwordUpdateSuccessIndex: number | null = null;
   successMessage: string = '';
@@ -40,8 +38,12 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  enableEditActive(index: number): void {
-    this.editActiveIndex = index;
+  startEdit(index: number): void {
+    this.editIndex = index;
+  }
+
+  cancelEdit(): void {
+    this.editIndex = null;
   }
 
   enableEditPassword(index: number): void {
@@ -50,19 +52,11 @@ export class UsersComponent implements OnInit {
     this.passwordUpdateSuccessIndex = null;
   }
 
-  updateIsActive(user: User, event: Event): void {
-    const input = event.target as HTMLInputElement;
-    const newStatus = input.checked;
-
-    this.userService.updateStatus(user.id_users, newStatus).subscribe({
-      next: (updatedUser) => {
-        user.is_active_users = updatedUser.is_active_users;
-        this.editActiveIndex = null;
-      },
-      error: (err) => {
-        console.error('Error al actualizar estado activo:', err);
-      }
-    });
+  cancelPasswordEdit(): void {
+    this.newPassword = '';
+    this.editPasswordIndex = null;
+    this.passwordUpdateSuccessIndex = null;
+    this.successMessage = '';
   }
 
   updatePassword(index: number, user: User): void {
@@ -89,17 +83,26 @@ export class UsersComponent implements OnInit {
       }
     });
   }
-  cancelPasswordEdit(): void {
-    this.newPassword = '';
-    this.editPasswordIndex = null;
-    this.passwordUpdateSuccessIndex = null;
-    this.successMessage = '';
-  }
-  updateRol(index: number, user: User): void {
 
-  }
+  //Actualiza todos los campos
+  updateUserFields(index: number, user: User): void {
+    const calls = [];
 
-  updateUsername(index:number, user:User):void{
+    const originalUser = this.users[index];
 
+    // Aquí puedes comparar con el valor original si quieres evitar actualizaciones innecesarias
+    calls.push(this.userService.updateUsername(user.id_users, user.username_users));
+    calls.push(this.userService.updateRol(user.id_users, user.rol_users));
+    calls.push(this.userService.updateStatus(user.id_users, user.is_active_users));
+
+    forkJoin([...calls]).subscribe({
+      next: () => {
+        this.editIndex = null;
+        this.loadUsers();
+      },
+      error: (err) => {
+        console.error('Error al actualizar usuario:', err);
+      }
+    });
   }
 }

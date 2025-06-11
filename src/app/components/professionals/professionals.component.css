@@ -1,11 +1,11 @@
 .main_container-professional {
     max-width: 1000px;
     margin: 30px auto;
-    padding: 30px;
+    /*padding: 30px;*/
     background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(10px);
-    border-radius: 20px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    /*border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);*/
     color: var(--text-color);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
