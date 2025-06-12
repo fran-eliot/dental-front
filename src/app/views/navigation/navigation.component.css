@@ -2,9 +2,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 40px;
   margin-right: 40px;
-  margin-left: 40px;
+
+}
+.logo-wrapper-navigation{
+  width: 250px;
+  img{
+    width: 250px;
+  }
 }
 
 .login-wrapper-navigation button {
