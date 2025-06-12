@@ -42,7 +42,9 @@ export const routes: Routes = [
       },
       {
         path: 'appointments',
-        component: AppointmentsComponent
+        component: AppointmentsComponent,
+        children: [
+        ]
       },
       {
         path: 'dentistas',
