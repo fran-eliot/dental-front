@@ -18,7 +18,8 @@
 }
 
 .filter-form {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   flex-wrap: wrap;
   gap: 20px;
   align-items: flex-end;

@@ -14,7 +14,8 @@
       "default",
       {
         "ignore": [
-          "user-select"
+          "user-select",
+          "backdrop-filter"
         ]
       }
     ]

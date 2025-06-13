@@ -74,7 +74,6 @@ export const routes: Routes = [
           { path: 'limpiar', component: LimpiezaDisponibilidadesComponent }
         ]
       },
-
       {
         path: 'dashboard/disponibilidades/consulta',
         component: ConsultaDisponibilidadesComponent

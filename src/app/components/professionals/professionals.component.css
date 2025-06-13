@@ -1,7 +1,7 @@
 .main_container-professional {
     max-width: 1000px;
-    margin: 30px auto;
-    /*padding: 30px;*/
+    margin: 20px auto;
+    /*padding: 20px;*/
     background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(10px);
     /*border-radius: 20px;
@@ -18,7 +18,8 @@
 }
 .card-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  /*grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));*/
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 2rem;
   width: 100%;
   /*max-width: 1000px;*/

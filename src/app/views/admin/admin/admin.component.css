@@ -49,7 +49,7 @@ body, html {
   transition: background 0.2s, color 0.2s;
 }
 
-.router-link-active {
+li.router-link-active{
   background: var(--background-color) !important;
   color: var(--primary-color);
   box-shadow: inset 4px 0 0 var(--background-color);
