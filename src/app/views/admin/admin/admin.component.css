@@ -62,11 +62,10 @@ li.router-link-active{
 
 /* Contenido principal */
 .bottom-admin-wrapper {
-  background: var(--background-color);
+  /*background: var(--background-color);*/
   flex-grow: 1;
   overflow-y: auto;
 }
-
 /* Estilos responsivos */
 @media (max-width: 768px) {
   .menu-list {

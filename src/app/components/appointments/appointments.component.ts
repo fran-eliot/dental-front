@@ -27,7 +27,8 @@ export class AppointmentsComponent implements OnInit {
     this.filterForm = this.fb.group({
       professional_id: ['', Validators.required],
       date_appointments: ['', Validators.required],
-      turno: [''] // mañana, tarde, vacío (todos)
+      turno: [''], // mañana, tarde, vacío (todos)
+      patient_name: ['']
     });
   }
 
@@ -38,6 +39,11 @@ export class AppointmentsComponent implements OnInit {
     this.filterForm.get('turno')?.valueChanges.subscribe(() => {
       this.filterByPeriod();
     });
+
+    //Escuccha los cambios del patient
+    this.filterForm.get('patient_name')?.valueChanges.subscribe(() => {
+    this.filterByPeriod();
+  });
   }
 
   loadProfessionals() {
@@ -55,39 +61,47 @@ export class AppointmentsComponent implements OnInit {
   getAppointments() {
     this.errorMsg = '';
 
-    if (this.filterForm.invalid) {
-      this.errorMsg = 'Por favor, selecciona profesional y fecha.';
-      return;
-    }
-
-    const { professional_id, date_appointments } = this.filterForm.value;
+    const filters = this.filterForm.value;
 
     this.loading = true;
-    this.appointmentsService.getAppointments(professional_id, date_appointments)
-      .subscribe({
-        next: (res) => {
-          this.appointments = res;
-          this.filterByPeriod(); // Filtrar por turno después de cargar
-          this.loading = false;
-        },
-        error: () => {
-          this.errorMsg = 'Error cargando reservas. Intenta de nuevo.';
-          this.loading = false;
+    this.appointmentsService.getAppointments(filters).subscribe({
+      next: (res) => {
+        this.appointments = res;
+
+        // Aplicar filtro local por paciente si existe
+        const pacienteFiltro = filters.paciente?.toLowerCase().trim();
+        if (pacienteFiltro) {
+          this.appointmentsFiltradas = this.appointments.filter(app =>
+            app.paciente.toLowerCase().includes(pacienteFiltro)
+          );
+        } else {
+          this.appointmentsFiltradas = this.appointments;
         }
-      });
+
+        // Luego filtrar por turno si quieres
+        this.filterByPeriod();
+
+        this.loading = false;
+      },
+      error: () => {
+        this.errorMsg = 'Error cargando reservas. Intenta de nuevo.';
+        this.loading = false;
+      }
+    });
   }
 
-  // Filtrar por turno (mañana / tarde)
+  // Filtrar por turno (mañana / tarde) y por patient
   filterByPeriod() {
     const turnoSeleccionado = this.filterForm.value.turno?.trim().toLowerCase();
+    const patientNameFilter = this.filterForm.value.patient_name?.trim().toLowerCase();
 
-    if (!turnoSeleccionado) {
-      this.appointmentsFiltradas = this.appointments; // Mostrar todos
-    } else {
-      this.appointmentsFiltradas = this.appointments.filter(app =>
-        app.periodo.trim().toLowerCase() === turnoSeleccionado
-      );
-    }
+    this.appointmentsFiltradas = this.appointments.filter(app => {
+      const matchTurno = !turnoSeleccionado || app.periodo?.toLowerCase() === turnoSeleccionado;
+      const matchPatient = !patientNameFilter || app.paciente?.toLowerCase().includes(patientNameFilter);
+      const isConfirmed = app.estado?.toLowerCase() === 'confirmada';
+
+      return matchTurno && matchPatient && isConfirmed;
+    });
   }
 
   // Obtener hora de fin
@@ -96,5 +110,9 @@ export class AppointmentsComponent implements OnInit {
     const startDate = new Date();
     startDate.setHours(hours, minutes + duration, seconds || 0);
     return startDate.toTimeString().slice(0, 5); // HH:mm
+  }
+
+  toggleDetalle(app: any) {
+    app.mostrarDetalle = !app.mostrarDetalle;
   }
 }

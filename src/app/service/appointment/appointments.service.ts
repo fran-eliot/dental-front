@@ -17,12 +17,16 @@ export class AppointmentsService {
     return this.http.get<any[]>(`${this.apiUrlProfessionals}/all`);
   }
 
-  getAppointments(professional_id: number, date_appointments: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrlAppointments}/reservas`, {
-      params: {
-        professional_id: professional_id.toString(),
-        date_appointments
-      }
-    });
+  getAppointments(filters: {professional_id: number, date_appointments: string}): Observable<any[]> {
+    const params: any = {};
+
+    if (filters.professional_id) {
+      params.professional_id = filters.professional_id.toString();
+    }
+    if (filters.date_appointments) {
+      params.date_appointments = filters.date_appointments;
+    }
+
+    return this.http.get<any[]>(`${this.apiUrlAppointments}/reservas`, { params });
   }
 }

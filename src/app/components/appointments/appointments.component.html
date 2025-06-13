@@ -10,7 +10,6 @@
         <option *ngFor="let pro of professionales" [value]="pro.id_professionals">
           {{ pro.name_professionals }} {{ pro.last_name_professionals }}
         </option>
-
       </select>
     </label>
 
@@ -26,41 +25,51 @@
         <option value="tarde">Tarde</option>
       </select>
     </label>
-
+    <label>
+      Buscar por paciente:
+      <input type="text" formControlName="paciente" placeholder="Nombre paciente" />
+    </label>
     <button type="submit">Buscar reservas</button>
   </form>
 
   <p *ngIf="errorMsg" class="error">{{ errorMsg }}</p>
   <div *ngIf="loading" class="loading">Cargando reservas...</div>
 
-  <table *ngIf="appointments.length && !loading" class="appointments-table">
+  <table *ngIf="appointmentsFiltradas.length && !loading" class="appointments-table">
     <thead>
       <tr>
         <th>Paciente</th>
         <th>Profesional</th>
-        <th>Tratamiento</th>
         <th>Fecha</th>
-        <th>Hora Inicio</th>
-        <th>Hora Fin</th>
-        <th>Duración</th>
+        <th>Hora</th>
         <th>Estado</th>
-        <th>Motivo Reserva</th>
+        <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let app of appointmentsFiltradas">
-        <td>{{ app.paciente }}</td>
-        <td>{{ app.profesional }}</td>
-        <td>{{ app.tratamiento }}</td>
-        <td>{{ app.fecha_cita }}</td>
-        <td>{{ app.hora_inicio }}</td>
-        <td>{{ app.hora_fin }}</td>
-        <td>{{ app.duracion }} min</td>
-        <td>{{ app.estado }}</td>
-        <td>{{ app.motivo_cancelacion || '-' }}</td>
-      </tr>
+      <ng-container *ngFor="let app of appointmentsFiltradas">
+        <tr>
+          <td>{{ app.paciente }}</td>
+          <td>{{ app.profesional }}</td>
+          <td>{{ app.fecha_cita }}</td>
+          <td>{{ app.hora_inicio }}</td>
+          <td>{{ app.estado }}</td>
+          <td>
+            <button type="button" (click)="toggleDetalle(app)">🔍 Detalles</button>
+          </td>
+        </tr>
+        <tr *ngIf="app.mostrarDetalle" class="detalle-row">
+          <td colspan="6">
+            <strong>Tratamiento:</strong> {{ app.tratamiento }}<br />
+            <strong>Hora fin:</strong> {{ app.hora_fin }}<br />
+            <strong>Duración:</strong> {{ app.duracion }} min<br />
+            <strong>Motivo cancelación:</strong> {{ app.motivo_cancelacion || '-' }}
+          </td>
+        </tr>
+      </ng-container>
     </tbody>
   </table>
+
 
   <div *ngIf="!appointments.length && !loading" class="loading">No hay reservas para esta selección.</div>
 </div>
