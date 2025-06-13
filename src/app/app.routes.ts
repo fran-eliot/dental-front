@@ -16,6 +16,7 @@ import { ConsultaDisponibilidadesComponent } from './components/disponibilidades
 import { SlotsLibresComponent } from './components/disponibilidades/slots-libres/slots-libres.component';
 import { PatientsComponent } from './components/patients/patients.component';
 import { UsersComponent } from './components/users/users/users.component';
+import { TreatmentsComponent } from './components/treatments/treatments.component';
 
 export const routes: Routes = [
   {
@@ -81,8 +82,8 @@ export const routes: Routes = [
       {
         path: 'dashboard/slots-libres/consulta',
         component: SlotsLibresComponent
-      }
-      //{ path: 'editar', component: UpdateProfessionalsComponent }
+      },
+      { path: 'tratamientos', component: TreatmentsComponent }
       //{ path: 'editarPassword', component: UsersComponent }
     ]
   },

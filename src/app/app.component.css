@@ -4,16 +4,54 @@ html, body {
   overflow-x: hidden;
 }
 
-
+/* Contenedor principal */
 .main-container-app {
   display: flex;
   flex-direction: column;
-  width: 100%;
   height: 100vh;
-  margin: 0;
-  padding: 0;
+  width: 100%;
   box-sizing: border-box;
   overflow: hidden;
+}
+
+/* Wrapper de navegación (header fijo) */
+.navigation-wrapper {
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+  flex: 0 0 auto;     
+  width: 100%;
+  max-height: 149px;
+}
+
+/* Dentro del navigation, aplica flex y centrado */
+.navigation-wrapper > app-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Logo izq, login der */ /* :contentReference[oaicite:2]{index=2} */
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.5rem 1rem;
+}
+
+/* Controla el tamaño máximo de sus hijos (logo, buttons...) */
+.navigation-wrapper img,
+.navigation-wrapper button {
+  max-height: 40px;
+}
+
+/* Contenido principal abajo del header */
+.home-wrapper {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+/* Adaptación móvil para navigation */
+@media (max-width: 600px) {
+  .navigation-wrapper > app-navigation {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
 }
 
 
