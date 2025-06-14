@@ -41,19 +41,17 @@ body, html {
   justify-content: center;
   /*padding: 12px 20px;*/
   font-size: 1rem;
-  font-weight: 300;
+  font-weight: 400;
   color: var(--text-color);
   text-decoration: none;
   /*background: var(--secondary-color);*/
-  border-radius: 4px;
   transition: background 0.2s, color 0.2s;
 }
 
 li.router-link-active{
-  background: var(--background-color) !important;
-  color: var(--primary-color);
+  color: var(--primary-color, #00c3b2);
   box-shadow: inset 4px 0 0 var(--background-color);
-  border-bottom: 2px solid var(--text-color);
+  border-bottom: 2px solid var(--primary-color);
 }
 .menu-link:hover {
   background: var(--background-color);

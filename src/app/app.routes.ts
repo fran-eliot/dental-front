@@ -17,6 +17,7 @@ import { SlotsLibresComponent } from './components/disponibilidades/slots-libres
 import { PatientsComponent } from './components/patients/patients.component';
 import { UsersComponent } from './components/users/users/users.component';
 import { TreatmentsComponent } from './components/treatments/treatments.component';
+import { AppointmentsDashboardComponent } from './views/appointments-dashboard/appointments-dashboard/appointments-dashboard.component';
 
 export const routes: Routes = [
   {
@@ -38,12 +39,12 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'appointments',
+        redirectTo: 'appointments-dashboard',
         pathMatch: 'full'  // muy importante para que redirija solo si el path es exacto
       },
       {
-        path: 'appointments',
-        component: AppointmentsComponent,
+        path: 'appointments-dashboard',
+        component: AppointmentsDashboardComponent,
         children: [
         ]
       },

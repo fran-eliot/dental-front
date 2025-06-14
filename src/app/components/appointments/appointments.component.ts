@@ -69,7 +69,7 @@ export class AppointmentsComponent implements OnInit {
         this.appointments = res;
 
         // Aplicar filtro local por paciente si existe
-        const pacienteFiltro = filters.paciente?.toLowerCase().trim();
+        const pacienteFiltro = filters.patient_name?.toLowerCase().trim();
         if (pacienteFiltro) {
           this.appointmentsFiltradas = this.appointments.filter(app =>
             app.paciente.toLowerCase().includes(pacienteFiltro)
@@ -99,7 +99,7 @@ export class AppointmentsComponent implements OnInit {
       const matchTurno = !turnoSeleccionado || app.periodo?.toLowerCase() === turnoSeleccionado;
       const matchPatient = !patientNameFilter || app.paciente?.toLowerCase().includes(patientNameFilter);
       const isConfirmed = app.estado?.toLowerCase() === 'confirmada';
-
+      console.log("Paciente Buscaddo", matchPatient);
       return matchTurno && matchPatient && isConfirmed;
     });
   }
@@ -112,6 +112,7 @@ export class AppointmentsComponent implements OnInit {
     return startDate.toTimeString().slice(0, 5); // HH:mm
   }
 
+  //par mostrar el detalle de las reservas
   toggleDetalle(app: any) {
     app.mostrarDetalle = !app.mostrarDetalle;
   }
