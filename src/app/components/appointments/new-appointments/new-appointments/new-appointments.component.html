@@ -1,0 +1,128 @@
+<div class="main-newappointment-container">
+  <form [formGroup]="appointmentForm" (ngSubmit)="postNewAppointment()">
+
+    <!-- Patient -->
+    <div class="form-group autocomplete-container">
+      <label for="patient_search">Paciente</label>
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <input
+          id="patient_search"
+          type="text"
+          [formControl]="patientSearchControl"
+          (input)="filterPatients()"
+          (blur)="closeDropdownWithDelay()"
+          (focus)="openDropdown()"
+          placeholder="Buscar paciente"
+          autocomplete="off"
+        />
+        <!-- Icono de historial -->
+        <button
+          type="button"
+          [disabled]="!selectedPatient"
+          (click)="getAllAppointementsByPatient()"
+          style="border: none; cursor: pointer;"
+          title="Ver historial del paciente"
+        >
+            <i class="fa-solid fa-box-archive"></i>
+        </button>
+      </div>
+      <ul
+        class="autocomplete-results"
+        *ngIf="showDropdown && filteredPatients.length > 0"
+      >
+        <li
+          *ngFor="let patient of filteredPatients"
+          (mousedown)="selectPatient(patient)"
+        >
+          {{ patient.name_patients }} {{ patient.last_name_patients }} - {{ patient.phone_patients }}
+        </li>
+      </ul>
+
+      <!-- Hidden form control -->
+      <input
+        type="hidden"
+        formControlName="patient_id"
+        [value]="selectedPatient?.id_patients || ''"
+      />
+    </div>
+    <!-- Professional -->
+    <div class="form-group">
+      <label for="professional_id">Profesional</label>
+      <select id="professional_id" formControlName="professional_id" required>
+        <option value="" disabled selected>Selecciona un professional</option>
+        <option *ngFor="let professional of professionals" [value]="professional.id_professionals">
+          {{ professional.name_professionals }} {{ professional.last_name_professionals }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Treatment -->
+    <div class="form-group">
+      <label for="treatments_id">Tratamiento</label>
+      <select id="treatments_id" formControlName="treatments_id" required>
+        <option value="" disabled selected>Selecciona un tratamiento</option>
+        <option *ngFor="let treatment of treatments" [value]="treatment.id_treatments">
+          {{ treatment.name_treatments }} ({{ treatment.duration_minutes_treatments }} min)
+        </option>
+      </select>
+    </div>
+    <!--Duration_minutos_treatment-->
+    <div class="form-group">
+      <label for="duration_minutes_appointments">Duración (minutos)</label>
+      <input
+        id="duration_minutes_appointments"
+        type="number"
+        formControlName="duration_minutes_appointments"
+        readonly
+      />
+    </div>
+
+    <!-- Date -->
+    <div class="form-group">
+      <label for="date_appointments">Fecha</label>
+      <input id="date_appointments" type="date" formControlName="date_appointments" required />
+    </div>
+
+    <!-- Time -->
+    <div class="form-group">
+      <label for="slot_id">Hora</label>
+      <select id="slot_id" formControlName="slot_id" required>
+        <option value="" disabled selected>Selecciona hora</option>
+        <option *ngFor="let slot of availableSlot" [value]="slot.id">
+          {{ slot.startTime.substring(0, 5) }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Status (default: LIBRE) -->
+    <div class="form-group">
+      <label for="status_appointments">Estado</label>
+      <select id="status_appointments" formControlName="status_appointments">
+        <option value="pendiente">Pendiente</option>
+        <option value="confirmada">Confirmada</option>
+        <option value="cancelada">Cancelada</option>
+        <option value="realizada">Realizada</option>
+      </select>
+    </div>
+
+    <!-- Optional: Cancellation Reason -->
+    <div class="form-group">
+      <label for="cancellation_reason_appointments">Motivo consulta</label>
+      <input id="cancellation_reason_appointments" type="text" formControlName="cancellation_reason_appointments" />
+    </div>
+
+    <!-- Created By -->
+    <div class="form-group">
+      <label for="created_by_appointments">Creada por</label>
+      <select id="created_by_appointments" formControlName="created_by_appointments">
+        <option value="admin">Admin</option>
+        <option value="professional">Dentista</option>
+      </select>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="form-group">
+      <button type="submit">Guardar Reserva</button>
+    </div>
+  </form>
+</div>

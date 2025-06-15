@@ -1,0 +1,26 @@
+<div class="main-appointment-dashboard-container">
+  <div class="tabs">
+    <button
+      type="button"
+      (click)="selectedTab = 'listado'"
+      [class.active]="selectedTab === 'listado'"
+    >
+      Listado de Reservas
+    </button>
+    <button
+      type="button"
+      (click)="selectedTab = 'nueva'"
+      [class.active]="selectedTab === 'nueva'"
+    >
+      Nueva Reserva
+    </button>
+  </div>
+
+  <div class="tab-content" *ngIf="selectedTab === 'listado'">
+    <app-appointments></app-appointments>
+  </div>
+
+  <div class="tab-content" *ngIf="selectedTab === 'nueva'">
+    <app-new-appointments></app-new-appointments>
+  </div>
+</div>

@@ -15,7 +15,10 @@ import { ConsultaDisponibilidadesComponent } from './components/disponibilidades
 import { SlotsLibresComponent } from './components/disponibilidades/slots-libres/slots-libres.component';
 import { PatientsComponent } from './components/patients/patients.component';
 import { UsersComponent } from './components/users/users/users.component';
+import { TreatmentsComponent } from './components/treatments/treatments.component';
+import { AppointmentsDashboardComponent } from './views/appointments-dashboard/appointments-dashboard/appointments-dashboard.component';
 import { DisponibilidadesMensualesComponent } from './components/disponibilidades/disponibilidades-mensuales/disponibilidades-mensuales.component';
+
 
 export const routes: Routes = [
   {
@@ -33,12 +36,14 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'appointments',
+        redirectTo: 'appointments-dashboard',
         pathMatch: 'full'  // muy importante para que redirija solo si el path es exacto
       },
       {
-        path: 'appointments',
-        component: AppointmentsComponent
+        path: 'appointments-dashboard',
+        component: AppointmentsDashboardComponent,
+        children: [
+        ]
       },
       {
         path: 'dentistas',
@@ -64,7 +69,6 @@ export const routes: Routes = [
           { path: 'limpiar', component: LimpiezaDisponibilidadesComponent }
         ]
       },
-
       {
         path: 'dashboard/disponibilidades/consulta',
         component: ConsultaDisponibilidadesComponent
@@ -72,8 +76,8 @@ export const routes: Routes = [
       {
         path: 'dashboard/slots-libres/consulta',
         component: SlotsLibresComponent
-      }
-      //{ path: 'editar', component: UpdateProfessionalsComponent }
+      },
+      { path: 'tratamientos', component: TreatmentsComponent }
       //{ path: 'editarPassword', component: UsersComponent }
     ]
   },

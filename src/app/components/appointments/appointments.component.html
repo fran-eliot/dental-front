@@ -1,1 +1,85 @@
-<p>appointments works!</p>
+<div class="main-appointment-container">
+  <div class="title-appointment-wrapper">
+    <h2>Gestión de reservas</h2>
+  </div>
+  <form [formGroup]="filterForm" (ngSubmit)="getAppointments()" class="filter-form">
+    <label>
+      Profesional
+      <select formControlName="professional_id" class="form-select">
+        <option value="">Selecciona profesional</option>
+        <option *ngFor="let pro of professionales" [value]="pro.id_professionals">
+          {{ pro.name_professionals }} {{ pro.last_name_professionals }}
+        </option>
+      </select>
+    </label>
+
+    <label>
+      Fecha
+      <input type="date" formControlName="date_appointments" />
+    </label>
+    <label>
+      Turno
+      <select formControlName="turno">
+        <option value="">Todos</option>
+        <option value="mañana">Mañana</option>
+        <option value="tarde">Tarde</option>
+      </select>
+    </label>
+    <label for="status_appointments">
+      Estado
+      <select id="status_appointments" formControlName="status_appointments">
+        <option value="">Todos</option>
+        <option value="pendiente">Pendiente</option>
+        <option value="confirmada">Confirmada</option>
+        <option value="cancelada">Cancelada</option>
+        <option value="realizada">Realizada</option>
+      </select>
+    </label>
+    <label>
+      Buscar por paciente
+      <input type="text" formControlName="patient_name" placeholder="Nombre paciente" />
+    </label>
+    <button type="submit">Buscar reservas</button>
+  </form>
+
+  <p *ngIf="errorMsg" class="error">{{ errorMsg }}</p>
+  <div *ngIf="loading" class="loading">Cargando reservas...</div>
+
+  <table *ngIf="appointmentsFiltradas.length && !loading" class="appointments-table">
+    <thead>
+      <tr>
+        <th>Paciente</th>
+        <th>Profesional</th>
+        <th>Fecha</th>
+        <th>Hora</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let app of appointmentsFiltradas">
+        <tr>
+          <td>{{ app.paciente }}</td>
+          <td>{{ app.profesional }}</td>
+          <td>{{ app.fecha_cita }}</td>
+          <td>{{ app.hora_inicio }}</td>
+          <td>{{ app.estado }}</td>
+          <td>
+            <button type="button" (click)="toggleDetalle(app)">🔍 Detalles</button>
+          </td>
+        </tr>
+        <tr *ngIf="app.mostrarDetalle" class="detalle-row">
+          <td colspan="6">
+            <strong>Tratamiento:</strong> {{ app.tratamiento }}<br />
+            <strong>Hora fin:</strong> {{ app.hora_fin }}<br />
+            <strong>Duración:</strong> {{ app.duracion }} min<br />
+            <strong>Motivo cancelación:</strong> {{ app.motivo_cancelacion || '-' }}
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+
+
+  <div *ngIf="!appointments.length && !loading" class="loading">No hay reservas para esta selección.</div>
+</div>
