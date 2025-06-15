@@ -1,1 +1,39 @@
-<p>treatments works!</p>
+<h2>Tratamientos Dentales</h2>
+
+<!-- Formulario para crear un nuevo tratamiento -->
+<form (ngSubmit)="createTreatment(newTreatmentForm.value)" #newTreatmentForm="ngForm">
+  <div>
+    <label for="name">Nombre:</label>
+    <input type="text" id="name" name="name" ngModel required />
+  </div>
+
+  <div>
+    <label for="description">Descripción:</label>
+    <textarea id="description" name="description" ngModel required></textarea>
+  </div>
+
+  <button type="submit" [disabled]="!newTreatmentForm.valid">Crear Tratamiento</button>
+</form>
+
+<hr />
+
+<!-- Lista de tratamientos -->
+<table border="1" width="100%" *ngIf="treatments && treatments.length > 0; else noData">
+  <thead>
+    <tr>
+      <th>Duración del Tratamiento</th>
+      <th>ID del Tratamiento</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let treatment of treatments">
+      <td>{{ treatment.duration_treatments }}</td>
+      <td>{{ treatment.id_treatments }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Plantilla alternativa si no hay datos -->
+<ng-template #noData>
+  <p>No hay tratamientos disponibles.</p>
+</ng-template>
