@@ -1,0 +1,68 @@
+<div class="main-newappointment-container">
+  <form [formGroup]="form" (ngSubmit)="submitForm()">
+    <h2>Nueva Reserva</h2>
+
+    <label>
+      Paciente:
+      <select formControlName="patient_id">
+        <option *ngFor="let paciente of pacientes" [value]="paciente.id">
+          {{ paciente.nombre }}
+        </option>
+      </select>
+    </label>
+
+    <label>
+      Profesional:
+      <select formControlName="professional_id" (change)="loadHorasDisponibles()">
+        <option *ngFor="let profesional of profesionales" [value]="profesional.id">
+          {{ profesional.nombre }}
+        </option>
+      </select>
+    </label>
+
+    <label>
+      Tratamiento:
+      <select formControlName="treatments_id">
+        <option *ngFor="let tratamiento of tratamientos" [value]="tratamiento.id">
+          {{ tratamiento.nombre }}
+        </option>
+      </select>
+    </label>
+
+    <label>
+      Fecha:
+      <input type="date" formControlName="date_appointments" (change)="loadHorasDisponibles()" />
+    </label>
+
+    <label>
+      Hora disponible:
+      <select formControlName="time_appointments">
+        <option *ngFor="let hora of horasDisponibles" [value]="hora">
+          {{ hora }}
+        </option>
+      </select>
+    </label>
+
+    <label>
+      Estado:
+      <select formControlName="status_reservas">
+        <option value="pendiente">Pendiente</option>
+        <option value="confirmada">Confirmada</option>
+        <option value="cancelada">Cancelada</option>
+      </select>
+    </label>
+
+    <label *ngIf="form.get('status_reservas')?.value === 'cancelada'">
+      Motivo cancelación:
+      <input type="text" formControlName="cancellation_reason_appointments" />
+    </label>
+
+    <label>
+      Creado por:
+      <input type="text" formControlName="created_by_appointments" />
+    </label>
+
+    <button type="submit">Guardar Reserva</button>
+  </form>
+</div>
+
