@@ -94,6 +94,17 @@
       </select>
     </div>
 
+    <!-- Optional: Cancellation Reason -->
+    <div class="form-group">
+      <label for="cancellation_reason_appointments">Motivo consulta</label>
+      <textarea
+        id="cancellation_reason_appointments"
+        formControlName="cancellation_reason_appointments"
+        rows="4"
+        style="resize: vertical;"
+      ></textarea>
+    </div>
+
     <!-- Status (default: LIBRE) -->
     <div class="form-group">
       <label for="status_appointments">Estado</label>
@@ -103,12 +114,6 @@
         <option value="cancelada">Cancelada</option>
         <option value="realizada">Realizada</option>
       </select>
-    </div>
-
-    <!-- Optional: Cancellation Reason -->
-    <div class="form-group">
-      <label for="cancellation_reason_appointments">Motivo consulta</label>
-      <input id="cancellation_reason_appointments" type="text" formControlName="cancellation_reason_appointments" />
     </div>
 
     <!-- Created By -->
