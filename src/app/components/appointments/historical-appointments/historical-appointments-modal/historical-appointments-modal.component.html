@@ -1,0 +1,26 @@
+<div class="main-historial-modal-appointment">
+  <h2>Historial del Paciente</h2>
+
+  <div *ngIf="historyData.length; else sinDatos">
+    <h3>{{ historyData[0].paciente }}</h3>
+
+    <ul>
+      <li *ngFor="let cita of historyData">
+        <strong>Fecha:</strong> {{ cita.fecha_cita }}<br />
+        <strong>Tratamiento:</strong> {{ cita.tratamiento }}<br />
+        <strong>Motivo:</strong> {{ cita.motivo_cancelacion || '—' }}<br />
+        <strong>Profesional:</strong> {{ cita.profesional }}
+        <hr />
+      </li>
+    </ul>
+  </div>
+
+  <ng-template #sinDatos>
+    <p>No hay historial para este paciente.</p>
+  </ng-template>
+
+  <button (click)="close()">Cerrar</button>
+</div>
+
+
+

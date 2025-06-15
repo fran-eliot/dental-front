@@ -1,0 +1,95 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4); /* Semi-transparente oscuro */
+  backdrop-filter: blur(3px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.main-historial-modal-appointment {
+  max-width: 700px;
+  width: 90%;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  color: var(--text-color);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.main-historial-modal-appointment h2 {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.main-historial-modal-appointment h3 {
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+  text-align: center;
+  color: var(--primary-color);
+}
+
+.main-historial-modal-appointment ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.main-historial-modal-appointment li {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(0, 195, 178, 0.2);
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 15px;
+  font-size: 0.95rem;
+}
+
+.main-historial-modal-appointment li strong {
+  color: var(--primary-color);
+}
+
+.main-historial-modal-appointment p {
+  text-align: center;
+  font-style: italic;
+  color: #ccc;
+  margin-top: 30px;
+}
+
+.main-historial-modal-appointment button {
+  margin: 20px auto 0;
+  display: block;
+  background-color: var(--primary-color);
+  color: white;
+  padding: 10px 24px;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 0.95rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.main-historial-modal-appointment button:hover {
+  background-color: var(--secondary-color);
+}
+
+/* Fade animation */
+@keyframes fadeIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

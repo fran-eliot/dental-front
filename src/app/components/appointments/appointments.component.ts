@@ -28,7 +28,8 @@ export class AppointmentsComponent implements OnInit {
       professional_id: ['', Validators.required],
       date_appointments: ['', Validators.required],
       turno: [''], // mañana, tarde, vacío (todos)
-      patient_name: ['']
+      patient_name: [''],
+      status_appointments: ['']
     });
   }
 
@@ -40,7 +41,7 @@ export class AppointmentsComponent implements OnInit {
       this.filterByPeriod();
     });
 
-    //Escuccha los cambios del patient
+    //Escucha los cambios del patient
     this.filterForm.get('patient_name')?.valueChanges.subscribe(() => {
     this.filterByPeriod();
   });
@@ -94,13 +95,14 @@ export class AppointmentsComponent implements OnInit {
   filterByPeriod() {
     const turnoSeleccionado = this.filterForm.value.turno?.trim().toLowerCase();
     const patientNameFilter = this.filterForm.value.patient_name?.trim().toLowerCase();
+    const statusSeleccionated = this.filterForm.value.status_appointments?.trim().toLowerCase();
 
     this.appointmentsFiltradas = this.appointments.filter(app => {
       const matchTurno = !turnoSeleccionado || app.periodo?.toLowerCase() === turnoSeleccionado;
       const matchPatient = !patientNameFilter || app.paciente?.toLowerCase().includes(patientNameFilter);
-      const isConfirmed = app.estado?.toLowerCase() === 'confirmada';
+      const matchStatus = !statusSeleccionated || app.estado?.toLowerCase() === statusSeleccionated;
       console.log("Paciente Buscaddo", matchPatient);
-      return matchTurno && matchPatient && isConfirmed;
+      return matchTurno && matchPatient && matchStatus;
     });
   }
 
