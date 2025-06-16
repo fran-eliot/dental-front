@@ -7,20 +7,20 @@ import { Treatment } from '../../model/Treatment';
   providedIn: 'root'
 })
 export class TreatmentService {
-urlBase: string = 'http://localhost:3000/treatments/all';
+urlBase: string = 'http://localhost:3000/treatments';
 
   constructor(private http:HttpClient) { }
 
 
   buscarTreatments(): Observable<Treatment[]> {
-    const url: string = `${this.urlBase}`;
+    const url: string = `${this.urlBase}/all`;
 
     return this.http.get<Treatment[]>(url);
   }
 
 
   createTreatment(treatment: Treatment): Observable<Treatment> {
-    return this.http.post<Treatment>(`${this.urlBase}/tratamientos`, treatment);
+    return this.http.post<Treatment>(`${this.urlBase}/alta`, treatment);
 
    }
 }

@@ -32,6 +32,8 @@ export class NewAppointmentsComponent implements OnInit {
   filteredPatients: any[] = [];
   selectedPatient: any;
   historicalData: any[] = [];
+  successMessage: string = '';
+  errorMessage: string = '';
 
   constructor(
     private dialog: MatDialog, //injectar el modal
@@ -158,10 +160,12 @@ export class NewAppointmentsComponent implements OnInit {
   }
 
   postNewAppointment(): void {
+    this.successMessage = '';
+    this.errorMessage = '';
+
     if (this.appointmentForm.valid) {
       const formValue = this.appointmentForm.value;
 
-      // Construir objeto para enviar
       const newAppointment: Appointment = {
         patient_id: formValue.patient_id,
         professional_id: formValue.professional_id,
@@ -169,23 +173,28 @@ export class NewAppointmentsComponent implements OnInit {
         slot_id: formValue.slot_id,
         date_appointments: formValue.date_appointments,
         duration_minutes_appointments: formValue.duration_minutes_appointments,
-        status_appointments: formValue.status_appointments ? formValue.status_appointments.toLowerCase() : 'pendiente',
+        status_appointments: formValue.status_appointments?.toLowerCase() || 'pendiente',
         cancellation_reason_appointments: formValue.cancellation_reason_appointments,
-        created_by_appointments: formValue.created_by_appointments ? formValue.created_by_appointments.toLowerCase() : 'admin'
+        created_by_appointments: formValue.created_by_appointments?.toLowerCase() || 'admin'
       };
 
-      console.log("Nueva Reserva", newAppointment);
-
-      this.appointmentService.postNewAppointment(newAppointment)
-        .subscribe(() => {
-          alert('Appointment created successfully!');
+      this.appointmentService.postNewAppointment(newAppointment).subscribe({
+        next: () => {
+          this.successMessage = '¡Reserva creada correctamente!';
           this.appointmentForm.reset();
           this.patientSearchControl.setValue('');
           this.selectedPatient = null;
           this.filteredPatients = [];
-        });
+          this.availableSlot = [];
+        },
+        error: (err) => {
+          console.error('Error al crear la reserva:', err);
+          this.errorMessage = 'Ocurrió un error al crear la reserva. Intenta nuevamente.';
+        }
+      });
+
     } else {
-      alert('Please fill in all required fields.');
+      this.errorMessage = 'Por favor, completa todos los campos requeridos.';
     }
   }
   //Para el modal del historico del paciente

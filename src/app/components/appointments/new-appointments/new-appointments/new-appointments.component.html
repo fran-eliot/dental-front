@@ -128,6 +128,8 @@
     <!-- Submit Button -->
     <div class="form-group">
       <button type="submit">Guardar Reserva</button>
+      <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+      <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
     </div>
   </form>
 </div>

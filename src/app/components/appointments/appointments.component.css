@@ -116,7 +116,7 @@
 }
 
 .loading {
-  color: #ffffffcc;
+  color: var(--primary-color);
   font-size: 1rem;
   text-align: center;
   margin-top: 20px;

@@ -89,6 +89,18 @@
 .form-group.full-width {
   grid-column: span 2;
 }
+.success-message {
+  color: var(--primary-color);
+  margin-top: 8px;
+  font-weight: bold;
+}
+
+.error-message {
+  color: red;
+  margin-top: 8px;
+  font-weight: bold;
+}
+
 
 
 /* Autocomplete styles */

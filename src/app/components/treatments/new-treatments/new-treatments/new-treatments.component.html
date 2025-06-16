@@ -1,45 +1,89 @@
 <div class="main-treatments-container">
   <div class="title-wrapper-login">
-    <h2>Crear Nuevo Tratamiento</h2>
+    <!-- Puedes agregar un título aquí si es necesario -->
   </div>
 
   <form #treatmentForm="ngForm" (ngSubmit)="createTreatment(newTreatment)" novalidate>
     <!-- Nombre -->
     <div class="form-group">
-      <input type="text" name="name_treatments" [(ngModel)]="newTreatment.name_treatments" required placeholder="Nombre del Tratamiento" />
+      <label for="name_treatments">Nombre del Tratamiento</label>
+      <input
+        type="text"
+        id="name_treatments"
+        name="name_treatments"
+        [(ngModel)]="newTreatment.name_treatments"
+        required
+        placeholder="Nombre del Tratamiento"
+      />
     </div>
 
     <!-- Tipo -->
     <div class="form-group">
-      <input type="text" name="type_treatments" [(ngModel)]="newTreatment.type_treatments" placeholder="Tipo (opcional)" />
+      <label for="type_treatments">Tipo</label>
+      <input
+        type="text"
+        id="type_treatments"
+        name="type_treatments"
+        [(ngModel)]="newTreatment.type_treatments"
+        placeholder="Tipo (opcional)"
+      />
     </div>
 
     <!-- Duración -->
     <div class="form-group">
-      <input type="number" name="duration_minutes_treatments" [(ngModel)]="newTreatment.duration_minutes_treatments" required min="1" placeholder="Duración en minutos" />
+      <label for="duration_minutes_treatments">Duración en minutos</label>
+      <input
+        type="number"
+        id="duration_minutes_treatments"
+        name="duration_minutes_treatments"
+        [(ngModel)]="newTreatment.duration_minutes_treatments"
+        required
+        min="1"
+        placeholder="Duración en minutos"
+      />
     </div>
 
     <!-- Precio -->
     <div class="form-group">
-      <input type="number" name="price_treatments" [(ngModel)]="newTreatment.price_treatments" required min="0" step="0.01" placeholder="Precio (€)" />
+      <label for="price_treatments">Precio (€)</label>
+      <input
+        type="number"
+        id="price_treatments"
+        name="price_treatments"
+        [(ngModel)]="newTreatment.price_treatments"
+        required
+        min="0"
+        step="0.01"
+        placeholder="Precio (€)"
+      />
     </div>
 
     <!-- Visible para pacientes -->
     <div class="form-group checkbox-group">
-      <label>
-        <input type="checkbox" name="visible_to_patients_treatments" [(ngModel)]="newTreatment.visible_to_patients_treatments" />
+      <label for="visible_to_patients_treatments">
+        <input
+          type="checkbox"
+          id="visible_to_patients_treatments"
+          name="visible_to_patients_treatments"
+          [(ngModel)]="newTreatment.visible_to_patients_treatments"
+        />
         Visible para pacientes
       </label>
     </div>
 
     <!-- Activo -->
     <div class="form-group checkbox-group">
-      <label>
-        <input type="checkbox" name="is_active_treatments" [(ngModel)]="newTreatment.is_active_treatments" required />
+      <label for="is_active_treatments">
+        <input
+          type="checkbox"
+          id="is_active_treatments"
+          name="is_active_treatments"
+          [(ngModel)]="newTreatment.is_active_treatments"
+          required
+        />
         Activo
       </label>
     </div>
-
-    <button type="submit" [disabled]="treatmentForm.invalid">Guardar Tratamiento</button>
+    <button type="submit">Guardar Tratamiento</button>
   </form>
 </div>
