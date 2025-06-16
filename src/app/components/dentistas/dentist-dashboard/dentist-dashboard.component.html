@@ -1,0 +1,25 @@
+<div class="dashboard-container">
+  <h2>Bienvenido, Dr./Dra. {{ dentistName }}</h2>
+
+  <section class="dashboard-summary">
+    <h3>Citas para hoy ({{ today | date: 'fullDate' }})</h3>
+    <div *ngIf="todaysAppointments.length > 0; else noAppointments">
+      <ul>
+        <li *ngFor="let appt of todaysAppointments">
+          <strong>{{ appt.time }}</strong> - {{ appt.patientName }}
+        </li>
+      </ul>
+    </div>
+    <ng-template #noAppointments>
+      <p>No tienes citas para hoy.</p>
+    </ng-template>
+  </section>
+
+  <section class="dashboard-actions">
+    <button routerLink="/dentista/agenda" class="action-btn">Ver Agenda Semanal</button>
+    <button routerLink="/dentista/historial" class="action-btn">Historial de Citas</button>
+    <button routerLink="/dentista/disponibilidades" class="action-btn">Consultar Disponibilidades</button>
+  </section>
+</div>
+
+

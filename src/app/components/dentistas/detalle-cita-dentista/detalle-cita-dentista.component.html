@@ -1,0 +1,16 @@
+<div class="main-update-professional-container">
+  <h2>Detalle de Cita</h2>
+
+  <div *ngIf="loading">Cargando datos...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <div *ngIf="!loading && cita">
+    <p><strong>Paciente:</strong> {{ cita.patient?.fullName }}</p>
+    <p><strong>Fecha:</strong> {{ formatDate(cita.date) }}</p>
+    <p><strong>Hora:</strong> {{ formatHour(cita.date) }}</p>
+    <p><strong>Tratamiento:</strong> {{ cita.treatment?.name || 'N/A' }}</p>
+    <p><strong>Estado:</strong> {{ cita.status }}</p>
+    <p><strong>Notas:</strong> {{ cita.notes || 'Sin observaciones' }}</p>
+  </div>
+</div>
+
