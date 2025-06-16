@@ -1,17 +1,18 @@
 import { Component } from '@angular/core';
-import { Treatments } from '../../Model/treatments';
-import { TreatmentsService } from '../../service/treatments.Service';
+import { Treatments } from '../../model/Treatments';
+import { TreatmentsService } from '../../service/treatments/Treatments';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-treatments',
   imports: [FormsModule, CommonModule],
+  standalone: true,
   templateUrl: './treatments.component.html',
-  styleUrl: './treatments.component.css'
+  styleUrls: ['./treatments.component.css']
 })
 export class TreatmentsComponent {
-  treatments: Treatments[];
+  treatments: Treatments[] ;
   constructor(private treatmentsService: TreatmentsService) {}
 
   ngOnInit(): void {

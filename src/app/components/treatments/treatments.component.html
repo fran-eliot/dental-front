@@ -1,39 +1,39 @@
-<h2>Tratamientos Dentales</h2>
+<!-- treatments.component.html -->
+<div class="main-container-login">
+  <div class="login-box">
+    <div class="avatar-wrapper">
+      <div class="avatar-icon">
+        <i class="fa-solid fa-stethoscope"></i> <!-- Icono relacionado a salud/tratamientos -->
+      </div>
+    </div>
 
-<!-- Formulario para crear un nuevo tratamiento -->
-<form (ngSubmit)="createTreatment(newTreatmentForm.value)" #newTreatmentForm="ngForm">
-  <div>
-    <label for="name">Nombre:</label>
-    <input type="text" id="name" name="name" ngModel required />
+    <div class="title-wrapper-login">
+      <h1>Gestión de Tratamientos</h1>
+    </div>
+
+    <!-- Listado de tratamientos -->
+    <div *ngIf="treatments && treatments.length > 0; else noTreatments">
+      <ul>
+        <li *ngFor="let treatment of treatments">
+          {{ treatment.name_treatments }} - {{ treatment.type_treatments }} - {{ treatment.id_treatments }} - {{ treatment.price_treatments }}
+        </li>
+      </ul>
+    </div>
+    <ng-template #noTreatments>
+      <p>No hay tratamientos disponibles.</p>
+    </ng-template>
+
+    <!-- Formulario para crear nuevo tratamiento -->
+    <form class="form-login" (ngSubmit)="createTreatment(newTreatmentForm.value)" #newTreatmentForm="ngForm">
+      <div class="input-group email">
+        <input type="text" name="nombre" placeholder="Nombre del tratamiento" [(ngModel)]="createTreatment" required />
+      </div>
+
+      <div class="input-group password">
+        <input type="text" name="descripcion" placeholder="Descripción" [(ngModel)]="createTreatment" required />
+      </div>
+
+      <button type="submit" [disabled]="newTreatmentForm.invalid">Crear Tratamiento</button>
+    </form>
   </div>
-
-  <div>
-    <label for="description">Descripción:</label>
-    <textarea id="description" name="description" ngModel required></textarea>
-  </div>
-
-  <button type="submit" [disabled]="!newTreatmentForm.valid">Crear Tratamiento</button>
-</form>
-
-<hr />
-
-<!-- Lista de tratamientos -->
-<table border="1" width="100%" *ngIf="treatments && treatments.length > 0; else noData">
-  <thead>
-    <tr>
-      <th>Duración del Tratamiento</th>
-      <th>ID del Tratamiento</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let treatment of treatments">
-      <td>{{ treatment.duration_treatments }}</td>
-      <td>{{ treatment.id_treatments }}</td>
-    </tr>
-  </tbody>
-</table>
-
-<!-- Plantilla alternativa si no hay datos -->
-<ng-template #noData>
-  <p>No hay tratamientos disponibles.</p>
-</ng-template>
+</div>
