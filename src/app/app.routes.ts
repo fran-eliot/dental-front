@@ -48,11 +48,11 @@ export const routes: Routes = [
       {
         path: 'dentistas',
         component: ProfessionalsComponent,
-        children: [
+        /*children: [
           { path: 'registrar', component: RegisterComponent },
           { path: 'editar', component: UpdateProfessionalsComponent },
           { path: 'editarPassword', component: UsersComponent }
-        ]
+        ]*/
       },
       {
         path: 'pacientes',

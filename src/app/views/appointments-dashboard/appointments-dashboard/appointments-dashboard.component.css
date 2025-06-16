@@ -39,7 +39,6 @@
   background: rgba(255, 255, 255, 0.3);
   border-color: rgba(255, 255, 255, 0.4);
   border-bottom: 2px solid var(--primary-color);
-  font-weight: 700;
   color: var(--primary-color, #00c3b2);
   box-shadow: none;
 }

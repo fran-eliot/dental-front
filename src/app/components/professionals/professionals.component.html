@@ -1,20 +1,40 @@
-<div class="main_container-professional">
-  <div class="card-container">
-    <div class="card" (click)="goTo('registrar')">
+<div class="main-professional-container">
+  <div class="tabs">
+    <button
+      type="button"
+      (click)="selectedTab = 'registrar'"
+      [class.active]="selectedTab === 'registrar'"
+    >
       <h4>Registrar dentista</h4>
       <p>Crear cuenta y datos personales</p>
-    </div>
-    <div class="card" (click)="goTo('editar')">
+    </button>
+    <button
+      type="button"
+      (click)="selectedTab = 'editar'"
+      [class.active]="selectedTab === 'editar'"
+    >
       <h4>Modificar dentista</h4>
       <p>Editar datos de un profesional</p>
-    </div>
-    <div class="card" (click)="goTo('editarPassword')">
+    </button>
+    <button
+      type="button"
+      (click)="selectedTab = 'editarPassword'"
+      [class.active]="selectedTab === 'editarPassword'"
+    >
       <h4>Inicios de sesión</h4>
       <p>Ver los usuarios y modificar contraseñas</p>
-    </div>
+    </button>
   </div>
-  <div class="body-components-professional">
-    <router-outlet></router-outlet>
+
+  <div class="tab-content" *ngIf="selectedTab === 'registrar'">
+    <app-register></app-register>
+  </div>
+
+  <div class="tab-content" *ngIf="selectedTab === 'editar'">
+    <app-update-professionals></app-update-professionals>
+  </div>
+  <div class="tab-content" *ngIf="selectedTab === 'editarPassword'">
+    <app-users></app-users>
   </div>
 </div>
 

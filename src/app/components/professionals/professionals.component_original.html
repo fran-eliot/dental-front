@@ -1,0 +1,20 @@
+<div class="main_container-professional">
+  <div class="card-container">
+    <div class="card" (click)="goTo('registrar')">
+      <h4>Registrar dentista</h4>
+      <p>Crear cuenta y datos personales</p>
+    </div>
+    <div class="card" (click)="goTo('editar')">
+      <h4>Modificar dentista</h4>
+      <p>Editar datos de un profesional</p>
+    </div>
+    <div class="card" (click)="goTo('editarPassword')">
+      <h4>Inicios de sesión</h4>
+      <p>Ver los usuarios y modificar contraseñas</p>
+    </div>
+  </div>
+  <div class="body-components-professional">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
