@@ -18,6 +18,7 @@ import { UsersComponent } from './components/users/users/users.component';
 import { TreatmentsComponent } from './components/treatments/treatments.component';
 import { AppointmentsDashboardComponent } from './views/appointments-dashboard/appointments-dashboard/appointments-dashboard.component';
 import { DisponibilidadesMensualesComponent } from './components/disponibilidades/disponibilidades-mensuales/disponibilidades-mensuales.component';
+import { TreatmentsDashboardComponent } from './views/treatments-dashboard/treatments-dashboard/treatments-dashboard.component';
 
 
 export const routes: Routes = [
@@ -42,6 +43,12 @@ export const routes: Routes = [
       {
         path: 'appointments-dashboard',
         component: AppointmentsDashboardComponent,
+        children: [
+        ]
+      },
+      {
+        path: 'tratamientos',
+        component: TreatmentsDashboardComponent,
         children: [
         ]
       },

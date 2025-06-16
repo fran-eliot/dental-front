@@ -1,5 +1,5 @@
 export interface Treatment {
-  id_treatments: number;
+  id_treatments?: number;
   name_treatments: string;
   type_treatments?: string;
   duration_minutes_treatments: number;

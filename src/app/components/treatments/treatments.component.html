@@ -1,1 +1,36 @@
-<p>treatments works!</p>
+<div class="main-treatments-container">
+  <div class="title-wrapper-login">
+    <h1>Gestión de Tratamientos</h1>
+  </div>
+
+  <div *ngIf="treatments && treatments.length > 0; else noTreatments">
+    <table class="treatment-table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Tipo</th>
+          <th>Duración (min)</th>
+          <th>Precio (€)</th>
+          <th>Activo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let treatment of treatments">
+          <td>{{ treatment.name_treatments }}</td>
+          <td>{{ treatment.type_treatments || '---' }}</td>
+          <td>{{ treatment.duration_minutes_treatments }}</td>
+          <td>{{ treatment.price_treatments | currency:'EUR' }}</td>
+          <td class="status">
+            <span [class.active]="treatment.is_active_treatments" [class.inactive]="!treatment.is_active_treatments">
+              {{ treatment.is_active_treatments ? 'Sí' : 'No' }}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #noTreatments>
+    <p>No hay tratamientos disponibles.</p>
+  </ng-template>
+</div>

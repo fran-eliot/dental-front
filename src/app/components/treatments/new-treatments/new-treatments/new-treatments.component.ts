@@ -12,19 +12,37 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './new-treatments.component.css'
 })
 export class NewTreatmentsComponent {
+  treatments: Treatment[] = [];
 
-  treatments: Treatment[] ;
+  newTreatment: Treatment = {
+    name_treatments: '',
+    type_treatments: '',
+    duration_minutes_treatments: 0,
+    price_treatments: 0,
+    visible_to_patients_treatments: false,
+    is_active_treatments: true
+  };
+
   constructor(private treatmentService: TreatmentService) {}
 
   createTreatment(treatment: Treatment): void {
-      this.treatmentService.createTreatment(treatment).subscribe({
-        next: (data) => {
-          console.log('Tratamiento creado:', data);
-          this.treatments.push(data); // Añadir el nuevo tratamiento a la lista
-        },
-        error: (err) => {
-          console.error('Error al crear tratamiento:', err);
-        }
-      });
-    }
+    this.treatmentService.createTreatment(treatment).subscribe({
+      next: (data) => {
+        console.log('Tratamiento creado:', data);
+        this.treatments.push(data); // Añadir el nuevo tratamiento a la lista
+        // Reiniciar formulario
+        this.newTreatment = {
+          name_treatments: '',
+          type_treatments: '',
+          duration_minutes_treatments: 0,
+          price_treatments: 0,
+          visible_to_patients_treatments: false,
+          is_active_treatments: true
+        };
+      },
+      error: (err) => {
+        console.error('Error al crear tratamiento:', err);
+      }
+    });
+  }
 }
