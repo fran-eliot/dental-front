@@ -1,0 +1,30 @@
+<div class="main-update-professional-container">
+  <h2>Agenda Diaria</h2>
+
+  <div *ngIf="loading">Cargando citas...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <table *ngIf="citasHoy.length > 0; else sinCitas">
+    <thead>
+      <tr>
+        <th>Hora</th>
+        <th>Paciente</th>
+        <th>Tratamiento</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cita of citasHoy">
+        <td>{{ formatHour(cita.date) }}</td>
+        <td>{{ cita.patient?.fullName || 'Desconocido' }}</td>
+        <td>{{ cita.treatment?.name || 'N/A' }}</td>
+        <td>{{ cita.status }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #sinCitas>
+    <p>No tienes citas programadas para hoy.</p>
+  </ng-template>
+</div>
+

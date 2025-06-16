@@ -1,0 +1,55 @@
+.main-update-professional-container {
+  max-width: 900px;
+  margin: 30px auto;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  color: var(--text-color);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+}
+
+label {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  display: block;
+}
+
+input[type="date"] {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 2px solid rgba(0, 195, 178, 0.3);
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--text-color);
+  font-size: 0.95rem;
+  outline: none;
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+th {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.error {
+  color: #b71c1c;
+  margin-top: 10px;
+  text-align: center;
+}

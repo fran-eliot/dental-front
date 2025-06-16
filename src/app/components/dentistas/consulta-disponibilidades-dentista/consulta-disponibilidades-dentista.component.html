@@ -1,0 +1,39 @@
+<div class="main-update-professional-container">
+  <h2>Mis Disponibilidades</h2>
+
+  <label for="filtro">Filtrar por periodo:</label>
+  <select id="filtro" [(ngModel)]="filtroPeriodo">
+    <option value="todos">Todos</option>
+    <option value="mañana">Mañana</option>
+    <option value="tarde">Tarde</option>
+  </select>
+
+  <div *ngIf="loading">Cargando disponibilidades...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <table *ngIf="!loading && filtrarDisponibilidades().length > 0">
+    <thead>
+      <tr>
+        <th>Fecha</th>
+        <th>Hora de inicio</th>
+        <th>Hora de fin</th>
+        <th>Periodo</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let d of filtrarDisponibilidades()">
+        <td>{{ formatDate(d.date) }}</td>
+        <td>{{ formatHour(d.slot.startTime) }}</td>
+        <td>{{ formatHour(d.slot.endTime) }}</td>
+        <td>{{ d.slot.period }}</td>
+        <td>{{ d.status }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p *ngIf="!loading && filtrarDisponibilidades().length === 0">
+    No hay disponibilidades registradas con ese filtro.
+  </p>
+</div>
+
