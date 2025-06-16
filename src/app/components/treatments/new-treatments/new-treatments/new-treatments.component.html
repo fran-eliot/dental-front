@@ -1,0 +1,12 @@
+<!-- Formulario para crear nuevo tratamiento -->
+    <form class="form-login" (ngSubmit)="createTreatment(newTreatmentForm.value)" #newTreatmentForm="ngForm">
+      <div class="input-group email">
+        <input type="text" name="nombre" placeholder="Nombre del tratamiento" [(ngModel)]="createTreatment" required />
+      </div>
+
+      <div class="input-group password">
+        <input type="text" name="descripcion" placeholder="Descripción" [(ngModel)]="createTreatment" required />
+      </div>
+
+      <button type="submit" [disabled]="newTreatmentForm.invalid">Crear Tratamiento</button>
+    </form>

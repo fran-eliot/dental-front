@@ -1,0 +1,27 @@
+<div class="main-treatment-dashboard-container">
+  <div class="tabs">
+    <button
+      type="button"
+      (click)="selectedTab = 'listTreatments'"
+      [class.active]="selectedTab === 'listTreatments'"
+    >
+      Listado de Tratamientos
+    </button>
+    <button
+      type="button"
+      (click)="selectedTab = 'newTreatment'"
+      [class.active]="selectedTab === 'newTreatment'"
+    >
+      Nuevo Tratamiento
+    </button>
+  </div>
+
+  <div class="tab-content" *ngIf="selectedTab === 'listTreatments'">
+    <app-treatments></app-treatments>
+  </div>
+
+  <div class="tab-content" *ngIf="selectedTab === 'newTreatment'">
+    <app-new-treatments></app-new-treatments>
+  </div>
+</div>
+
