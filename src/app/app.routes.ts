@@ -19,6 +19,10 @@ import { TreatmentsComponent } from './components/treatments/treatments.componen
 import { AppointmentsDashboardComponent } from './views/appointments-dashboard/appointments-dashboard/appointments-dashboard.component';
 import { DisponibilidadesMensualesComponent } from './components/disponibilidades/disponibilidades-mensuales/disponibilidades-mensuales.component';
 import { TreatmentsDashboardComponent } from './views/treatments-dashboard/treatments-dashboard/treatments-dashboard.component';
+import { DentistDashboardComponent } from './components/dentistas/dentist-dashboard/dentist-dashboard.component';
+import { DentistaAgendaDiariaComponent } from './components/dentistas/dentista-agenda-diaria/dentista-agenda-diaria.component';
+import { DentistaAgendaSemanalComponent } from './components/dentistas/dentista-agenda-semanal/dentista-agenda-semanal.component';
+import { HistorialCitasDentistaComponent } from './components/dentistas/historial-citas-dentista/historial-citas-dentista.component';
 
 
 export const routes: Routes = [
@@ -92,6 +96,17 @@ export const routes: Routes = [
 
     path:'appointments',
     component: AppointmentsComponent
+  },
+  {
+  path: 'dentista',
+    children: [
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: 'dashboard', component: DentistDashboardComponent },
+      { path: 'agenda-diaria', component: DentistaAgendaDiariaComponent},
+      { path: 'agenda-semanal', component: DentistaAgendaSemanalComponent },
+      { path: 'historial-citas', component: HistorialCitasDentistaComponent },
+      { path: 'disponibilidades', component: ConsultaDisponibilidadesComponent },
+    ]
   },
   /*{
     path: 'disponibilidades',
