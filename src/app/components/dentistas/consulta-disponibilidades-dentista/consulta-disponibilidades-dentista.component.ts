@@ -1,28 +1,43 @@
+import { ProfessionalAvailabitity } from './../../../model/ProfessionalAvailability';
 import { Component, OnInit } from '@angular/core';
-import dayjs from 'dayjs';
+import * as dayjsLib from 'dayjs';
+import { AvailabitlityService } from '../../../service/availability/availabitlity.service';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+
+const dayjs = dayjsLib.default;
 
 @Component({
   selector: 'app-consulta-disponibilidades-dentista',
   standalone: true,
-  imports: [],
+  imports: [FormsModule,CommonModule],
   templateUrl: './consulta-disponibilidades-dentista.component.html',
   styleUrl: './consulta-disponibilidades-dentista.component.css'
 })
 
 export class ConsultaDisponibilidadesDentistaComponent implements OnInit {
-  disponibilidades: any[] = [];
+  disponibilidades: ProfessionalAvailabitity[] = [];
   error = '';
   filtroPeriodo = 'todos';
   loading = true;
 
-  constructor(private availabilityService: AvailabilityService) {}
+  constructor(private availabilityService: AvailabitlityService) {}
 
   ngOnInit(): void {
     this.cargarDisponibilidades();
   }
 
   cargarDisponibilidades(): void {
-    this.availabilityService.getDisponibilidadesPropias().subscribe({
+    const professionalId:number = Number(localStorage.getItem('user_id'));
+
+    if (!professionalId) {
+      this.error = 'No se pudo obtener el ID del profesional.';
+      this.loading = false;
+      return;
+    }
+
+    const today = dayjs().format('YYYY-MM-DD');
+    this.availabilityService.getAvailabilities(professionalId, today).subscribe({
       next: (data) => {
         this.disponibilidades = data;
         this.loading = false;

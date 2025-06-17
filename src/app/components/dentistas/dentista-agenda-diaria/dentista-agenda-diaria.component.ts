@@ -1,6 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import dayjs from 'dayjs'; 
+<<<<<<< HEAD
+import * as dayjsLib from 'dayjs';
+const dayjs = dayjsLib.default;
+=======
+import dayjs from 'dayjs';
+>>>>>>> 4f1c4ee5003cfdb699f0be661ee3165334df5f30
+import { AppointmentsService } from '../../../service/appointment/appointments.service';
 
 @Component({
   selector: 'app-dentista-agenda-diaria',
@@ -11,26 +17,50 @@ import dayjs from 'dayjs';
 })
 export class DentistaAgendaDiariaComponent implements OnInit {
   citasHoy: any[] = [];
-  loading = true;
+  loading:boolean = true;
   error = '';
+  today: string = dayjs().format('YYYY-MM-DD');
+  patients: any[] = [];
 
   constructor(
-    private appointmentService: AppointmentService,
+<<<<<<< HEAD
+    private appointmentService: AppointmentsService
+=======
+    private appointmentService: AppointmentsService,
     private authService: AuthService
+>>>>>>> 4f1c4ee5003cfdb699f0be661ee3165334df5f30
   ) {}
 
   ngOnInit(): void {
-    const profesionalId = this.authService.getUserId();
-    const hoy = dayjs().format('YYYY-MM-DD');
+    const professionalId:number = Number(localStorage.getItem('professionalId'));
 
-    this.appointmentService.getAppointmentsByProfessional(profesionalId).subscribe({
-      next: (data) => {
-        this.citasHoy = data.filter(cita => dayjs(cita.date).format('YYYY-MM-DD') === hoy);
-        this.citasHoy.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-        this.loading = false;
+    if (!professionalId) {
+      this.error = 'No se pudo obtener el ID del profesional.';
+      this.loading = false;
+      return;
+    }
+
+    this.appointmentService
+      .getAppointments({ professional_id: professionalId, date_appointments: this.today })
+      .subscribe({
+        next: (data) => {
+          this.citasHoy = data;
+          this.citasHoy.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+          this.loading = false;
+        },
+        error: () => {
+          this.error = 'Error al cargar las citas de hoy.';
+          this.loading = false;
+        }
+      });
+
+    // Fetch patients and store in component property
+    this.appointmentService.getPatients().subscribe({
+      next: (patients) => {
+        this.patients = patients;
       },
-      error: (err) => {
-        this.error = 'No se pudieron cargar las citas de hoy';
+      error: () => {
+        this.error = 'Error al cargar los pacientes.';
         this.loading = false;
       }
     });

@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import dayjs from 'dayjs';
-// import * as dayjsLib from 'dayjs';
-// const dayjs = dayjsLib.default;
+import * as dayjsLib from 'dayjs';
+const dayjs = dayjsLib.default;
 
 @Component({
   selector: 'app-dentist-agenda',
