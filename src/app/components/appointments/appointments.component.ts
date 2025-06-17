@@ -4,11 +4,12 @@ import { AppointmentsService } from '../../service/appointment/appointments.serv
 import { Professional } from '../../model/Professional';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { ListaDisponibilidadesComponent } from '../disponibilidades/lista-disponibilidades/lista-disponibilidades.component';
 
 @Component({
   selector: 'app-appointments',
   standalone: true,
-  imports: [RouterModule, ReactiveFormsModule, FormsModule, CommonModule],
+  imports: [RouterModule, ReactiveFormsModule, FormsModule, CommonModule, ListaDisponibilidadesComponent],
   templateUrl: './appointments.component.html',
   styleUrls: ['./appointments.component.css']
 })
@@ -19,6 +20,9 @@ export class AppointmentsComponent implements OnInit {
   professionales: Professional[] = [];
   loading = false;
   errorMsg = '';
+  showModal = false;
+  profesionalIdSeleccionado: number = 0;
+  fechaSeleccionada: string = '';
 
   constructor(
     private fb: FormBuilder,
@@ -117,5 +121,25 @@ export class AppointmentsComponent implements OnInit {
   //par mostrar el detalle de las reservas
   toggleDetalle(app: any) {
     app.mostrarDetalle = !app.mostrarDetalle;
+  }
+
+  //Abrir modal disponibilidades
+  openModalAvailabilities() {
+    const profesional = this.filterForm.get('professional_id')?.value;
+    const fecha = this.filterForm.get('date_appointments')?.value;
+
+    if (!profesional || !fecha) {
+      alert('Por favor selecciona un profesional y una fecha');
+      return;
+    }
+
+    this.profesionalIdSeleccionado = profesional;
+    this.fechaSeleccionada = fecha;
+    this.showModal = true;
+
+    }
+
+  closeModalAvailabilities() {
+    this.showModal = false;
   }
 }

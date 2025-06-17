@@ -2,6 +2,7 @@
   <div class="title-appointment-wrapper">
     <h2>Gestión de reservas</h2>
   </div>
+
   <form [formGroup]="filterForm" (ngSubmit)="getAppointments()" class="filter-form">
     <label>
       Profesional
@@ -17,6 +18,10 @@
       Fecha
       <input type="date" formControlName="date_appointments" />
     </label>
+
+    <!-- ✅ Botón para abrir modal con disponibilidades -->
+    <button type="button" (click)="openModalAvailabilities()">📅 Ver Disponibilidades</button>
+
     <label>
       Turno
       <select formControlName="turno">
@@ -25,6 +30,7 @@
         <option value="tarde">Tarde</option>
       </select>
     </label>
+
     <label for="status_appointments">
       Estado
       <select id="status_appointments" formControlName="status_appointments">
@@ -35,10 +41,12 @@
         <option value="realizada">Realizada</option>
       </select>
     </label>
+
     <label>
       Buscar por paciente
       <input type="text" formControlName="patient_name" placeholder="Nombre paciente" />
     </label>
+
     <button type="submit">Buscar reservas</button>
   </form>
 
@@ -81,4 +89,15 @@
   </table>
 
   <div *ngIf="!appointments.length && !loading" class="loading">No hay reservas para esta selección.</div>
+
+  <!-- Modal simple (inline) -->
+  <div *ngIf="showModal" class="modal-backdrop">
+    <div class="modal-content">
+      <button (click)="closeModalAvailabilities()">✖ Cerrar</button>
+      <app-lista-disponibilidades
+        [professionalId]="profesionalIdSeleccionado"
+        [date]="fechaSeleccionada"
+      ></app-lista-disponibilidades>
+    </div>
+  </div>
 </div>
