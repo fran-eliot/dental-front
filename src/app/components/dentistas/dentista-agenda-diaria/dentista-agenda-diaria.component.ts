@@ -1,7 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+<<<<<<< HEAD
 import * as dayjsLib from 'dayjs';
 const dayjs = dayjsLib.default;
+=======
+import dayjs from 'dayjs';
+>>>>>>> 4f1c4ee5003cfdb699f0be661ee3165334df5f30
 import { AppointmentsService } from '../../../service/appointment/appointments.service';
 
 @Component({
@@ -19,7 +23,12 @@ export class DentistaAgendaDiariaComponent implements OnInit {
   patients: any[] = [];
 
   constructor(
+<<<<<<< HEAD
     private appointmentService: AppointmentsService
+=======
+    private appointmentService: AppointmentsService,
+    private authService: AuthService
+>>>>>>> 4f1c4ee5003cfdb699f0be661ee3165334df5f30
   ) {}
 
   ngOnInit(): void {

@@ -4,6 +4,10 @@ import { Appointment } from '../../../model/Appoinment';
 import * as dayjsLib from 'dayjs';
 const dayjs = dayjsLib.default;
 import { AppointmentsService } from '../../../service/appointment/appointments.service';
+import { Appointment } from '../../../model/Appoinment';
+import * as dayjsLib from 'dayjs';
+const dayjs = dayjsLib.default;
+import { AppointmentsService } from '../../../service/appointment/appointments.service';
 
 @Component({
   selector: 'app-dentist-dashboard',
