@@ -3,7 +3,18 @@ html, body {
   padding: 0;
   overflow-x: hidden;
 }
-
+.fondo{
+  position: fixed;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-image: url('../assets/imagenFondoApp.jpg');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.5;
+  z-index: -1;
+}
 /* Contenedor principal */
 .main-container-app {
   display: flex;
@@ -12,15 +23,18 @@ html, body {
   width: 100%;
   box-sizing: border-box;
   overflow: hidden;
+  position: relative; /* para que z-index funcione */
+  z-index: 1;
 }
 
 /* Wrapper de navegación (header fijo) */
 .navigation-wrapper {
   background: #fff;
-  border-bottom: 1px solid #ddd;
+  /*border-bottom: 1px solid #ddd;*/
   flex: 0 0 auto;
   width: 100%;
   max-height: 150px;
+  background:transparent;
 }
 
 /* Dentro del navigation, aplica flex y centrado */
