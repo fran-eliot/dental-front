@@ -22,13 +22,13 @@ export class DentistaAgendaSemanalComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const professionalId:number = Number(localStorage.getItem('professionalId'));
+    const professionalId:number = Number(localStorage.getItem('professional_id'));
     const hoy = dayjs();
     const finSemana = hoy.add(7, 'day');
 
     const startDate = hoy.format('YYYY-MM-DD');
     const endDate = finSemana.format('YYYY-MM-DD');
-    this.appointmentService.getAppointments({ professional_id: professionalId, date_appointments: `${startDate},${endDate}` }).subscribe({
+    this.appointmentService.getAppointmentsByDates({ professional_id: professionalId, start_date: startDate, end_date: endDate }).subscribe({
       next: (data) => {
         this.citasSemana = data;
         this.citasSemana.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());

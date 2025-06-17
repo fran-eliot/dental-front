@@ -9,6 +9,7 @@ import { HttpClient } from '@angular/common/http';
 export class ProfessionalService {
   urlAllProfessionals: string = "http://localhost:3000/professionals/all";
   urlUpdateProfessionals: string = "http://localhost:3000/professionals/actualizacion";
+  urlGetProfessionalByIdUser: string = "http://localhost:3000/professionals/por-user";
   
   constructor(private http:HttpClient) {}
 
@@ -18,5 +19,11 @@ export class ProfessionalService {
 
   updateProfessionals(id_professionals:number, professional: Professional):Observable<Professional>{
     return this.http.put<Professional>(`${this.urlUpdateProfessionals}/${id_professionals}`, professional);
+  }
+
+  getProfessionalByIdUser(id_user: number): Observable<Professional> {
+    const url: string = `${this.urlGetProfessionalByIdUser}/${id_user}`;
+    console.log(url)
+    return this.http.get<Professional>(url);
   }
 }

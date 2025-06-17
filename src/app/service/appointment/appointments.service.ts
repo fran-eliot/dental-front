@@ -17,6 +17,7 @@ export class AppointmentsService {
   apiUrlHorasDisponibles = 'http://localhost:3000/disponibilidades/slots-libres';
   apiUrlPatients = 'http://localhost:3000/patients';
   apiUrlTreatments = 'http://localhost:3000/treatments';
+  apiUrlReservasByDates = 'http://localhost:3000/appointments/reservas-por-fechas';
 
   constructor(private http: HttpClient) {}
 
@@ -46,6 +47,22 @@ export class AppointmentsService {
     }
 
     return this.http.get<any[]>(`${this.apiUrlAppointments}/reservas`, { params });
+  }
+
+  getAppointmentsByDates(filters: {professional_id: number, start_date: string, end_date: string}): Observable<any[]> {
+    const params: any = {};
+
+    if (filters.professional_id) {
+      params.professional_id = filters.professional_id.toString();
+    }
+    if (filters.start_date) {
+      params.start_date = filters.start_date;
+    }
+    if (filters.end_date) {
+      params.end_date = filters.end_date;
+    }
+
+    return this.http.get<any[]>(`${this.apiUrlReservasByDates}`, { params });
   }
 
   //metodo para crear nuevas reservas

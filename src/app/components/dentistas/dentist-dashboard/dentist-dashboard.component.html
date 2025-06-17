@@ -2,7 +2,7 @@
   <h2>Bienvenido, Dr./Dra. {{ dentistName }}</h2>
 
   <section class="dashboard-summary">
-    <h3>Citas para hoy ({{ today | date: 'fullDate' }})</h3>
+    <h3>Citas para hoy ({{ todayFormateado }})</h3>
     <div *ngIf="todayAppointments.length > 0; else noAppointments">
       <ul>
         <li *ngFor="let appt of todayAppointments">
@@ -20,8 +20,8 @@
   </section>
 
   <section class="dashboard-actions">
-    <button routerLink="/dentista/agenda" class="action-btn">Ver Agenda Semanal</button>
-    <button routerLink="/dentista/historial" class="action-btn">Historial de Citas</button>
+    <button routerLink="/dentista/agenda-semanal" class="action-btn">Ver Agenda Semanal</button>
+    <button routerLink="/dentista/historial-citas" class="action-btn">Historial de Citas</button>
     <button routerLink="/dentista/disponibilidades" class="action-btn">Consultar Disponibilidades</button>
   </section>
 </div>

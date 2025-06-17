@@ -20,6 +20,7 @@ export class ConsultaDisponibilidadesDentistaComponent implements OnInit {
   error = '';
   filtroPeriodo = 'todos';
   loading = true;
+  fechaSeleccionada: string = dayjs().format('YYYY-MM-DD');
 
   constructor(private availabilityService: AvailabitlityService) {}
 
@@ -28,7 +29,7 @@ export class ConsultaDisponibilidadesDentistaComponent implements OnInit {
   }
 
   cargarDisponibilidades(): void {
-    const professionalId:number = Number(localStorage.getItem('user_id'));
+    const professionalId: number = Number(localStorage.getItem('user_id'));
 
     if (!professionalId) {
       this.error = 'No se pudo obtener el ID del profesional.';
@@ -36,8 +37,10 @@ export class ConsultaDisponibilidadesDentistaComponent implements OnInit {
       return;
     }
 
-    const today = dayjs().format('YYYY-MM-DD');
-    this.availabilityService.getAvailabilities(professionalId, today).subscribe({
+    this.loading = true;
+    this.error = '';
+
+    this.availabilityService.getAvailabilities(professionalId, this.fechaSeleccionada).subscribe({
       next: (data) => {
         this.disponibilidades = data;
         this.loading = false;
@@ -47,6 +50,10 @@ export class ConsultaDisponibilidadesDentistaComponent implements OnInit {
         this.loading = false;
       }
     });
+  }
+
+  actualizarFecha(): void {
+    this.cargarDisponibilidades();
   }
 
   filtrarDisponibilidades() {

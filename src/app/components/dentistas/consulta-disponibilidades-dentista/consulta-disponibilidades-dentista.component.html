@@ -1,6 +1,9 @@
 <div class="main-update-professional-container">
   <h2>Mis Disponibilidades</h2>
 
+  <label for="fecha">Seleccionar fecha:</label>
+  <input type="date" id="fecha" [(ngModel)]="fechaSeleccionada" (change)="actualizarFecha()" />
+
   <label for="filtro">Filtrar por periodo:</label>
   <select id="filtro" [(ngModel)]="filtroPeriodo">
     <option value="todos">Todos</option>
@@ -36,4 +39,3 @@
     No hay disponibilidades registradas con ese filtro.
   </p>
 </div>
-
