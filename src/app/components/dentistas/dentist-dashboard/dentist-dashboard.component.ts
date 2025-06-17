@@ -1,5 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { Appointment } from '../../../model/Appoinment';
+import * as dayjsLib from 'dayjs';
+const dayjs = dayjsLib.default;
+import { AppointmentsService } from '../../../service/appointment/appointments.service';
 
 @Component({
   selector: 'app-dentist-dashboard',
@@ -11,18 +15,41 @@ import { Component, OnInit } from '@angular/core';
 
 export class DentistDashboardComponent implements OnInit {
   dentistName = 'Nombre Apellido'; // Puedes reemplazar con datos reales del usuario logueado
-  today = new Date();
 
-  todaysAppointments = [
-    // Estos datos se cargarán realmente desde el backend
-    { time: '09:30', patientName: 'Ana Gómez' },
-    { time: '11:00', patientName: 'Luis Martínez' },
-    { time: '16:00', patientName: 'Carla Pérez' },
-  ];
+  todayAppointments: Appointment[] = [];
+  loading:boolean = true;
+  error = '';
+  today: string = dayjs().format('YYYY-MM-DD');
 
-  constructor() {}
+  constructor(private appointmentService: AppointmentsService,
+    private authService: AuthService) {}
 
-  ngOnInit(): void {
-    // Aquí se podría hacer la llamada al servicio para obtener las citas del día
+   ngOnInit(): void {
+    const professional = this.authService.getCurrentUser(); // o similar según tu auth
+    const professionalId = professional?.id;
+
+    if (!professionalId) {
+      this.error = 'No se pudo obtener el ID del profesional.';
+      this.loading = false;
+      return;
+    }
+
+    this.appointmentService
+      .getAppointments({ professional_id: professionalId, date_appointments: this.today })
+      .subscribe({
+        next: (data) => {
+          this.todayAppointments = data;
+          this.loading = false;
+        },
+        error: () => {
+          this.error = 'Error al cargar las reservas de hoy.';
+          this.loading = false;
+        }
+      });
+  }
+
+  formatHour(date: string): string {
+    return dayjs(date).format('HH:mm');
   }
 }
+
