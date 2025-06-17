@@ -31,6 +31,7 @@ export class LoginComponent {
       next: (data) => {
         const token = data.access_token;
         const rol = data.user.rol;
+        const userId = data.user.id;
 
         //me guarda el token de acceso de sesion desde el back y tb el role
         localStorage.setItem('access_token', token);
