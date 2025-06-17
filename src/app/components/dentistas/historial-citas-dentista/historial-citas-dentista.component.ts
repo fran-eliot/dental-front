@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import dayjs from 'dayjs';
+import * as dayjsLib from 'dayjs';
+const dayjs = dayjsLib.default;
 import { AppointmentsService } from '../../../service/appointment/appointments.service';
 
 @Component({
@@ -23,7 +24,15 @@ export class HistorialCitasDentistaComponent implements OnInit {
   }
 
   cargarHistorial(): void {
-    this.appointmentService.getAppointmentsForCurrentDentist().subscribe({
+    const professionalId:number = Number(localStorage.getItem('professionalId'));
+
+    if (!professionalId) {
+      this.error = 'No se pudo obtener el ID del profesional.';
+      this.loading = false;
+      return;
+    }
+
+    this.appointmentService.getAppointments({ professional_id: professionalId, date_appointments: '' }).subscribe({
       next: (data) => {
         this.citas = data;
         this.loading = false;

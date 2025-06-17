@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import dayjs from 'dayjs';
+import * as dayjsLib from 'dayjs';
+const dayjs = dayjsLib.default;
 import { AppointmentsService } from '../../../service/appointment/appointments.service';
 
 @Component({
@@ -17,21 +18,19 @@ export class DentistaAgendaSemanalComponent implements OnInit {
   error = '';
 
   constructor(
-    private appointmentService: AppointmentsService,
-    private authService: AuthService
+    private appointmentService: AppointmentsService
   ) {}
 
   ngOnInit(): void {
-    const profesionalId = this.authService.getUserId();
+    const professionalId:number = Number(localStorage.getItem('professionalId'));
     const hoy = dayjs();
     const finSemana = hoy.add(7, 'day');
 
-    this.appointmentService.getAppointmentsByProfessional(profesionalId).subscribe({
+    const startDate = hoy.format('YYYY-MM-DD');
+    const endDate = finSemana.format('YYYY-MM-DD');
+    this.appointmentService.getAppointments({ professional_id: professionalId, date_appointments: `${startDate},${endDate}` }).subscribe({
       next: (data) => {
-        this.citasSemana = data.filter(cita => {
-          const citaDate = dayjs(cita.date);
-          return citaDate.isAfter(hoy.subtract(1, 'day')) && citaDate.isBefore(finSemana.add(1, 'day'));
-        });
+        this.citasSemana = data;
         this.citasSemana.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
         this.loading = false;
       },
@@ -44,5 +43,18 @@ export class DentistaAgendaSemanalComponent implements OnInit {
 
   formatDateTime(fecha: string): string {
     return dayjs(fecha).format('dddd DD/MM - HH:mm');
+  }
+
+  formatHour(date: string): string {
+    return dayjs(date).format('HH:mm');
+  }
+
+  citasPorDia(fecha: string): any[] {
+    return this.citasSemana.filter(cita => dayjs(cita.date).isSame(dayjs(fecha), 'day'));
+  }
+
+  getDiasCitas(): string[] {
+    // If citasPorDia is an object with day names as keys
+    return Object.keys(this.citasPorDia || {});
   }
 }

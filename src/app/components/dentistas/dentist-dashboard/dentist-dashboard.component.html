@@ -3,10 +3,14 @@
 
   <section class="dashboard-summary">
     <h3>Citas para hoy ({{ today | date: 'fullDate' }})</h3>
-    <div *ngIf="todaysAppointments.length > 0; else noAppointments">
+    <div *ngIf="todayAppointments.length > 0; else noAppointments">
       <ul>
-        <li *ngFor="let appt of todaysAppointments">
-          <strong>{{ appt.time }}</strong> - {{ appt.patientName }}
+        <li *ngFor="let appt of todayAppointments">
+          <strong>{{ appt.time_appointments }}</strong> - {{ getPatientName(appt.patient_id) }}
+          {{ appt.status_appointments === 'confirmed' ? '(Confirmada)' : '(Pendiente)' }}
+          <button (click)="viewAppointmentDetails(appt)" class="details-btn">Ver Detalles</button>
+          <button (click)="cancelAppointment(appt.id_appointments)" class="cancel-btn">Cancelar Cita</button>
+          <button (click)="rescheduleAppointment(appt.id_appointments)" class="reschedule-btn">Reprogramar Cita</button>
         </li>
       </ul>
     </div>
