@@ -23,6 +23,7 @@ import { DentistDashboardComponent } from './components/dentistas/dentist-dashbo
 import { DentistaAgendaDiariaComponent } from './components/dentistas/dentista-agenda-diaria/dentista-agenda-diaria.component';
 import { DentistaAgendaSemanalComponent } from './components/dentistas/dentista-agenda-semanal/dentista-agenda-semanal.component';
 import { HistorialCitasDentistaComponent } from './components/dentistas/historial-citas-dentista/historial-citas-dentista.component';
+import { ConsultaDisponibilidadesDentistaComponent } from './components/dentistas/consulta-disponibilidades-dentista/consulta-disponibilidades-dentista.component';
 
 
 export const routes: Routes = [
@@ -105,7 +106,7 @@ export const routes: Routes = [
       { path: 'agenda-diaria', component: DentistaAgendaDiariaComponent},
       { path: 'agenda-semanal', component: DentistaAgendaSemanalComponent },
       { path: 'historial-citas', component: HistorialCitasDentistaComponent },
-      { path: 'disponibilidades', component: ConsultaDisponibilidadesComponent },
+      { path: 'disponibilidades', component: ConsultaDisponibilidadesDentistaComponent },
     ]
   },
   /*{

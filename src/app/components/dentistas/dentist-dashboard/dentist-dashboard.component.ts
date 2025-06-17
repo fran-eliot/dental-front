@@ -4,6 +4,8 @@ import * as dayjsLib from 'dayjs';
 const dayjs = dayjsLib.default;
 import { Appointment } from '../../../model/Appoinment';
 import { AppointmentsService } from '../../../service/appointment/appointments.service';
+import { Router } from '@angular/router';
+import { ProfessionalService } from '../../../service/professional/professional.service';
 
 @Component({
   selector: 'app-dentist-dashboard',
@@ -14,51 +16,76 @@ import { AppointmentsService } from '../../../service/appointment/appointments.s
 })
 
 export class DentistDashboardComponent implements OnInit {
-  dentistName = 'Nombre Apellido'; // Puedes reemplazar con datos reales del usuario logueado
-
+  dentistName = ''; 
   todayAppointments: Appointment[] = [];
   loading:boolean = true;
   error = '';
-  today: string = dayjs().format('YYYY-MM-DD');
+  today: string =  dayjs().format('YYYY-MM-DD');
   patients: any[] = [];
+  todayFormateado: string = new Date(this.today).toLocaleDateString('es-ES', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+});
 
-  constructor(private appointmentService: AppointmentsService){}
-    // private authService: AuthService) {}
+  constructor(private appointmentService: AppointmentsService,
+    private professionalService: ProfessionalService,
+    private router: Router){}
 
-   ngOnInit(): void {
-    // const professional = this.authService.getCurrentUser(); // o similar según tu auth
-    // const professionalId = professional?.id;
-    const professionalId:number = Number(localStorage.getItem('user_id'));
 
-    if (!professionalId) {
-      this.error = 'No se pudo obtener el ID del profesional.';
+  ngOnInit(): void {
+    const user_id = localStorage.getItem('user_id');
+    console.log('User ID:', user_id);
+
+    if (!user_id) {
+      this.error = 'No se pudo obtener el ID del usuario.';
       this.loading = false;
       return;
     }
 
-    this.appointmentService
-      .getAppointments({ professional_id: professionalId, date_appointments: this.today })
-      .subscribe({
-        next: (data) => {
-          this.todayAppointments = data;
-          this.loading = false;
-        },
-        error: () => {
-          this.error = 'Error al cargar las reservas de hoy.';
+    this.professionalService.getProfessionalByIdUser(Number(user_id)).subscribe({
+      next: (professional) => {
+        if (professional && professional.id_professionals) {
+          const professionalId = professional.id_professionals;
+          localStorage.setItem('professional_id', professionalId.toString());
+          this.dentistName = localStorage.getItem('user_name');
+
+          // ✅ Ahora sí, usamos el ID correctamente
+          this.appointmentService
+            .getAppointments({ professional_id: professionalId, date_appointments: this.today })
+            .subscribe({
+              next: (data) => {
+                this.todayAppointments = data;
+                this.loading = false;
+              },
+              error: () => {
+                this.error = 'Error al cargar las reservas de hoy.';
+                this.loading = false;
+              }
+            });
+
+          this.appointmentService.getPatients().subscribe({
+            next: (patients) => {
+              this.patients = patients;
+            },
+            error: () => {
+              this.error = 'Error al cargar los pacientes.';
+              this.loading = false;
+            }
+          });
+        } else {
+          this.error = 'No se pudo obtener el ID del profesional.';
           this.loading = false;
         }
-      });
-       // Fetch patients and store in component property
-    this.appointmentService.getPatients().subscribe({
-      next: (patients) => {
-        this.patients = patients;
       },
       error: () => {
-        this.error = 'Error al cargar los pacientes.';
+        this.error = 'Error al buscar profesional asociado al usuario.';
         this.loading = false;
       }
     });
   }
+
 
   formatHour(date: string): string {
     return dayjs(date).format('HH:mm');

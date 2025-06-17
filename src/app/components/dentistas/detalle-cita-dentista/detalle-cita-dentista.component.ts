@@ -21,7 +21,6 @@ export class DetalleCitaDentistaComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private appointmentService: AppointmentsService
-    private appointmentService: AppointmentsService
   ) {}
 
   ngOnInit(): void {
