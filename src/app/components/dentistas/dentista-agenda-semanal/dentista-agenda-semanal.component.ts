@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import dayjs from 'dayjs';
+import { AppointmentsService } from '../../../service/appointment/appointments.service';
 
 @Component({
   selector: 'app-dentista-agenda-semanal',
@@ -16,7 +17,7 @@ export class DentistaAgendaSemanalComponent implements OnInit {
   error = '';
 
   constructor(
-    private appointmentService: AppointmentService,
+    private appointmentService: AppointmentsService,
     private authService: AuthService
   ) {}
 

@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import dayjs from 'dayjs';
+import { AppointmentsService } from '../../../service/appointment/appointments.service';
 
 @Component({
   selector: 'app-detalle-cita-dentista',
@@ -18,7 +19,7 @@ export class DetalleCitaDentistaComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private appointmentService: AppointmentService
+    private appointmentService: AppointmentsService
   ) {}
 
   ngOnInit(): void {

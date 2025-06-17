@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import dayjs from 'dayjs';
+import * as dayjsLib from 'dayjs';
+import { AvailabitlityService } from '../../../service/availability/availabitlity.service';
+const dayjs = dayjsLib.default;
 
 @Component({
   selector: 'app-consulta-disponibilidades-dentista',
@@ -15,7 +17,7 @@ export class ConsultaDisponibilidadesDentistaComponent implements OnInit {
   filtroPeriodo = 'todos';
   loading = true;
 
-  constructor(private availabilityService: AvailabilityService) {}
+  constructor(private availabilityService: AvailabitlityService,private authService: AuthService) {}
 
   ngOnInit(): void {
     this.cargarDisponibilidades();

@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import dayjs from 'dayjs';
+import { AppointmentsService } from '../../../service/appointment/appointments.service';
 
 @Component({
   selector: 'app-historial-citas-dentista',
@@ -15,7 +16,7 @@ export class HistorialCitasDentistaComponent implements OnInit {
   error = '';
   loading = true;
 
-  constructor(private appointmentService: AppointmentService) {}
+  constructor(private appointmentService: AppointmentsService) {}
 
   ngOnInit(): void {
     this.cargarHistorial();
