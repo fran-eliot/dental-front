@@ -1,12 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Appointment } from '../../../model/Appoinment';
 import * as dayjsLib from 'dayjs';
 const dayjs = dayjsLib.default;
-import { AppointmentsService } from '../../../service/appointment/appointments.service';
 import { Appointment } from '../../../model/Appoinment';
-import * as dayjsLib from 'dayjs';
-const dayjs = dayjsLib.default;
 import { AppointmentsService } from '../../../service/appointment/appointments.service';
 
 @Component({
@@ -32,7 +28,7 @@ export class DentistDashboardComponent implements OnInit {
    ngOnInit(): void {
     // const professional = this.authService.getCurrentUser(); // o similar según tu auth
     // const professionalId = professional?.id;
-    const professionalId:number = Number(localStorage.getItem('professionalId'));
+    const professionalId:number = Number(localStorage.getItem('user_id'));
 
     if (!professionalId) {
       this.error = 'No se pudo obtener el ID del profesional.';

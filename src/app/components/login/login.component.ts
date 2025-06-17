@@ -36,6 +36,7 @@ export class LoginComponent {
         //me guarda el token de acceso de sesion desde el back y tb el role
         localStorage.setItem('access_token', token);
         //localStorage.setItem('user_role', rol);
+        localStorage.setItem('user_id', userId);
 
         //Depende del role me redirige a una ruta u otra
         switch (rol) {
@@ -43,7 +44,7 @@ export class LoginComponent {
             this.router.navigate(['/admin']);
             break;
           case 'dentista':
-            this.router.navigate(['']);
+            this.router.navigate(['/dentista']);
             break;
           default:
             this.router.navigate(['']); // ruta por defecto

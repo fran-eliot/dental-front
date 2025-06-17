@@ -28,7 +28,7 @@ export class ConsultaDisponibilidadesDentistaComponent implements OnInit {
   }
 
   cargarDisponibilidades(): void {
-    const professionalId:number = Number(localStorage.getItem('professionalId'));
+    const professionalId:number = Number(localStorage.getItem('user_id'));
 
     if (!professionalId) {
       this.error = 'No se pudo obtener el ID del profesional.';
