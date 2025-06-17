@@ -19,6 +19,8 @@ import { TreatmentsComponent } from './components/treatments/treatments.componen
 import { AppointmentsDashboardComponent } from './views/appointments-dashboard/appointments-dashboard/appointments-dashboard.component';
 import { DisponibilidadesMensualesComponent } from './components/disponibilidades/disponibilidades-mensuales/disponibilidades-mensuales.component';
 import { TreatmentsDashboardComponent } from './views/treatments-dashboard/treatments-dashboard/treatments-dashboard.component';
+import { authGuard } from './auth.guard';
+import { roleGuard } from './role.guard';
 
 
 export const routes: Routes = [
@@ -31,45 +33,38 @@ export const routes: Routes = [
     component: LoginComponent
   },
   {
-    //proteger rutas?
+    //rutas protegidas
     path:'admin',
+    canActivate: [authGuard, roleGuard],
+    data: { roles: ['admin'] },
     component: AdminComponent,
     children: [
       {
         path: '',
         redirectTo: 'appointments-dashboard',
-        pathMatch: 'full'  // muy importante para que redirija solo si el path es exacto
+        pathMatch: 'full'  // para que redirija solo si el path es exacto
       },
       {
         path: 'appointments-dashboard',
         component: AppointmentsDashboardComponent,
-        children: [
-        ]
       },
       {
         path: 'tratamientos',
         component: TreatmentsDashboardComponent,
-        children: [
-        ]
       },
       {
         path: 'dentistas',
         component: ProfessionalsComponent,
-        /*children: [
-          { path: 'registrar', component: RegisterComponent },
-          { path: 'editar', component: UpdateProfessionalsComponent },
-          { path: 'editarPassword', component: UsersComponent }
-        ]*/
       },
       {
         path: 'pacientes',
-        component: PatientsComponent // Si tienes este componente definido
+        component: PatientsComponent
       },
       {
         path: 'disponibilidades',
         component: DisponibilidadesDashboardComponent,
         children: [
-          { path: '', component: SelectorDisponibilidadesComponent }, // o cualquier otro selector
+          { path: '', component: SelectorDisponibilidadesComponent },
           { path: ':id/:date', component: ListaDisponibilidadesComponent },
           { path: 'generar', component: GeneradorDisponibilidadesComponent },
           { path: 'genera-mes', component: DisponibilidadesMensualesComponent},
@@ -89,29 +84,10 @@ export const routes: Routes = [
     ]
   },
   {
-
     path:'appointments',
+    canActivate: [authGuard, roleGuard],
+    data: { roles: ['admin'] },
     component: AppointmentsComponent
-  },
-  /*{
-    path: 'disponibilidades',
-    component: DisponibilidadesDashboardComponent,
-    children: [
-      { path: '', component: SelectorDisponibilidadesComponent }, // o cualquier otro selector
-      { path: ':id/:date', component: ListaDisponibilidadesComponent },
-      { path: 'generar', component: GeneradorDisponibilidadesComponent },
-      { path: 'limpiar', component: LimpiezaDisponibilidadesComponent }
-    ]
-  },
-
-  {
-    path: 'dashboard/disponibilidades/consulta',
-    component: ConsultaDisponibilidadesComponent
-  },
-  {
-    path: 'dashboard/slots-libres/consulta',
-    component: SlotsLibresComponent
-  }*/
-
+  }
 ];
 
