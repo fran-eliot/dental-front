@@ -18,19 +18,23 @@
     <thead>
       <tr>
         <th>Fecha</th>
-        <th>Hora de inicio</th>
-        <th>Hora de fin</th>
+        <th>Hora</th>
         <th>Periodo</th>
         <th>Estado</th>
+        <th>Cambiar Estado</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let d of filtrarDisponibilidades()">
         <td>{{ formatDate(d.date) }}</td>
-        <td>{{ formatHour(d.slot.startTime) }}</td>
-        <td>{{ formatHour(d.slot.endTime) }}</td>
+        <td>{{ formatHour(d.slot.startTime) }} - {{ formatHour(d.slot.endTime) }}</td>
         <td>{{ d.slot.period }}</td>
         <td>{{ d.status }}</td>
+        <td>
+          <select [value]="d.status" (change)="updateStatus(d.id, $any($event.target).value)">
+            <option *ngFor="let status of statusValues" [value]="status">{{ status }}</option>
+          </select>
+        </td>
       </tr>
     </tbody>
   </table>

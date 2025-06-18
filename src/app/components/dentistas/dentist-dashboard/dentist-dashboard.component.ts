@@ -4,7 +4,7 @@ import * as dayjsLib from 'dayjs';
 const dayjs = dayjsLib.default;
 import { Appointment } from '../../../model/Appoinment';
 import { AppointmentsService } from '../../../service/appointment/appointments.service';
-import { Router } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { ProfessionalService } from '../../../service/professional/professional.service';
 
 @Component({
@@ -48,8 +48,13 @@ export class DentistDashboardComponent implements OnInit {
       next: (professional) => {
         if (professional && professional.id_professionals) {
           const professionalId = professional.id_professionals;
+          const dentistName = professional.name_professionals+" "+professional.last_name_professionals || 'Dentista Desconocido';
+          console.log('Professional ID:', professionalId);
+          console.log('DentistName:', dentistName);
           localStorage.setItem('professional_id', professionalId.toString());
-          this.dentistName = localStorage.getItem('user_name');
+          localStorage.setItem('fullName', dentistName);
+          this.dentistName = dentistName;
+          this.loading = true; // Iniciar el loading antes de hacer la solicitud
 
           // ✅ Ahora sí, usamos el ID correctamente
           this.appointmentService

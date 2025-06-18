@@ -4,6 +4,7 @@ import * as dayjsLib from 'dayjs';
 import { AvailabitlityService } from '../../../service/availability/availabitlity.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Status } from '../../../model/Status';
 
 const dayjs = dayjsLib.default;
 
@@ -21,6 +22,7 @@ export class ConsultaDisponibilidadesDentistaComponent implements OnInit {
   filtroPeriodo = 'todos';
   loading = true;
   fechaSeleccionada: string = dayjs().format('YYYY-MM-DD');
+  statusValues = Object.values(Status);
 
   constructor(private availabilityService: AvailabitlityService) {}
 
@@ -29,7 +31,7 @@ export class ConsultaDisponibilidadesDentistaComponent implements OnInit {
   }
 
   cargarDisponibilidades(): void {
-    const professionalId: number = Number(localStorage.getItem('user_id'));
+    const professionalId: number = Number(localStorage.getItem('professional_id'));
 
     if (!professionalId) {
       this.error = 'No se pudo obtener el ID del profesional.';
@@ -65,7 +67,19 @@ export class ConsultaDisponibilidadesDentistaComponent implements OnInit {
     return dayjs(date).format('DD/MM/YYYY');
   }
 
-  formatHour(date: string): string {
-    return dayjs(date).format('HH:mm');
+  formatHour(time: string): string {
+    return time.slice(0, 5); // "09:00:00" => "09:00"
+  }
+
+  updateStatus(id: number, status: Status) {
+    this.availabilityService.updateStatus(id, status)
+      .subscribe({
+        next: () => {
+          const availability = this.disponibilidades.find(a => a.id === id);
+          if (availability) availability.status = status;
+          alert('Estado actualizado correctamente');
+        },
+        error: () => alert('Error al actualizar estado')
+      });
   }
 }
