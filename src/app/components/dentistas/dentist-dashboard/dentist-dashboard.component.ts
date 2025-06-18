@@ -16,7 +16,7 @@ import { ProfessionalService } from '../../../service/professional/professional.
 })
 
 export class DentistDashboardComponent implements OnInit {
-  dentistName = ''; 
+  dentistName = '';
   todayAppointments: Appointment[] = [];
   loading:boolean = true;
   error = '';

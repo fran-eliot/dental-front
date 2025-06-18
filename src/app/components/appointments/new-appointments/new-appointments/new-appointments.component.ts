@@ -11,9 +11,6 @@ import { Appointment } from '../../../../model/Appoinment';
 import { HistoricalAppointmentsModalComponent } from '../../historical-appointments/historical-appointments-modal/historical-appointments-modal.component';
 import { NewPatientsComponent } from '../../../patients/new-patients/new-patients.component';
 
-
-
-
 @Component({
   selector: 'app-new-appointments',
   standalone: true,
