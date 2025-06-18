@@ -12,6 +12,7 @@ html, body {
   width: 100%;
   box-sizing: border-box;
   overflow: hidden;
+  background-color: transparent;
 }
 
 /* Wrapper de navegación (header fijo) */

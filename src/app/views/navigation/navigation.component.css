@@ -2,6 +2,7 @@
   display: grid;
   grid-template-columns: 1fr 5fr;
   align-items: center;
+  background-color: transparent;
 }
 
 .logo-wrapper-navigation{

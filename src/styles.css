@@ -2,6 +2,10 @@
 
 body {
   font-family: 'Roboto', sans-serif;
+  background-image:url('assets/imagenApp.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 :root {
