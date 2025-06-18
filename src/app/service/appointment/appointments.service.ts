@@ -57,10 +57,10 @@ export class AppointmentsService {
   }
 
   getAppointmentsByDates(filters: {professional_id: number, start_date: string, end_date: string}): Observable<any[]> {
-    const params: any = {};
+    let params: any = {};
 
     if (filters.professional_id) {
-      params.professional_id = filters.professional_id.toString();
+      params = params.set('professional_id', filters.professional_id.toString());
     }
     if (filters.start_date) {
       params.start_date = filters.start_date;

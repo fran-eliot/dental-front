@@ -29,8 +29,6 @@ import { authGuard } from './auth.guard';
 import { roleGuard } from './role.guard';
 import { PatientsDashboardComponent } from './views/patients-dashboard/patients-dashboard.component';
 
-
-
 export const routes: Routes = [
   {
     path:'',
@@ -108,7 +106,6 @@ export const routes: Routes = [
       { path: 'disponibilidades', component: ConsultaDisponibilidadesDentistaComponent },
     ]
   },
-
 
   /*{
     path: 'disponibilidades',
