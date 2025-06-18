@@ -1,1 +1,119 @@
-<p>patients works!</p>
+<div class="main-patients-container">
+  <div class="search-box">
+    <input
+      type="text"
+      [formControl]="searchControl"
+      (focus)="onFocus()"
+      (blur)="closeDropdownWithDelay()"
+      placeholder="Buscar paciente por nombre, apellido o email"
+      autocomplete="off"
+    />
+    <ul *ngIf="showDropdown" class="dropdown">
+      <li
+        *ngFor="let patient of filteredPatients"
+        (mousedown)="selectPatient(patient)"
+        tabindex="0"
+      >
+        {{ patient.name_patients }} {{ patient.last_name_patients }} - {{ patient.email_patients }}
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="selectedPatient" class="patient-details">
+    <h3>Datos del paciente</h3>
+
+    <div *ngIf="!isEditing; else editMode">
+      <table>
+        <tr><th>NIF</th><td>{{ selectedPatient.nif_patients || 'No disponible' }}</td></tr>
+        <tr><th>Nombre</th><td>{{ selectedPatient.name_patients }}</td></tr>
+        <tr><th>Apellido</th><td>{{ selectedPatient.last_name_patients }}</td></tr>
+        <tr><th>Email</th><td>{{ selectedPatient.email_patients }}</td></tr>
+        <tr><th>Teléfono</th><td>{{ selectedPatient.phone_patients }}</td></tr>
+        <tr><th>Activo</th><td>{{ selectedPatient.is_active_patients ? 'Sí' : 'No' }}</td></tr>
+      </table>
+
+      <button class="edit-button" (click)="startEditing()">Editar paciente</button>
+    </div>
+
+    <ng-template #editMode>
+      <form (ngSubmit)="submitUpdate()">
+        <table>
+          <tr>
+            <th>NIF</th>
+            <td>
+              <input
+                type="text"
+                [(ngModel)]="editPatientData.nif_patients"
+                name="nif"
+                required
+                minlength="9"
+                maxlength="9"
+                pattern="^[0-9]{8}[A-Z]$"
+              />
+            </td>
+          </tr>
+          <tr>
+            <th>Nombre</th>
+            <td>
+              <input
+                type="text"
+                [(ngModel)]="editPatientData.name_patients"
+                name="name"
+                required
+              />
+            </td>
+          </tr>
+          <tr>
+            <th>Apellido</th>
+            <td>
+              <input
+                type="text"
+                [(ngModel)]="editPatientData.last_name_patients"
+                name="lastname"
+                required
+              />
+            </td>
+          </tr>
+          <tr>
+            <th>Email</th>
+            <td>
+              <input
+                type="email"
+                [(ngModel)]="editPatientData.email_patients"
+                name="email"
+                required
+              />
+            </td>
+          </tr>
+          <tr>
+            <th>Teléfono</th>
+            <td>
+              <input
+                type="text"
+                [(ngModel)]="editPatientData.phone_patients"
+                name="phone"
+                required
+                pattern="^[6789]\d{8}$"
+              />
+            </td>
+          </tr>
+          <tr>
+            <th>Activo</th>
+            <td>
+              <input
+                type="checkbox"
+                [(ngModel)]="editPatientData.is_active_patients"
+                name="isActive"
+              />
+            </td>
+          </tr>
+        </table>
+
+        <div class="button-group">
+          <button type="submit" class="edit-button">Guardar</button>
+          <button type="button" (click)="cancelEditing()" class="cancel-button">Cancelar</button>
+        </div>
+      </form>
+    </ng-template>
+  </div>
+</div>

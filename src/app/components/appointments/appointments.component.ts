@@ -24,6 +24,19 @@ export class AppointmentsComponent implements OnInit {
   profesionalIdSeleccionado: number = 0;
   fechaSeleccionada: string = '';
 
+  //Variables para actualizar status y el motivo
+  updateForm: FormGroup;
+  updateLoading = false;
+  updateErrorMsg = '';
+  updateSuccessMsg = '';
+  showUpdateModal = false;
+  selectedAppointmentId: number | null = null;
+
+  //Variables para paginación
+  totalAppointments: number = 0;
+  currentPage: number = 1;
+  pageSize: number = 10;
+
   constructor(
     private fb: FormBuilder,
     private appointmentsService: AppointmentsService,
@@ -34,6 +47,11 @@ export class AppointmentsComponent implements OnInit {
       turno: [''], // mañana, tarde, vacío (todos)
       patient_name: [''],
       status_appointments: ['']
+    });
+    // Formulario para actualizar estado y motivo cancelación
+    this.updateForm = this.fb.group({
+      status_appointments: ['', Validators.required],
+      cancellation_reason_appointments: ['']
     });
   }
 
@@ -63,15 +81,43 @@ export class AppointmentsComponent implements OnInit {
     );
   }
 
-  getAppointments() {
-    this.errorMsg = '';
+  //Para la paginación
+  totalPages(): number {
+    return Math.ceil(this.totalAppointments / this.pageSize);
+  }
+
+  changePage(page: number) {
+    if (page < 1 || page > this.totalPages()) {
+      return;
+    }
+    this.currentPage = page;
 
     const filters = this.filterForm.value;
+    filters.page = this.currentPage;
+    filters.pageSize = this.pageSize;
 
+    this.getAppointments(filters);
+  }
+
+  //Traer las reservas
+  getAppointments(filters?: any) {
+    this.errorMsg = '';
     this.loading = true;
+
+    if (!filters) {
+      filters = this.filterForm.value;
+      filters.page = this.currentPage;
+      filters.pageSize = this.pageSize;
+    }
+    
     this.appointmentsService.getAppointments(filters).subscribe({
       next: (res) => {
-        this.appointments = res;
+        //añade una propiedad isCancelled: true/false a cada reserva, para bloquearla
+        this.appointments = res.data.map(app => ({
+          ...app,
+          isCancelled: app.estado?.toLowerCase() === 'cancelada',
+          isCompleted: app.estado?.toLowerCase() === 'realizada',
+        }));
 
         // Aplicar filtro local por paciente si existe
         const pacienteFiltro = filters.patient_name?.toLowerCase().trim();
@@ -85,6 +131,11 @@ export class AppointmentsComponent implements OnInit {
 
         // Luego filtrar por turno si quieres
         this.filterByPeriod();
+
+        // Guarda datos para paginación (si usas)
+        this.totalAppointments = res.total;
+        this.currentPage = res.page;
+        this.pageSize = res.pageSize;
 
         this.loading = false;
       },
@@ -141,5 +192,52 @@ export class AppointmentsComponent implements OnInit {
 
   closeModalAvailabilities() {
     this.showModal = false;
+  }
+
+  // abrir modal para actualizar estado y motivo cancelación
+  openUpdateStatusModal(appointment: any) {
+    console.log('Objeto appointment recibido:', appointment);
+
+    this.selectedAppointmentId = appointment.id_reserva;
+    console.log("id_appointent", this.selectedAppointmentId);
+
+    this.updateForm.patchValue({
+      status_appointments: appointment.estado || '',
+      cancellation_reason_appointments: appointment.cancellation_reason_appointments || ''
+    });
+
+    this.showUpdateModal = true;
+  }
+
+  // actualizar estado y motivo cancelación
+  updateAppointmentStatus() {
+    if (!this.selectedAppointmentId) {
+      this.updateErrorMsg = 'No se ha seleccionado una reserva.';
+      return;
+    }
+
+    if (this.updateForm.invalid) {
+      this.updateErrorMsg = 'Por favor, completa el estado.';
+      return;
+    }
+
+    this.updateLoading = true;
+    this.updateErrorMsg = '';
+    this.updateSuccessMsg = '';
+
+    this.appointmentsService.updateAppointmentStatus(this.selectedAppointmentId, this.updateForm.value).subscribe({
+      next: (res) => {
+        this.updateSuccessMsg = 'Reserva actualizada correctamente.';
+        this.updateLoading = false;
+        this.showUpdateModal = false;
+
+        // Refrescar la lista para ver cambios
+        this.getAppointments();
+      },
+      error: (err) => {
+        this.updateErrorMsg = 'Error actualizando la reserva. Intenta de nuevo.';
+        this.updateLoading = false;
+      }
+    });
   }
 }

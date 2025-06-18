@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Professional } from '../../model/Professional';
@@ -6,6 +6,7 @@ import { Appointment } from '../../model/Appoinment';
 import { Patient } from '../../model/Patient';
 import { Treatment } from '../../model/Treatment';
 import { Slot } from '../../model/Slot';
+import { PaginatedAppointment } from '../../model/PaginatedAppointment';
 
 @Injectable({
   providedIn: 'root'
@@ -36,17 +37,23 @@ export class AppointmentsService {
   }
 
   //metodo para traer las reservas
-  getAppointments(filters: {professional_id: number, date_appointments: string}): Observable<any[]> {
-    const params: any = {};
+  getAppointments(filters: {professional_id?: number, date_appointments?: string, page?: number, pageSize?: number}): Observable<PaginatedAppointment> {
+    let params = new HttpParams();
 
     if (filters.professional_id) {
-      params.professional_id = filters.professional_id.toString();
+      params = params.set('professional_id', filters.professional_id.toString());
     }
     if (filters.date_appointments) {
-      params.date_appointments = filters.date_appointments;
+      params = params.set('date_appointments', filters.date_appointments);
+    }
+    if (filters.page) {
+      params = params.set('page', filters.page.toString());
+    }
+    if (filters.pageSize) {
+      params = params.set('pageSize', filters.pageSize.toString());
     }
 
-    return this.http.get<any[]>(`${this.apiUrlAppointments}/reservas`, { params });
+    return this.http.get<PaginatedAppointment>(`${this.apiUrlAppointments}/reservas`, { params });
   }
 
   getAppointmentsByDates(filters: {professional_id: number, start_date: string, end_date: string}): Observable<any[]> {
@@ -81,5 +88,15 @@ export class AppointmentsService {
   //Todas las reserva del historial filtradas por paciente
   getAllAppointementsByPatient(patients_id:string):Observable<any>{
     return this.http.get<any>(`${this.apiUrlAppointments}/history/${patients_id}`);
+  }
+
+  //Actualizamos el status y el motivo de las reservas
+  updateAppointmentStatus(id_appointments: number, updateData: { status_appointments: string, cancellation_reason_appointments?: string }): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.patch<any>(
+      `${this.apiUrlAppointments}/actualizar-estado/${id_appointments}`,
+      updateData,
+      { headers }
+    );
   }
 }

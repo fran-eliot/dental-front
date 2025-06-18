@@ -13,14 +13,15 @@
         </option>
       </select>
     </label>
-
-    <label>
-      Fecha
-      <input type="date" formControlName="date_appointments" />
-    </label>
-
-    <!-- ✅ Botón para abrir modal con disponibilidades -->
-    <button type="button" (click)="openModalAvailabilities()">📅 Ver Disponibilidades</button>
+    <div class="date_availabilities">
+      <label>
+        Fecha
+        <input type="date" formControlName="date_appointments" />
+      </label>
+      <button type="button" class="calendar-button" (click)="openModalAvailabilities()" title="Disponibilidad">
+        <i class="fa-solid fa-calendar-days"></i>
+      </button>
+    </div>
 
     <label>
       Turno
@@ -66,14 +67,48 @@
     </thead>
     <tbody>
       <ng-container *ngFor="let app of appointmentsFiltradas">
-        <tr>
+        <tr [ngClass]="{
+          'pending-status': app.estado === 'pendiente',
+          'cancelled': app.isCancelled,
+          'completed': app.isCompleted
+        }">
           <td>{{ app.paciente }}</td>
           <td>{{ app.profesional }}</td>
           <td>{{ app.fecha_cita }}</td>
           <td>{{ app.hora_inicio }}</td>
-          <td>{{ app.estado }}</td>
           <td>
-            <button type="button" (click)="toggleDetalle(app)">🔍 Detalles</button>
+            <ng-container [ngSwitch]="app.estado">
+              <span *ngSwitchCase="'pendiente'">
+                <i class="fa-solid fa-clock" style="color: #ffc107; margin-right: 6px;" title="Pendiente"></i>
+                Pendiente
+              </span>
+              <span *ngSwitchCase="'confirmada'">
+                <i class="fa-solid fa-circle-check" style="color: green; margin-right: 6px;" title="Confirmada"></i>
+                Confirmada
+              </span>
+              <span *ngSwitchCase="'cancelada'">
+                <i class="fa-solid fa-ban" style="color: #f55454; margin-right: 6px;" title="Cancelada"></i>
+                Cancelada
+              </span>
+              <span *ngSwitchCase="'realizada'">
+                <i class="fa-solid fa-circle-check" style="color: #123089; margin-right: 6px;" title="Realizada"></i>
+                Realizada
+              </span>
+              <span *ngSwitchDefault>
+                {{ app.estado }}
+              </span>
+            </ng-container>
+          </td>
+          <td>
+            <button type="button" (click)="toggleDetalle(app)" title="Detalles reserva">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+            <button
+              (click)="openUpdateStatusModal(app)"
+              [disabled]="app.isCancelled || app.isCompleted"
+              [title]="app.isCancelled ? 'Reserva cancelada, no modificable' : app.isCompleted ? 'Reserva realizada, no modificable' : 'Actualizar estado'">
+              <i class="fa-solid fa-user-pen"></i>
+            </button>
           </td>
         </tr>
         <tr *ngIf="app.mostrarDetalle" class="detalle-row">
@@ -81,7 +116,7 @@
             <strong>Tratamiento:</strong> {{ app.tratamiento }}<br />
             <strong>Hora fin:</strong> {{ app.hora_fin }}<br />
             <strong>Duración:</strong> {{ app.duracion }} min<br />
-            <strong>Motivo cancelación:</strong> {{ app.motivo_cancelacion || '-' }}
+            <strong>Motivo:</strong> {{ app.motivo_cancelacion || '-' }}
           </td>
         </tr>
       </ng-container>
@@ -90,14 +125,65 @@
 
   <div *ngIf="!appointments.length && !loading" class="loading">No hay reservas para esta selección.</div>
 
-  <!-- Modal simple (inline) -->
+  <div class="pagination" *ngIf="totalAppointments > pageSize">
+    <button (click)="changePage(1)" [disabled]="currentPage === 1" title="Primera página">
+      <i class="fa-solid fa-angles-left"></i>
+    </button>
+
+    <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1" title="Página anterior">
+      <i class="fa-solid fa-angle-left"></i>
+    </button>
+
+    <span>Página {{ currentPage }} de {{ totalPages() }}</span>
+
+    <button (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages()" title="Página siguiente">
+      <i class="fa-solid fa-angle-right"></i>
+    </button>
+
+    <button (click)="changePage(totalPages())" [disabled]="currentPage === totalPages()" title="Última página">
+      <i class="fa-solid fa-angles-right"></i>
+    </button>
+  </div>
+  <!-- Modal disponibilidades -->
   <div *ngIf="showModal" class="modal-backdrop">
     <div class="modal-content">
-      <button (click)="closeModalAvailabilities()">✖ Cerrar</button>
+      <div class="modal-close-left">
+        <button (click)="closeModalAvailabilities()" class="close-btn">✖</button>
+      </div>
       <app-lista-disponibilidades
         [professionalId]="profesionalIdSeleccionado"
         [date]="fechaSeleccionada"
       ></app-lista-disponibilidades>
+    </div>
+  </div>
+  <!-- Modal para actualizar estado y motivo -->
+  <div *ngIf="showUpdateModal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-close-left">
+        <button type="button" (click)="showUpdateModal = false" class="close-btn">✖</button>
+      </div>
+      <h3>Actualizar estado de reserva</h3>
+      <form [formGroup]="updateForm" (ngSubmit)="updateAppointmentStatus()">
+        <div class="form-modal">
+          <label for="status">Estado</label>
+          <select formControlName="status_appointments" required>
+            <option value="pendiente">Pendiente</option>
+            <option value="confirmada">Confirmada</option>
+            <option value="cancelada">Cancelada</option>
+            <option value="realizada">Realizada</option>
+          </select>
+        </div>
+        <div class="form-modal">
+          <label for="reason">Motivo cancelación (opcional)</label>
+          <textarea formControlName="cancellation_reason_appointments" rows="3"></textarea>
+        </div>
+        <div class="modal-buttons">
+          <button type="submit" [disabled]="updateLoading">Guardar</button>
+        </div>
+
+        <p class="error" *ngIf="updateErrorMsg">{{ updateErrorMsg }}</p>
+        <p class="success" *ngIf="updateSuccessMsg">{{ updateSuccessMsg }}</p>
+      </form>
     </div>
   </div>
 </div>

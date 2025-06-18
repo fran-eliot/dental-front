@@ -29,7 +29,7 @@ export class NewAppointmentsComponent implements OnInit {
   availableSlot: Slot[] = [];
   showDropdown = false;
   patientSearchControl = new FormControl('');
-  filteredPatients: any[] = [];
+  filteredPatients: Patient[] = [];
   selectedPatient: any;
   historicalData: any[] = [];
   successMessage: string = '';
@@ -70,8 +70,9 @@ export class NewAppointmentsComponent implements OnInit {
   }
 
   loadPatients(): void {
-    this.appointmentService.getPatients().subscribe((data: Patient[]) => {
-      this.patients = data;
+    this.appointmentService.getPatients().subscribe((response: any) => {
+      console.log('Pacientes recibidos:', response.data);
+      this.patients = response.data;
       this.filteredPatients = [...this.patients];
     });
   }
@@ -89,7 +90,8 @@ export class NewAppointmentsComponent implements OnInit {
     }
 
     this.filteredPatients = this.patients.filter(p =>
-      (`${p.name_patients} ${p.last_name_patients}`).toLowerCase().includes(term)
+      (`${p.name_patients} ${p.last_name_patients}`.toLowerCase().includes(term)) ||
+      (p.email_patients?.toLowerCase().includes(term))
     );
 
     this.showDropdown = this.filteredPatients.length > 0;
