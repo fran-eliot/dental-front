@@ -3,6 +3,9 @@ import { Patient } from '../../../model/Patient';
 import { PatientService } from '../../../service/patient/patient.service';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Output, EventEmitter } from '@angular/core';
+
 
 @Component({
   selector: 'app-new-patients',
@@ -12,13 +15,17 @@ import { CommonModule } from '@angular/common';
   styleUrl: './new-patients.component.css'
 })
 export class NewPatientsComponent implements OnInit {
+  @Output() patientCreated = new EventEmitter<Patient>();
+  @Output() cancel = new EventEmitter<void>();
+
   newPatientForm!: FormGroup;
   successMessage = '';
   errorMessage = '';
 
   constructor(
     private fb: FormBuilder,
-    private patientService: PatientService
+    private patientService: PatientService,
+    private dialogRef: MatDialogRef<NewPatientsComponent>
   ) {}
 
   ngOnInit(): void {
@@ -52,26 +59,25 @@ export class NewPatientsComponent implements OnInit {
     if (patient.phone_patients) {
       const phoneRegex = /^[6789]\d{8}$/;
       if (!phoneRegex.test(patient.phone_patients)) {
-        this.errorMessage = 'Teléfono inválido. Debe tener 9 dígitos y comenzar por 6,7,8 o 9.';
+        this.errorMessage = 'Teléfono inválido. Debe tener 9 dígitos y comenzar por 6, 7, 8 o 9.';
         this.successMessage = '';
         return;
       }
     }
 
-    // Limpiar campos vacíos o nulos para que no los envíe al backend
+    // Limpiar campos vacíos o nulos
     Object.keys(patient).forEach(key => {
       if (patient[key] === '' || patient[key] === null || patient[key] === undefined) {
         delete patient[key];
       }
     });
-    
-    console.log('Datos a enviar:', patient);
 
     this.patientService.createPatient(patient).subscribe({
       next: (response) => {
         this.successMessage = 'Paciente creado correctamente.';
         this.errorMessage = '';
         this.newPatientForm.reset({ is_active_patients: true });
+        this.patientCreated.emit(response);
       },
       error: (error) => {
         this.errorMessage = 'Error al crear paciente.';
@@ -80,6 +86,7 @@ export class NewPatientsComponent implements OnInit {
       }
     });
   }
+
     /*createPatient(patient:Patient): void {
       this.patientService.createPatient(patient).subscribe({
         next: (response) => {

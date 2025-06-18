@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ListaDisponibilidadesComponent } from '../disponibilidades/lista-disponibilidades/lista-disponibilidades.component';
 
+
 @Component({
   selector: 'app-appointments',
   standalone: true,
@@ -14,6 +15,7 @@ import { ListaDisponibilidadesComponent } from '../disponibilidades/lista-dispon
   styleUrls: ['./appointments.component.css']
 })
 export class AppointmentsComponent implements OnInit {
+
   filterForm: FormGroup;
   appointments: any[] = [];
   appointmentsFiltradas: any[] = [];
@@ -109,7 +111,7 @@ export class AppointmentsComponent implements OnInit {
       filters.page = this.currentPage;
       filters.pageSize = this.pageSize;
     }
-    
+
     this.appointmentsService.getAppointments(filters).subscribe({
       next: (res) => {
         //añade una propiedad isCancelled: true/false a cada reserva, para bloquearla

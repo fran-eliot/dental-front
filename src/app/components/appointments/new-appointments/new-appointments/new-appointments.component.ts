@@ -1,22 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AppointmentsService } from '../../../../service/appointment/appointments.service';
-import { Patient } from '../../../../model/Patient';
-import { Treatment } from '../../../../model/Treatment';
-import { Professional} from '../../../../model/Professional';
-import { Appointment} from '../../../../model/Appoinment';
-import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { ProfessionalAvailabitity } from '../../../../model/ProfessionalAvailability';
-import { Slot } from '../../../../model/Slot';
+import { RouterModule } from '@angular/router';import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
+import { Patient } from '../../../../model/Patient';
+import { Professional } from '../../../../model/Professional';
+import { Treatment } from '../../../../model/Treatment';
+import { Slot } from '../../../../model/Slot';
+import { AppointmentsService } from '../../../../service/appointment/appointments.service';
+import { Appointment } from '../../../../model/Appoinment';
 import { HistoricalAppointmentsModalComponent } from '../../historical-appointments/historical-appointments-modal/historical-appointments-modal.component';
+import { NewPatientsComponent } from '../../../patients/new-patients/new-patients.component';
+
+
 
 
 @Component({
   selector: 'app-new-appointments',
   standalone: true,
-  imports: [RouterModule, ReactiveFormsModule, FormsModule, CommonModule],
+  imports: [RouterModule, ReactiveFormsModule, FormsModule, CommonModule, NewPatientsComponent],
   templateUrl: './new-appointments.component.html',
   styleUrls: ['./new-appointments.component.css']
 })
@@ -34,6 +35,7 @@ export class NewAppointmentsComponent implements OnInit {
   historicalData: any[] = [];
   successMessage: string = '';
   errorMessage: string = '';
+  showNewPatientModal = false;
 
   constructor(
     private dialog: MatDialog, //injectar el modal
@@ -70,9 +72,9 @@ export class NewAppointmentsComponent implements OnInit {
   }
 
   loadPatients(): void {
-    this.appointmentService.getPatients().subscribe((response: any) => {
-      console.log('Pacientes recibidos:', response.data);
-      this.patients = response.data;
+    this.appointmentService.getPatients().subscribe((data: Patient[]) => {
+      console.log('Pacientes recibidos:', data);
+      this.patients = data;
       this.filteredPatients = [...this.patients];
     });
   }
@@ -214,4 +216,19 @@ export class NewAppointmentsComponent implements OnInit {
       });
     });
   }
+  //para el modal del nuevo paciente
+  openNewPatientModal(): void {
+    this.showNewPatientModal = true;
+  }
+  closeNewPatientModal(): void {
+    this.showNewPatientModal = false;
+  }
+  handleNewPatient(patient: Patient): void {
+    this.selectedPatient = patient;
+    this.appointmentForm.patchValue({ patient_id: patient.id_patients });
+    this.patientSearchControl.setValue(`${patient.name_patients} ${patient.last_name_patients}`);
+    this.closeNewPatientModal();
+  }
+
+
 }

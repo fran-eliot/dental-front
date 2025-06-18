@@ -6,6 +6,7 @@ import { AppointmentsService } from '../../../service/appointment/appointments.s
 import { Appointment } from '../../../model/Appoinment';
 import { AppointmentResponseDto } from '../../../model/AppointmentResponseDto';
 
+
 @Component({
   selector: 'app-historial-citas-dentista',
   standalone: true,

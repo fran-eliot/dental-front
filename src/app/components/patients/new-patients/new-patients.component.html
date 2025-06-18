@@ -75,6 +75,7 @@
       <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
       <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
     </div>
+    <button type="button" (click)="cancel.emit()">Cancelar</button>
   </form>
 </div>
 
