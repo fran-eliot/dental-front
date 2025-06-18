@@ -1,0 +1,160 @@
+.main-newpatients-container {
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  color: var(--text-color);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+  form {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+  }
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  min-width: 200px;
+}
+
+.form-group label {
+  color: var(--text-color);
+  font-weight: 500;
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+}
+.form-group textarea {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 195, 178, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-color);
+  font-size: 0.9rem;
+  backdrop-filter: blur(5px);
+  transition: all 0.3s ease;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  resize: vertical; /* que solo pueda cambiar la altura */
+}
+
+.form-group textarea:focus {
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: var(--primary-color);
+}
+
+.form-group select,
+.form-group input[type='date'],
+.form-group input[type='text'],
+.form-group input[type='number']
+{
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 195, 178, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-color);
+  font-size: 0.9rem;
+  backdrop-filter: blur(5px);
+  transition: all 0.3s ease;
+}
+
+.form-group select:focus,
+.form-group input[type='date']:focus,
+.form-group input[type='text']:focus {
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: var(--primary-color);
+}
+
+.form-group button {
+  background-color: var(--primary-color);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  align-self: flex-start;
+}
+
+.form-group button:hover {
+  background-color: var(--secondary-color);
+}
+.form-group.full-width {
+  grid-column: span 2;
+}
+.success-message {
+  color: var(--primary-color);
+  margin-top: 8px;
+  font-weight: bold;
+}
+
+.error-message {
+  color: red;
+  margin-top: 8px;
+  font-weight: bold;
+}
+
+
+
+/* Autocomplete styles */
+.autocomplete-container {
+  position: relative;
+}
+.autocomplete-container input[type="text"] {
+  z-index: 2;
+  position: relative;
+}
+
+.autocomplete-results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 200px;
+  overflow-y: auto;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(0, 195, 178, 0.3);
+  border-radius: 8px;
+  margin-top: 4px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  z-index: 3;
+  list-style: none;
+  padding: 0;
+}
+
+.autocomplete-results li {
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-size: 0.9rem;
+  color: #333;
+}
+.autocomplete-results li:hover {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .main-newappointment-container {
+    padding: 20px 10px;
+    margin: 20px 10px;
+  }
+
+  .form-group {
+    min-width: auto;
+  }
+
+  .form-group button {
+    width: 100%;
+    align-self: stretch;
+  }
+}
+

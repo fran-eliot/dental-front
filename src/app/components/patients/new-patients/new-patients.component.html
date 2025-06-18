@@ -1,0 +1,80 @@
+<div class="main-newpatients-container">
+  <form [formGroup]="newPatientForm" (ngSubmit)="submitNewPatient()">
+
+    <!-- NIF -->
+    <div class="form-group">
+      <label for="nif_patients">NIF</label>
+      <input
+        type="text"
+        id="nif_patients"
+        formControlName="nif_patients"
+        placeholder="Ej: 12345678A"
+      />
+    </div>
+
+    <!-- Nombre -->
+    <div class="form-group">
+      <label for="name_patients">Nombre</label>
+      <input
+        type="text"
+        id="name_patients"
+        formControlName="name_patients"
+        placeholder="Nombre del paciente"
+        required
+      />
+    </div>
+
+    <!-- Apellido -->
+    <div class="form-group">
+      <label for="last_name_patients">Apellidos</label>
+      <input
+        type="text"
+        id="last_name_patients"
+        formControlName="last_name_patients"
+        placeholder="Apellidos del paciente"
+        required
+      />
+    </div>
+
+    <!-- Teléfono -->
+    <div class="form-group">
+      <label for="phone_patients">Teléfono</label>
+      <input
+        type="text"
+        id="phone_patients"
+        formControlName="phone_patients"
+        placeholder="Teléfono de contacto"
+        required
+      />
+    </div>
+
+    <!-- Email -->
+    <div class="form-group">
+      <label for="email_patients">Email</label>
+      <input
+        type="text"
+        id="email_patients"
+        formControlName="email_patients"
+        placeholder="correo@ejemplo.com"
+        required
+      />
+    </div>
+
+    <!-- Activo -->
+    <div class="form-group">
+      <label for="is_active_patients">¿Activo?</label>
+      <select id="is_active_patients" formControlName="is_active_patients">
+        <option [value]="true">Sí</option>
+        <option [value]="false">No</option>
+      </select>
+    </div>
+
+    <!-- Botón -->
+    <div class="form-group full-width">
+      <button type="submit">Guardar Paciente</button>
+      <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+      <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+    </div>
+  </form>
+</div>
+

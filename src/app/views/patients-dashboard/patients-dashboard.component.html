@@ -1,0 +1,27 @@
+<div class="main-patients-dashboard-container">
+  <div class="tabs">
+    <button
+      type="button"
+      (click)="selectedTab = 'listado'"
+      [class.active]="selectedTab === 'listado'"
+    >
+      Datos de Pacientes
+    </button>
+    <button
+      type="button"
+      (click)="selectedTab = 'nueva'"
+      [class.active]="selectedTab === 'nueva'"
+    >
+      Nuevo Paciente
+    </button>
+  </div>
+
+  <div class="tab-content" *ngIf="selectedTab === 'listado'">
+    <app-patients></app-patients>
+  </div>
+
+  <div class="tab-content" *ngIf="selectedTab === 'nueva'">
+    <app-new-patients></app-new-patients>
+  </div>
+</div>
+

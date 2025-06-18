@@ -16,6 +16,34 @@
   margin-bottom: 25px;
   color: var(--primary-color);
 }
+.date_availabilities {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.date_availabilities label {
+  display: flex;
+  flex-direction: column;
+}
+
+.calendar-button {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 8px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  height: 41px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calendar-button i {
+  font-size: 16px;
+  color: var(--text-color-light);
+}
+
 
 .filter-form {
   display: grid;
@@ -107,6 +135,22 @@
 .appointments-table tbody tr:hover {
   background-color: rgba(0, 195, 178, 0.07);
 }
+.cancelled {
+  background-color: #e0e0e0 !important;
+  color: #f55454;
+  font-style: italic;
+}
+
+.completed {
+  background-color: #d1e7dd !important;
+  color: #123089;
+  font-weight: bold;
+}
+.pending-status {
+  color: #ffc107;
+  font-weight: bold;
+}
+
 
 .error {
   color: #ffbaba;
@@ -145,7 +189,7 @@
 
 .appointments-table button:hover {
   color: var(--secondary-color);
-  text-decoration: underline;
+  /*text-decoration: underline;*/
 }
 
 /* Estilo para input de búsqueda de paciente */
@@ -167,10 +211,53 @@
   border-color: var(--primary-color);
 }
 
-/* Etiqueta asociada */
+
 .filter-form label.patient-name-label {
   min-width: 100%;
 }
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 14px;
+}
+
+.pagination button {
+  background-color: var(--primary-color);
+  color: var(--text-color-light);
+  border: none;
+  padding: 8px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+}
+
+.pagination button:hover:not(:disabled) {
+  background-color: var(--secondary-color);
+}
+
+.pagination button:disabled {
+  background-color: #ccc;
+  color: #777;
+  cursor: default;
+}
+
+.pagination span {
+  font-weight: 500;
+  color: #333;
+  min-width: 140px;
+  text-align: center;
+}
+
 .modal-backdrop {
   position: fixed;
   top: 0;
@@ -184,16 +271,102 @@
   z-index: 9999;
 }
 
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width:100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.form-modal {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.form-modal label {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.form-modal select,
+.form-modal textarea {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+
 .modal-content {
-  background-color: white;
+  background-color: var(--text-color-light);
   padding: 20px;
   border-radius: 8px;
-  max-height: 90vh;
+  max-height: 80%;
   overflow-y: auto;
   position: relative;
   width: 90%;
   max-width: 700px;
+
 }
+.modal-close-left {
+  display: flex;
+  justify-content: flex-end;
+}
+.close-btn {
+  cursor: pointer;
+  color: var(--primary-color);
+  font-size: x-large;
+  border: none;
+  background-color: transparent;
+}
+.modal-content h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+  text-align: center;
+}
+
+.modal-content label {
+  display: block;
+  margin-top: 1rem;
+  color: var(--text-color);
+}
+
+.modal-content textarea,
+.modal-content select {
+  margin-top: 4px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 195, 178, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-color);
+  font-size: 0.9rem;
+  backdrop-filter: blur(5px);
+  transition: all 0.3s ease;
+}
+.modal-buttons button {
+  background-color: var(--primary-color);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: var(--secondary-color);
+  }
+}
+
 
 /* Adaptación responsive si es necesario */
 @media (max-width: 768px) {
