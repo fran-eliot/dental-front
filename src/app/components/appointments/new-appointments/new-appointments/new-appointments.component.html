@@ -25,6 +25,15 @@
         >
             <i class="fa-solid fa-box-archive"></i>
         </button>
+        <!--Boton que va a nuevo paciente-->
+        <button
+          type="button"
+          (click)="openNewPatientModal()"
+          style="border: none; cursor: pointer;"
+          title="Agregar nuevo paciente"
+        >
+          <i class="fa-solid fa-user-plus"></i>
+        </button>
       </div>
       <ul
         class="autocomplete-results"
@@ -132,4 +141,13 @@
       <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
     </div>
   </form>
+    <!-- Modal nuevo paciente -->
+  <div class="modal-backdrop" *ngIf="showNewPatientModal">
+    <div class="modal-content">
+      <app-new-patients
+        (patientCreated)="handleNewPatient($event)"
+        (cancel)="closeNewPatientModal()">
+      </app-new-patients>
+    </div>
+  </div>
 </div>
