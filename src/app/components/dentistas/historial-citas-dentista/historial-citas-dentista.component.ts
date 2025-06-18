@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import * as dayjsLib from 'dayjs';
 const dayjs = dayjsLib.default;
 import { AppointmentsService } from '../../../service/appointment/appointments.service';
+import { Appointment } from '../../../model/Appoinment';
+import { AppointmentResponseDto } from '../../../model/AppointmentResponseDto';
 
 @Component({
   selector: 'app-historial-citas-dentista',
@@ -13,7 +15,7 @@ import { AppointmentsService } from '../../../service/appointment/appointments.s
 })
 
 export class HistorialCitasDentistaComponent implements OnInit {
-  citas: any[] = [];
+  citas: AppointmentResponseDto[] = [];
   error = '';
   loading = true;
 
@@ -24,7 +26,7 @@ export class HistorialCitasDentistaComponent implements OnInit {
   }
 
   cargarHistorial(): void {
-    const professionalId:number = Number(localStorage.getItem('professionalId'));
+    const professionalId = Number(localStorage.getItem('professional_id'));
 
     if (!professionalId) {
       this.error = 'No se pudo obtener el ID del profesional.';
@@ -32,9 +34,16 @@ export class HistorialCitasDentistaComponent implements OnInit {
       return;
     }
 
-    this.appointmentService.getAppointments({ professional_id: professionalId, date_appointments: '' }).subscribe({
+    const fechaInicio = '2000-01-01'; // Inicio arbitrario (puedes ajustar si sabes cuándo empezó a trabajar)
+    const fechaFin = dayjs().format('YYYY-MM-DD'); // Hoy
+
+    this.appointmentService.getAppointmentsByDates({
+      professional_id: professionalId,
+      start_date: fechaInicio,
+      end_date: fechaFin
+    }).subscribe({
       next: (data) => {
-        this.citas = data;
+        this.citas = data.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
         this.loading = false;
       },
       error: () => {
@@ -48,7 +57,7 @@ export class HistorialCitasDentistaComponent implements OnInit {
     return dayjs(date).format('DD/MM/YYYY');
   }
 
-  formatHour(date: string): string {
-    return dayjs(date).format('HH:mm');
+  formatHour(time: string): string {
+    return time.slice(0, 5); // "09:00:00" => "09:00"
   }
 }

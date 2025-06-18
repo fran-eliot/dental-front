@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import * as dayjsLib from 'dayjs';
 const dayjs = dayjsLib.default;
+import isoWeek from 'dayjs/plugin/isoWeek';
+dayjs.extend(isoWeek);
 import { AppointmentsService } from '../../../service/appointment/appointments.service';
 
 @Component({
@@ -23,6 +25,7 @@ export class DentistaAgendaSemanalComponent implements OnInit {
 
   ngOnInit(): void {
     const professionalId:number = Number(localStorage.getItem('professional_id'));
+    console.log('Professional ID:', professionalId);
     const hoy = dayjs();
     const finSemana = hoy.add(7, 'day');
 
@@ -41,9 +44,9 @@ export class DentistaAgendaSemanalComponent implements OnInit {
     });
   }
 
-  formatDateTime(fecha: string): string {
-    return dayjs(fecha).format('dddd DD/MM - HH:mm');
-  }
+  // formatDateTime(fecha: string): string {
+  //   return dayjs(fecha).format('dddd DD/MM - HH:mm');
+  // }
 
   formatHour(date: string): string {
     return dayjs(date).format('HH:mm');

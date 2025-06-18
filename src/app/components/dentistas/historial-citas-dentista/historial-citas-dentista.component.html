@@ -11,16 +11,18 @@
         <th>Hora</th>
         <th>Paciente</th>
         <th>Tratamiento</th>
+        <td>Motivo</td>
         <th>Estado</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let cita of citas">
-        <td>{{ formatDate(cita.date) }}</td>
-        <td>{{ formatHour(cita.date) }}</td>
-        <td>{{ cita.patient?.fullName }}</td>
-        <td>{{ cita.treatment?.name || 'N/A' }}</td>
-        <td>{{ cita.status }}</td>
+        <td>{{ formatDate(cita.fecha_cita) }}</td>
+        <td>{{ formatHour(cita.hora_inicio) }}</td>
+        <td>{{ cita.paciente }}</td>
+        <td>{{ cita.tratamiento }}</td>
+        <td>{{ cita.motivo_cancelacion }}</td>
+        <td>{{ cita.estado }}</td>
       </tr>
     </tbody>
   </table>
