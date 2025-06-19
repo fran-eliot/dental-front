@@ -58,7 +58,7 @@ export class DentistDashboardComponent implements OnInit {
 
           // ✅ Ahora sí, usamos el ID correctamente
           this.appointmentService
-            .getAppointments({ professional_id: professionalId, date_appointments: this.today })
+            .getAppointmentsAll({ professional_id: professionalId, date_appointments: this.today })
             .subscribe({
               next: (data) => {
                 this.todayAppointments = data;

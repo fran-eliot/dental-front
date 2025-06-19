@@ -56,6 +56,18 @@ export class AppointmentsService {
     return this.http.get<PaginatedAppointment>(`${this.apiUrlAppointments}/reservas`, { params });
   }
 
+  //traer todas las reservas sin paginación(dentistas dashboard)
+  getAppointmentsAll(filters: {professional_id: number, date_appointments: string}):Observable<any[]> {
+    const params: any = {};
+    if (filters.professional_id) {
+      params.professional_id = filters.professional_id.toString();
+    }
+    if (filters.date_appointments) {
+      params.date_appointments = filters.date_appointments;
+    }
+    return this.http.get<any[]>(`${this.apiUrlAppointments}/reservas/all`, { params });
+  }
+
   getAppointmentsByDates(filters: {professional_id: number, start_date: string, end_date: string}): Observable<any[]> {
     let params: any = {};
 

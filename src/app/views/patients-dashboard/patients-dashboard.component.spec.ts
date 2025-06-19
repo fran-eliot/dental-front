@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { PatientsDashboardComponent } from './patients-dashboard.component';
 
 describe('PatientsDashboardComponent', () => {
@@ -11,7 +10,7 @@ describe('PatientsDashboardComponent', () => {
       imports: [PatientsDashboardComponent]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(PatientsDashboardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

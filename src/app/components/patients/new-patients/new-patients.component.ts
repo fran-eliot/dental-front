@@ -3,7 +3,6 @@ import { Patient } from '../../../model/Patient';
 import { PatientService } from '../../../service/patient/patient.service';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Output, EventEmitter } from '@angular/core';
 
 
@@ -25,7 +24,6 @@ export class NewPatientsComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private patientService: PatientService,
-    private dialogRef: MatDialogRef<NewPatientsComponent>
   ) {}
 
   ngOnInit(): void {
@@ -54,7 +52,6 @@ export class NewPatientsComponent implements OnInit {
         return;
       }
     }
-
     // Validar teléfono si está presente
     if (patient.phone_patients) {
       const phoneRegex = /^[6789]\d{8}$/;
