@@ -1,12 +1,12 @@
 import { ProfessionalAvailabitity } from './../../../model/ProfessionalAvailability';
 import { Component, OnInit } from '@angular/core';
 import * as dayjsLib from 'dayjs';
+const dayjs = dayjsLib.default;
 import { AvailabitlityService } from '../../../service/availability/availabitlity.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Status } from '../../../model/Status';
 
-const dayjs = dayjsLib.default;
 
 @Component({
   selector: 'app-consulta-disponibilidades-dentista',

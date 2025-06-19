@@ -49,6 +49,7 @@ export class DentistDashboardComponent implements OnInit {
         if (professional && professional.id_professionals) {
           const professionalId = professional.id_professionals;
           const dentistName = professional.name_professionals+" "+professional.last_name_professionals || 'Dentista Desconocido';
+          console.log()
           console.log('Professional ID:', professionalId);
           console.log('DentistName:', dentistName);
           localStorage.setItem('professional_id', professionalId.toString());
