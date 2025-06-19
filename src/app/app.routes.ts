@@ -28,11 +28,21 @@ import { DentistaLayoutComponent } from './components/dentistas/dentista-layout/
 import { authGuard } from './auth.guard';
 import { roleGuard } from './role.guard';
 import { PatientsDashboardComponent } from './views/patients-dashboard/patients-dashboard.component';
+import { ContactComponent } from './views/contact/contact.component';
+import { QuienessomosComponent } from './views/quienessomos/quienessomos.component';
 
 export const routes: Routes = [
   {
     path:'',
     component: HomeComponent
+  },
+  {
+    path:'contacto',
+    component: ContactComponent
+  },
+  {
+    path:'quienes-somos',
+    component: QuienessomosComponent
   },
   {
     path:'login',

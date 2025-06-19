@@ -1,10 +1,10 @@
 <div class="main-container-navigation">
   <div class="logo-wrapper-navigation">
-    <img src="assets/logo_versiones-01.jpeg" alt="Logo">
+    <img src="assets/logo_versiones-01.jpeg" alt="Logo" [routerLink]="['/']" style="cursor: pointer;">
   </div>
   <div class="menu-wrapper-navigation">
-    <p>¿Quiénes somos?</p>
-    <p>Contáctanos</p>
+    <p [routerLink]="['/quienes-somos']" style="cursor: pointer;">¿Quiénes somos?</p>
+    <p  [routerLink]="['/contacto']" style="cursor: pointer;">Contáctanos</p>
   </div>
   <div class="login-wrapper-navigation">
     <button
