@@ -69,16 +69,16 @@ export class AppointmentsService {
   }
 
   getAppointmentsByDates(filters: {professional_id: number, start_date: string, end_date: string}): Observable<any[]> {
-    let params: any = {};
+    let params = new HttpParams();
 
     if (filters.professional_id) {
       params = params.set('professional_id', filters.professional_id.toString());
     }
     if (filters.start_date) {
-      params.start_date = filters.start_date;
+      params = params.set('start_date', filters.start_date);
     }
     if (filters.end_date) {
-      params.end_date = filters.end_date;
+      params = params.set('end_date', filters.end_date);
     }
 
     return this.http.get<any[]>(`${this.apiUrlReservasByDates}`, { params });
