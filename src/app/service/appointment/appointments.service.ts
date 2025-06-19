@@ -98,7 +98,7 @@ export class AppointmentsService {
   }
 
   //Todas las reserva del historial filtradas por paciente
-  getAllAppointementsByPatient(patients_id:string):Observable<any>{
+  getAllAppointementsByPatient(patients_id:number):Observable<any>{
     return this.http.get<any>(`${this.apiUrlAppointments}/history/${patients_id}`);
   }
 

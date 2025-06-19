@@ -1,7 +1,6 @@
 /* Estilo base similar al de la tabla */
 .main-update-professional-container {
-  max-width: 900px;
-  margin: 30px auto;
+  max-width: 1000px;
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(10px);
   border-radius: 20px;

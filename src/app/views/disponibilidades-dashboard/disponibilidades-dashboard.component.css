@@ -1,30 +1,52 @@
 .dashboard-disponibilidades-container {
-  max-width: 1000px;
-  margin: 30px auto;
-  padding: 30px;
+  max-width: 1100px;
+  margin: 20px auto;
+  padding: 20px;
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(10px);
   border-radius: 20px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-  color: var(--text-color);
+  color: var(--text-color, #fff);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.dashboard-disponibilidades-container h2 {
-  margin-bottom: 20px;
-  color: var(--primary-color);
-  text-align: center;
-  font-size: 1.8rem;
-}
-
-.dashboard-grid {
+.tabs {
   display: grid;
-  gap: 30px;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+  gap: 1px;
 }
 
-@media (min-width: 768px) {
-  .dashboard-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.tabs button {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid transparent;
+  border-bottom: none;
+  border-radius: 10px 10px 0 0;
+  padding: 12px 25px;
+  font-size: 1rem;
+  color: var(--text-color, #fff);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
+
+.tabs button:hover:not(.active) {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.tabs button.active {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.4);
+  border-bottom: 2px solid var(--primary-color);
+  color: var(--primary-color, #00c3b2);
+  box-shadow: none;
+}
+
+.tab-content {
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-top: none;
+  border-radius: 0 0 10px 10px;
+  padding: 20px;
+}
+

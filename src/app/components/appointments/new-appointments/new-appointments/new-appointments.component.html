@@ -144,6 +144,9 @@
     <!-- Modal nuevo paciente -->
   <div class="modal-backdrop" *ngIf="showNewPatientModal">
     <div class="modal-content">
+      <div class="modal-close-left">
+        <button (click)="closeNewPatientModal()" class="close-btn">✖</button>
+      </div>
       <app-new-patients
         (patientCreated)="handleNewPatient($event)"
         (cancel)="closeNewPatientModal()">

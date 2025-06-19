@@ -1,4 +1,5 @@
 .consulta-preview {
+  max-width: 1000px;
   background: rgba(255, 255, 255, 0.15);
   border-radius: 16px;
   padding: 20px;
@@ -11,6 +12,7 @@
 .consulta-preview h3 {
   color: var(--primary-color);
   margin-bottom: 10px;
+  font-size: 1.8rem;
 }
 
 .consulta-preview p {

@@ -33,6 +33,16 @@
       </table>
 
       <button class="edit-button" (click)="startEditing()">Editar paciente</button>
+      <!-- Icono de historial -->
+      <button
+        type="button"
+        [disabled]="!selectedPatient"
+        (click)="getAllAppointementsByPatient()"
+        style="border: none; cursor: pointer;"
+        title="Ver historial del paciente"
+      >
+          <i class="fa-solid fa-box-archive"></i>
+      </button>
     </div>
 
     <ng-template #editMode>

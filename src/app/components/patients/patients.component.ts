@@ -4,6 +4,9 @@ import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { PatientService } from '../../service/patient/patient.service';
 import { Patient } from '../../model/Patient';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { AppointmentsService } from '../../service/appointment/appointments.service';
+import { HistoricalAppointmentsModalComponent } from '../appointments/historical-appointments/historical-appointments-modal/historical-appointments-modal.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-patients',
@@ -23,7 +26,11 @@ export class PatientsComponent implements OnInit {
   editPatientData: any = null;
   errorMessage: string | null = null;
 
-  constructor(private patientService: PatientService) {}
+  constructor(
+    private dialog: MatDialog,
+    private patientService: PatientService,
+    private appointmentsService: AppointmentsService
+  ) {}
 
   ngOnInit() {
     this.searchControl.valueChanges
@@ -98,9 +105,24 @@ export class PatientsComponent implements OnInit {
         }
       });
   }
-
   cancelEditing() {
     this.isEditing = false;
     this.editPatientData = null;
   }
+
+  //Para el modal del historico del paciente
+    getAllAppointementsByPatient():void{
+      if (!this.selectedPatient?.id_patients) return;
+
+      const patientId = this.selectedPatient.id_patients;
+
+      this.appointmentsService.getAllAppointementsByPatient(this.selectedPatient.id_patients)
+      .subscribe(data => {
+        console.log('Historial recibido:', data);
+        this.dialog.open(HistoricalAppointmentsModalComponent, {
+          width: '600px',
+          data
+        });
+      });
+    }
 }

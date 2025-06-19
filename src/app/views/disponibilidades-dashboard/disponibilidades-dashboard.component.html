@@ -1,11 +1,55 @@
 <div class="dashboard-disponibilidades-container">
-  <h2>Gestión de disponibilidades</h2>
+  <!--<h2>Gestión de disponibilidades</h2>
 
   <div class="dashboard-grid">
     <app-disponibilidades-mensuales></app-disponibilidades-mensuales>
     <app-limpieza-disponibilidades></app-limpieza-disponibilidades>
     <app-slots-libres-preview></app-slots-libres-preview>
     <app-consulta-preview></app-consulta-preview>
+  </div>-->
+  <div class="tabs">
+    <button
+      type="button"
+      (click)="selectedTab = 'generarDisponibilidades'"
+      [class.active]="selectedTab === 'generarDisponibilidades'"
+    >
+      Generar disponibilidades
+    </button>
+    <button
+      type="button"
+      (click)="selectedTab = 'limpiezaDisponibilidades'"
+      [class.active]="selectedTab === 'limpiezaDisponibilidades'"
+    >
+      Limpiar disponibilidades
+    </button>
+    <button
+      type="button"
+      (click)="selectedTab = 'slotsLibres'"
+      [class.active]="selectedTab === 'slotsLibres'"
+    >
+      Slots libres
+    </button>
+    <button
+      type="button"
+      (click)="selectedTab = 'disponibilidadesProfesional'"
+      [class.active]="selectedTab === 'disponibilidadesProfesional'"
+    >
+      Disponibilidades
+    </button>
+  </div>
+
+  <div class="tab-content" *ngIf="selectedTab === 'generarDisponibilidades'">
+    <app-disponibilidades-mensuales></app-disponibilidades-mensuales>
+  </div>
+
+  <div class="tab-content" *ngIf="selectedTab === 'limpiezaDisponibilidades'">
+    <app-limpieza-disponibilidades></app-limpieza-disponibilidades>
+  </div>
+  <div class="tab-content" *ngIf="selectedTab === 'slotsLibres'">
+    <app-slots-libres></app-slots-libres>
+  </div>
+  <div class="tab-content" *ngIf="selectedTab === 'disponibilidadesProfesional'">
+    <app-consulta-disponibilidades></app-consulta-disponibilidades>
   </div>
 </div>
 

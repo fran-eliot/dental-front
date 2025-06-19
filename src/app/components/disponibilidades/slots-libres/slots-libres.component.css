@@ -1,6 +1,5 @@
 .main-update-professional-container {
-  max-width: 900px;
-  margin: 30px auto;
+  max-width: 1000px;
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(10px);
   border-radius: 20px;
@@ -9,7 +8,13 @@
   color: #e0e0e0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-
+.main-update-professional-container h2{
+  margin-bottom: 15px;
+  font-size: 1.8rem;
+  color: var(--primary-color);
+  text-align: center;
+  margin-bottom: 40px;
+}
 .professional-table {
   width: 100%;
   border-collapse: collapse;
@@ -144,6 +149,7 @@
 
 .filtros-disponibilidad label {
   font-weight: 600;
+  color: var(--text-color);
 }
 
 .select-filtro {
@@ -163,15 +169,21 @@
 }
 
 .slots-form {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 3 campos + botón */
   gap: 1rem;
-  flex-wrap: wrap;
-  margin: 1rem 0;
-  align-items: center;
+  align-items: end;
+  margin-bottom: 2rem;
+}
+
+.slots-form .form-group {
+  display: flex;
+  flex-direction: column;
 }
 
 .slots-form label {
   font-weight: 600;
+  margin-bottom: 5px;
   color: var(--text-color);
 }
 
@@ -179,25 +191,56 @@
 .slots-form select {
   padding: 6px 12px;
   border-radius: 8px;
-  border: 2px solid var(--primary-color);
-  background: rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(0, 195, 178, 0.3);
+  background-color: rgba(255, 255, 255, 0.15);
   color: var(--text-color);
   font-size: 0.9rem;
+  transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+.slots-form input:focus,
+.slots-form select:focus {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-color: var(--secondary-color);
+  color: #000;
+  outline: none;
+}
+
+/* Especial para el input de fecha (para asegurar contraste) */
+.slots-form input[type="date"]:focus {
+  color: #000 !important;
 }
 
 .slots-form button {
   background-color: var(--primary-color);
   border: none;
-  padding: 8px 14px;
+  padding: 10px;
   border-radius: 10px;
   color: white;
   font-weight: 600;
   cursor: pointer;
+  width: 100%;
 }
 
 .slots-form button:hover {
   background-color: var(--secondary-color);
 }
+input[type="date"] {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: var(--text-color);
+  border: 2px solid rgba(0, 195, 178, 0.3);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+/* Estilo cuando está enfocado */
+input[type="date"]:focus {
+  background-color: rgba(255, 255, 255, 0.3);
+  color: #000 !important; /* Forzar color de texto */
+  border-color: var(--primary-color);
+  outline: none;
+}
+
 
 .filtro-periodo {
   margin-bottom: 20px;

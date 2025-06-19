@@ -1,6 +1,5 @@
 .selector-disponibilidades-container {
-  max-width: 600px;
-  margin: 30px auto;
+  max-width: 1000px;
   padding: 30px;
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(10px);
@@ -14,6 +13,7 @@
 .selector-disponibilidades-container h2 {
   margin-bottom: 20px;
   color: var(--primary-color);
+  font-size: 1.8rem;
 }
 
 .selector-form {
@@ -32,7 +32,7 @@
 .form-group label {
   margin-bottom: 8px;
   font-weight: 600;
-  color: var(--primary-color);
+  color: var(--text-color);
 }
 
 .form-group select,

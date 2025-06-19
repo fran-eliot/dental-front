@@ -37,7 +37,7 @@ export class NewAppointmentsComponent implements OnInit {
   constructor(
     private dialog: MatDialog, //injectar el modal
     private formBuilder: FormBuilder, //el formulario
-    private appointmentService: AppointmentsService
+    private appointmentsService: AppointmentsService
   ) {}
 
   ngOnInit(): void {
@@ -69,7 +69,7 @@ export class NewAppointmentsComponent implements OnInit {
   }
 
   loadPatients(): void {
-    this.appointmentService.getPatients().subscribe((data: Patient[]) => {
+    this.appointmentsService.getPatients().subscribe((data: Patient[]) => {
       console.log('Pacientes recibidos:', data);
       this.patients = data;
       this.filteredPatients = [...this.patients];
@@ -118,14 +118,14 @@ export class NewAppointmentsComponent implements OnInit {
   }
 
   loadProfessionals(): void {
-    this.appointmentService.getProfessionals().subscribe((data: Professional[]) => {
+    this.appointmentsService.getProfessionals().subscribe((data: Professional[]) => {
       this.professionals = data;
     });
   }
 
 
   loadTreatments(): void {
-    this.appointmentService.getTreatments().subscribe((data: Treatment[]) => {
+    this.appointmentsService.getTreatments().subscribe((data: Treatment[]) => {
       this.treatments = data;
     });
   }
@@ -153,7 +153,7 @@ export class NewAppointmentsComponent implements OnInit {
     const professionalId = this.appointmentForm.get('professional_id')?.value;
 
     if (date && professionalId) {
-      this.appointmentService.getHorasDisponibles(professionalId, date)
+      this.appointmentsService.getHorasDisponibles(professionalId, date)
         .subscribe((slots: Slot[]) => {
          this.availableSlot = slots;
       });
@@ -179,7 +179,7 @@ export class NewAppointmentsComponent implements OnInit {
         created_by_appointments: formValue.created_by_appointments?.toLowerCase() || 'admin'
       };
 
-      this.appointmentService.postNewAppointment(newAppointment).subscribe({
+      this.appointmentsService.postNewAppointment(newAppointment).subscribe({
         next: () => {
           this.successMessage = '¡Reserva creada correctamente!';
           this.appointmentForm.reset();
@@ -204,7 +204,7 @@ export class NewAppointmentsComponent implements OnInit {
 
     const patientId = this.selectedPatient.id_patients;
 
-    this.appointmentService.getAllAppointementsByPatient(this.selectedPatient.id_patients)
+    this.appointmentsService.getAllAppointementsByPatient(this.selectedPatient.id_patients)
     .subscribe(data => {
       console.log('Historial recibido:', data);
       this.dialog.open(HistoricalAppointmentsModalComponent, {
