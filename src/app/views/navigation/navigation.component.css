@@ -1,13 +1,24 @@
 .main-container-navigation{
   display: grid;
-  grid-template-columns: 1fr 5fr;
+  grid-template-columns: 1fr 2fr 3fr;
   align-items: center;
+  margin-right: 36px;
 }
 
 .logo-wrapper-navigation{
   img{
-    width: 250px;
+    width: 320px;
   }
+}
+.menu-wrapper-navigation{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-left: 20px;
+    p{
+      font-size: 1.4rem;
+      color: var(--primary-color);
+    }
 }
 
 .login-wrapper-navigation{
