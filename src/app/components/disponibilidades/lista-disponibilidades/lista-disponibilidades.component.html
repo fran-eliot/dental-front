@@ -1,5 +1,5 @@
 <div class="main-update-professional-container">
-  <!--<h2>Disponibilidades para el profesional {{ professionalId }} - Fecha: {{ date }}</h2>-->
+  <h2>Disponibilidades {{ nombreProfesional }} - Fecha: {{ date | date:'dd/MM/yyyy' }}</h2>
   <div class="filtros-disponibilidad">
     <div class="filtro-periodo">
       <label for="periodo">Periodo:</label>
@@ -28,7 +28,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let a of filtrarDisponibilidades()">
+      <tr *ngFor="let a of filtrarDisponibilidades()" [ngClass]="getEstadoClass(a.status)">
         <td>{{ formatHour(a.slot.startTime) }} - {{ formatHour(a.slot.endTime) }}</td>
         <td>{{ a.slot.period }}</td>
         <td>{{ a.status }}</td>

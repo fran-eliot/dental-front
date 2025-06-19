@@ -4,6 +4,8 @@ import { ProfessionalAvailabitity } from './../../../model/ProfessionalAvailabil
 import { AvailabitlityService } from '../../../service/availability/availabitlity.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ProfessionalService } from '../../../service/professional/professional.service';
+import { Professional } from '../../../model/Professional';
 
 @Component({
   selector: 'app-lista-disponibilidades',
@@ -19,21 +21,45 @@ export class ListaDisponibilidadesComponent implements OnInit, OnChanges {
   statusValues = Object.values(Status);
   filtroPeriodo: string = 'todos';
   filtroEstado: string = 'todos';
+  professionalName: string = '';
+  professionals: Professional[] = [];
+  nombreProfesional: string = '';
 
    constructor(
-    private availabilityService: AvailabitlityService) {}
+    private availabilityService: AvailabitlityService,
+    private professionalService: ProfessionalService
+  ) {}
 
    ngOnInit(): void {
     // Si los inputs ya están presentes al iniciar
     if (this.professionalId && this.date) {
       this.fetchAvailabilities();
     }
+    // Cargar lista de profesionales
+    this.professionalService.getProfessionals().subscribe({
+      next: (res) => {
+        this.professionals = res;
+        console.log('Profesionales recibidos:', this.professionals);
+        this.fetchProfessionalNameFromList(); // Buscar nombre cuando ya los tengo
+      },
+      error: (err) => console.error('Error al obtener profesionales', err)
+    });
+    console.log('professionalId recibido:', this.professionalId);
   }
 
   ngOnChanges(): void {
     // Se llama cada vez que cambia algún @Input
     if (this.professionalId && this.date) {
       this.fetchAvailabilities();
+
+    }
+  }
+  fetchProfessionalNameFromList() {
+    const prof = this.professionals.find(p => +p.id_professionals === +this.professionalId);
+    if (prof) {
+      this.nombreProfesional = `${prof.name_professionals} ${prof.last_name_professionals}`;
+    } else {
+      this.nombreProfesional = 'Profesional no encontrado';
     }
   }
 
@@ -76,5 +102,16 @@ export class ListaDisponibilidadesComponent implements OnInit, OnChanges {
       return coincidePeriodo && coincideEstado;
     });
   }
-
+  getEstadoClass(status: string): string {
+    switch (status.toLowerCase()) {
+      case 'libre':
+        return 'estado-libre';
+      case 'reservado':
+        return 'estado-reservado';
+      case 'no disponible':
+        return 'estado-no-disponible';
+      default:
+        return '';
+    }
+  }
 }
