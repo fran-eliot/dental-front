@@ -1,15 +1,8 @@
 .hero-home {
   /*background: url('/assets/hero-smyle.jpg') center/cover no-repeat;*/
   padding: 6rem 2rem;
-  text-align: center;
+  text-align: left;
   color: var(--text-color);
-}
-
-.contenido-hero {
-  /*background: rgba(0, 0, 0, 0.4);
-  padding: 2rem;
-  border-radius: 1rem;
-  display: inline-block;*/
 }
 
 .contenido-hero h1 {
@@ -35,11 +28,16 @@
 .beneficios-home {
   text-align: center;
   padding: 3rem 1rem;
+  display: flex;
+  flex-direction: column;
 }
 
-.beneficios-home ul {
+.beneficios {
   list-style: none;
   padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  font-weight: 500;
 }
 
 .beneficios-home li {
