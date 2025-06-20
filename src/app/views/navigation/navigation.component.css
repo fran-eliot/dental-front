@@ -1,13 +1,19 @@
 .main-container-navigation{
+  width: 100%;
   display: grid;
-  grid-template-columns: 1fr 2fr 3fr;
+  grid-template-columns: 2fr 2fr 3fr;
   align-items: center;
   margin-right: 36px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  height: 130px;
 }
 
 .logo-wrapper-navigation{
   img{
-    width: 320px;
+    width: 200px;
   }
 }
 .menu-wrapper-navigation{
@@ -16,7 +22,7 @@
     gap: 15px;
     margin-left: 20px;
     p{
-      font-size: 1.4rem;
+      font-size: 1.2rem;
       color: var(--primary-color);
     }
 }

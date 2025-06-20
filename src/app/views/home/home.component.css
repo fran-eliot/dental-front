@@ -40,14 +40,21 @@
 
 .beneficios {
   list-style: none;
-  padding: 0;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   font-weight: 500;
+  margin: 40px;
+  gap: 40px;
 }
 
 .beneficios-home li {
-  font-size: 1.1rem;
+  font-size: 1.4rem;
   margin: 0.5rem 0;
   color: var(--primary-color);
+  p{
+    color: var(--text-color);
+    font-size: 0.85rem;
+    text-align: -webkit-center;
+    margin-top: 20px;
+  }
 }

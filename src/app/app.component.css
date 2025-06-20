@@ -27,6 +27,7 @@ html, body {
   z-index: 1;
   min-height: 100vh;
   overflow: visible;
+  padding-top: 130px;
 }
 
 /* Wrapper de navegación (header fijo) */
