@@ -5,10 +5,10 @@ body {
 }
 
 :root {
-  --primary-color: rgb(0, 195, 178);
+  --primary-color: #00c3b2;
   --secondary-color:rgba(0, 175, 160); /* Un poco más oscuro*/
   --background-color: #fbfcfd;
-  --text-color: rgba(71, 70, 70);
+  --text-color: #474646;
   --text-color-light:#fbfcfd;
 }
 

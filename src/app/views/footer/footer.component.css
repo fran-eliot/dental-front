@@ -1,0 +1,26 @@
+.footer-container {
+  color: var(--primary-color);
+  text-align: center;
+  padding: 30px 20px;
+  font-family: Arial, sans-serif;
+}
+
+
+.footer-social a {
+  margin: 0 10px;
+  color:var(--primary-color);
+  font-size: 20px;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-social a:hover {
+  color: var(--primary-color);
+}
+
+.footer-contact,
+.footer-extra {
+  margin-top: 15px;
+  font-size: 14px;
+  color: var(--text-color);
+}
