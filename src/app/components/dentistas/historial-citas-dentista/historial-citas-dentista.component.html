@@ -1,25 +1,41 @@
 <div class="main-update-professional-container">
   <h2>Historial de Citas</h2>
 
-  <div *ngIf="loading">Cargando historial...</div>
+  <div *ngIf="loading" class="loading">
+    <mat-spinner diameter="30"></mat-spinner>
+    <span>Cargando citas...</span>
+  </div>
   <div *ngIf="error" class="error">{{ error }}</div>
 
-  <table *ngIf="!loading && citas.length > 0">
+  <input
+    type="text"
+    placeholder="Buscar por paciente"
+    [(ngModel)]="filtroPaciente"
+    class="busqueda-input"
+  />
+  <table *ngIf="!loading && citasFiltradas.length > 0">
     <thead>
       <tr>
         <th>Fecha</th>
         <th>Hora</th>
         <th>Paciente</th>
         <th>Tratamiento</th>
-        <td>Motivo</td>
+        <th>Motivo</th>
         <th>Estado</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let cita of citas">
+      <tr *ngFor="let cita of citasFiltradas">
         <td>{{ formatDate(cita.fecha_cita) }}</td>
         <td>{{ formatHour(cita.hora_inicio) }}</td>
-        <td>{{ cita.paciente }}</td>
+        <td>
+          <div class="paciente-wrapper">
+            <span>{{ cita.paciente || 'N/A' }}</span>
+            <button class="detalle-btn" (click)="abrirHistorial(cita.paciente_id)">
+              <mat-icon>visibility</mat-icon>
+            </button>
+          </div>
+        </td>
         <td>{{ cita.tratamiento }}</td>
         <td>{{ cita.motivo_cancelacion }}</td>
         <td>{{ cita.estado }}</td>
@@ -27,6 +43,6 @@
     </tbody>
   </table>
 
-  <p *ngIf="!loading && citas.length === 0">No hay citas registradas.</p>
+  <p *ngIf="!loading && citasFiltradas.length === 0">No hay citas registradas.</p>
 </div>
 

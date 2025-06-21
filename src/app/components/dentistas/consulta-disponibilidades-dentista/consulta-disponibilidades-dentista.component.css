@@ -18,52 +18,64 @@ h2 {
 
 label {
   display: block;
-  margin: 10px 0 5px;
+  margin-top: 1rem;
   font-weight: 600;
+  color: var(--text-color);
 }
 
-input[type='date'],
+input[type="date"],
 select {
-  padding: 8px 12px;
-  border-radius: 8px;
-  border: 2px solid rgba(0, 195, 178, 0.3);
-  background: rgba(255, 255, 255, 0.2);
-  color: var(--text-color);
-  font-size: 0.95rem;
-  outline: none;
-  margin-bottom: 15px;
+  display: block;
+  margin-top: 0.3rem;
+  padding: 10px 14px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 10px;
   width: 100%;
+  max-width: 300px;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: var(--text-color);
+  font-family: inherit;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 12px;
+  margin-top: 20px;
+  background: white;
+  border-radius: 10px;
   overflow: hidden;
 }
 
 th, td {
-  padding: 12px;
-  text-align: left;
-  border-bottom: 1px solid #ccc;
+  padding: 12px 15px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
 }
 
 th {
   background-color: var(--primary-color);
   color: white;
+  font-weight: 600;
 }
 
 tr:hover {
-  background-color: rgba(0, 195, 178, 0.05);
+  background-color: rgba(0, 195, 178, 0.08);
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  color: var(--primary-color);
+  font-weight: 500;
+  justify-content: center;
 }
 
 .error {
-  background-color: rgba(255, 0, 0, 0.1);
   color: #b71c1c;
-  padding: 10px;
-  border: 1px solid #ef5350;
-  border-radius: 10px;
+  margin-top: 1rem;
+  font-weight: 600;
   text-align: center;
 }
-

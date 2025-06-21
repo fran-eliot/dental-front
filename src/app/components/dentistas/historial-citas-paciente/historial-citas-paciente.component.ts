@@ -3,12 +3,13 @@ import { AppointmentsService } from '../../../service/appointment/appointments.s
 import { AppointmentResponseDto } from '../../../model/AppointmentResponseDto';
 import * as dayjsLib from 'dayjs';
 import { CommonModule } from '@angular/common';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 const dayjs = dayjsLib.default;
 
 @Component({
   selector: 'app-historial-citas-paciente',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,MatProgressSpinnerModule],
   templateUrl: './historial-citas-paciente.component.html',
   styleUrl: './historial-citas-paciente.component.css'
 })

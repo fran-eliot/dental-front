@@ -3,24 +3,33 @@
 
   <section class="dashboard-summary">
     <h3>Citas para hoy ({{ todayFormateado }})</h3>
+
     <div *ngIf="todayAppointments.length > 0; else noAppointments">
       <ul>
         <li *ngFor="let appt of todayAppointments">
-          <strong>{{ appt.time_appointments }}</strong> - {{ getPatientName(appt.patient_id) }}
-          {{ appt.status_appointments === 'confirmed' ? '(Confirmada)' : '(Pendiente)' }}
-          <button (click)="viewAppointmentDetails(appt)" class="details-btn">Ver Detalles</button>
-          <button (click)="cancelAppointment(appt.id_appointments)" class="cancel-btn">Cancelar Cita</button>
-          <button (click)="rescheduleAppointment(appt.id_appointments)" class="reschedule-btn">Reprogramar Cita</button>
+          <span class="appt-time">{{ formatHour(appt.hora_inicio) }}</span>
+
+          <span class="appt-patient">
+            {{ appt.paciente || 'N/A' }}
+            <button class="historial-btn" (click)="abrirHistorial(appt.paciente_id)">
+              <mat-icon>event-note</mat-icon>
+            </button>
+          </span>
+
+          <span class="appt-info">
+            {{ appt.tratamiento || 'N/A' }} -
+            {{ appt.motivo_cancelacion || 'N/A' }} -
+            <em>{{ appt.estado === 'confirmed' ? 'Confirmada' : 'Pendiente' }}</em>
+          </span>
         </li>
       </ul>
     </div>
+
     <ng-template #noAppointments>
       <p>No tienes citas para hoy.</p>
     </ng-template>
   </section>
-
-  
-  
 </div>
+
 
 

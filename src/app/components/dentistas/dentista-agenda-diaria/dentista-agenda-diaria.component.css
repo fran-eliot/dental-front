@@ -1,5 +1,5 @@
 .main-update-professional-container {
-  max-width: 900px;
+  max-width: 1000px;
   margin: 30px auto;
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(10px);
@@ -8,40 +8,88 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
   color: var(--text-color);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  text-align: center;
 }
 
-.main-update-professional-container h2 {
-  margin-bottom: 20px;
+h2 {
+  text-align: center;
   color: var(--primary-color);
+  margin-bottom: 20px;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  color: var(--primary-color);
+  font-weight: 500;
+  justify-content: center;
+}
+
+.error {
+  color: #b71c1c;
+  font-weight: bold;
+  margin-top: 1rem;
+  text-align: center;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
-  background: rgba(255, 255, 255, 0.1);
+  margin-top: 1rem;
+  background-color: white;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
-th, td {
-  padding: 12px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  text-align: left;
-}
-
-th {
+thead {
   background-color: var(--primary-color);
   color: white;
 }
 
-td {
-  color: var(--text-color);
+th, td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  font-size: 0.95rem;
 }
 
-.error {
-  color: #c62828;
-  background: rgba(255, 0, 0, 0.1);
-  padding: 10px;
-  border-radius: 10px;
-  margin-top: 10px;
+tr:hover {
+  background-color: rgba(0, 195, 178, 0.08);
+}
+
+.paciente-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 10px 14px;
+  border-radius: 12px;
+  box-shadow: inset 0 0 2px rgba(255, 255, 255, 0.2);
+  color: var(--text-color);
+  font-weight: 500;
+  font-size: 0.85rem;
+}
+
+.detalle-btn {
+  padding: 4px;
+  border: 1px solid black;
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: var(--primary-color);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.detalle-btn:hover {
+  background-color: #ffffff;
+  color: var(--secondary-color);
+  border-color: var(--secondary-color);
+}
+
+p {
+  margin-top: 1rem;
+  font-style: italic;
+  color: var(--text-color);
+  text-align: center;
 }

@@ -1,7 +1,10 @@
 <div class="historial-container">
-  <h3>Historial de Citas del Paciente</h3>
+  <h3>🦷 Historial de Citas del Paciente</h3>
 
-  <div *ngIf="loading">Cargando historial...</div>
+  <div *ngIf="loading" class="loading">
+    <mat-spinner diameter="30"></mat-spinner>
+    <span>Cargando historial...</span>
+  </div>
   <div *ngIf="error">{{ error }}</div>
 
   <table *ngIf="!loading && !error && citas.length > 0">
