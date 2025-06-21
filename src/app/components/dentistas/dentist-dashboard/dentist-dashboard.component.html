@@ -6,7 +6,7 @@
 
     <div *ngIf="todayAppointments.length > 0; else noAppointments">
       <ul>
-        <li *ngFor="let appt of todayAppointments">
+        <li *ngFor="let appt of todayAppointments" [ngClass]="getEstadoClass(appt.estado)">
           <span class="appt-time">{{ formatHour(appt.hora_inicio) }}</span>
 
           <span class="appt-patient">
@@ -19,7 +19,7 @@
           <span class="appt-info">
             {{ appt.tratamiento || 'N/A' }} -
             {{ appt.motivo_cancelacion || 'N/A' }} -
-            <em>{{ appt.estado === 'confirmed' ? 'Confirmada' : 'Pendiente' }}</em>
+            {{ appt.estado || 'N/A' }}
           </span>
         </li>
       </ul>

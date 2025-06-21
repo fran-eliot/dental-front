@@ -114,5 +114,19 @@ export class DentistaAgendaSemanalComponent implements OnInit {
     return `Semana del ${this.startOfWeek.format('DD/MM/YYYY')} - ${this.endOfWeek.format('DD/MM/YYYY')}`;
   }
 
+  getEstadoClass(status: string): string {
+    switch (status.toLowerCase()) {
+      case 'confirmada':
+        return 'estado-confirmada';
+      case 'anulada':
+        return 'estado-anulada';
+      case 'pendiente':
+        return 'estado-pendiente';
+      case 'realizada':
+        return 'estado-realizada';
+      default:
+        return '';
+    }
+  }
 
 }

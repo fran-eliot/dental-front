@@ -83,4 +83,17 @@ export class ConsultaDisponibilidadesDentistaComponent implements OnInit {
         error: () => alert('Error al actualizar estado')
       });
   }
+
+  getEstadoClass(status: string): string {
+    switch (status.toLowerCase()) {
+      case 'libre':
+        return 'estado-libre';
+      case 'reservado':
+        return 'estado-reservado';
+      case 'no disponible':
+        return 'estado-no-disponible';
+      default:
+        return '';
+    }
+  }
 }

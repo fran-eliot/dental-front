@@ -79,3 +79,16 @@ tr:hover {
   font-weight: 600;
   text-align: center;
 }
+
+/* Colores por estado de disponibilidad */
+.estado-libre {
+  background-color: rgba(0, 200, 0, 0.2) !important;
+}
+
+.estado-reservado {
+  background-color: rgba(255, 0, 0, 0.2) !important;
+}
+
+.estado-no-disponible {
+  background-color: rgba(0, 0, 255, 0.2) !important;
+}

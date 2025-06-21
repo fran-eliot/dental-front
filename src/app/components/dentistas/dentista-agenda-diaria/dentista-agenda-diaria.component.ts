@@ -49,16 +49,7 @@ export class DentistaAgendaDiariaComponent implements OnInit {
         }
       });
 
-    // // Fetch patients and store in component property
-    // this.appointmentService.getPatients().subscribe({
-    //   next: (patients) => {
-    //     this.patients = patients;
-    //   },
-    //   error: () => {
-    //     this.error = 'Error al cargar los pacientes.';
-    //     this.loading = false;
-    //   }
-    // });
+
   }
 
   formatDate(date: string): string {
@@ -75,4 +66,20 @@ export class DentistaAgendaDiariaComponent implements OnInit {
       data: { patientId }
     });
   }
+
+  getEstadoClass(status: string): string {
+    switch (status.toLowerCase()) {
+      case 'confirmada':
+        return 'estado-confirmada';
+      case 'anulada':
+        return 'estado-anulada';
+      case 'pendiente':
+        return 'estado-pendiente';
+      case 'realizada':
+        return 'estado-realizada';
+      default:
+        return '';
+    }
+  }
+
 }

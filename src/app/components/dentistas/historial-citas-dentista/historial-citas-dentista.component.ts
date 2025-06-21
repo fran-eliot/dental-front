@@ -75,8 +75,24 @@ export class HistorialCitasDentistaComponent implements OnInit {
   }
 
   get citasFiltradas(): AppointmentResponseDto[] {
-  return this.citas.filter(cita =>
-    cita.paciente?.toLowerCase().includes(this.filtroPaciente.toLowerCase())
-  );
-}
+    return this.citas.filter(cita =>
+      cita.paciente?.toLowerCase().includes(this.filtroPaciente.toLowerCase())
+    );
+  }
+
+  getEstadoClass(status: string): string {
+    switch (status.toLowerCase()) {
+      case 'confirmada':
+        return 'estado-confirmada';
+      case 'anulada':
+        return 'estado-anulada';
+      case 'pendiente':
+        return 'estado-pendiente';
+      case 'realizada':
+        return 'estado-realizada';
+      default:
+        return '';
+    }
+  }
+
 }
