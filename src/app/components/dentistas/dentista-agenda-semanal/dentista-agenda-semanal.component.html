@@ -29,7 +29,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let cita of citasPorDia[dia]">
+          <tr *ngFor="let cita of citasPorDia[dia]" [ngClass]="getEstadoClass(cita.estado)">
             <td>{{ formatDate(cita.fecha_cita) }}</td>
             <td>{{ formatHour(cita.hora_inicio) }}</td>
             <td>

@@ -47,4 +47,19 @@ export class HistorialCitasPacienteComponent implements OnInit {
   formatHora(hora: string): string {
     return hora;
   }
+
+  getEstadoClass(status: string): string {
+    switch (status.toLowerCase()) {
+      case 'confirmada':
+        return 'estado-confirmada';
+      case 'anulada':
+        return 'estado-anulada';
+      case 'pendiente':
+        return 'estado-pendiente';
+      case 'realizada':
+        return 'estado-realizada';
+      default:
+        return '';
+    }
+  }
 }
