@@ -1,11 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import * as dayjsLib from 'dayjs';
+import { Dayjs } from 'dayjs';
 const dayjs = dayjsLib.default;
 import isoWeek from 'dayjs/plugin/isoWeek';
 dayjs.extend(isoWeek);
-// import 'dayjs/locale/es';
-// dayjs.locale('es');
 import { AppointmentsService } from '../../../service/appointment/appointments.service';
 import { AppointmentResponseDto } from '../../../model/AppointmentResponseDto';
 import { HistorialCitasPacienteModalComponent } from '../historial-citas-paciente-modal/historial-citas-paciente-modal.component';
@@ -23,32 +22,68 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 export class DentistaAgendaSemanalComponent implements OnInit {
   citasSemana: AppointmentResponseDto[] = [];
+  citasPorDia: { [fecha: string]: AppointmentResponseDto[] } = {};
   loading = true;
   error = '';
+  startOfWeek!: Dayjs;
+  endOfWeek!: Dayjs;
+  semanaOffset = 0; // Offset para navegar entre semanas
 
   constructor(
     private appointmentService: AppointmentsService, private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
-    const professionalId:number = Number(localStorage.getItem('professional_id'));
-    console.log('Professional ID:', professionalId);
-    const hoy = dayjs();
-    const finSemana = hoy.add(7, 'day');
+    this.cargarCitasSemana();
+  }
 
-    const startDate = hoy.format('YYYY-MM-DD');
-    const endDate = finSemana.format('YYYY-MM-DD');
-    this.appointmentService.getAppointmentsByDates({ professional_id: professionalId, start_date: startDate, end_date: endDate }).subscribe({
-      next: (data) => {
-        this.citasSemana = data;
-        this.citasSemana.sort((a, b) => new Date(a.fecha_cita).getTime() - new Date(b.fecha_cita).getTime());
-        this.loading = false;
-      },
-      error: () => {
-        this.error = 'No se pudieron cargar las citas de la semana';
-        this.loading = false;
+  cargarCitasSemana(): void {
+    this.loading = true;
+    const professionalId = Number(localStorage.getItem('professional_id'));
+
+    this.startOfWeek = dayjs().add(this.semanaOffset, 'week').startOf('isoWeek');
+    this.endOfWeek = this.startOfWeek.endOf('isoWeek');
+
+    const startDate = this.startOfWeek.format('YYYY-MM-DD');
+    const endDate = this.endOfWeek.format('YYYY-MM-DD');
+
+    this.appointmentService.getAppointmentsByDates({ professional_id: professionalId, start_date: startDate, end_date: endDate })
+      .subscribe({
+        next: (data) => {
+          this.citasSemana = data;
+          this.organizarCitasPorDia();
+          this.loading = false;
+        },
+        error: () => {
+          this.error = 'No se pudieron cargar las citas de la semana';
+          this.loading = false;
+        }
+      });
+  }
+
+  organizarCitasPorDia(): void {
+    this.citasPorDia = {};
+    for (const cita of this.citasSemana) {
+      const fecha = dayjs(cita.fecha_cita).format('YYYY-MM-DD');
+      if (!this.citasPorDia[fecha]) {
+        this.citasPorDia[fecha] = [];
       }
-    });
+      this.citasPorDia[fecha].push(cita);
+    }
+  }
+
+  getDiasCitas(): string[] {
+    return Object.keys(this.citasPorDia);
+  }
+
+  semanaAnterior(): void {
+    this.semanaOffset--;
+    this.cargarCitasSemana();
+  }
+
+  semanaSiguiente(): void {
+    this.semanaOffset++;
+    this.cargarCitasSemana();
   }
 
   formatDate(date: string): string {
@@ -75,24 +110,9 @@ export class DentistaAgendaSemanalComponent implements OnInit {
     });
   }
 
-  // formatFecha(fecha: string): string {
-  //   return dayjs(fecha).format('dddd, D [de] MMMM [de] YYYY');
-  // }
-
-  get citasPorDia(): { [dia: string]: AppointmentResponseDto[] } {
-    const citasPorDia: { [dia: string]: AppointmentResponseDto[] } = {};
-    this.citasSemana.forEach(cita => {
-      const dia = dayjs(cita.fecha_cita).format('dddd DD/MM/YYYY');
-      if (!citasPorDia[dia]) {
-        citasPorDia[dia] = [];
-      }
-      citasPorDia[dia].push(cita);
-    });
-    return citasPorDia;
+  getRangoSemana(): string {
+    return `Semana del ${this.startOfWeek.format('DD/MM/YYYY')} - ${this.endOfWeek.format('DD/MM/YYYY')}`;
   }
 
-  getDiasCitas(): string[] {
-    // If citasPorDia is an object with day names as keys
-    return Object.keys(this.citasPorDia || {});
-  }
+
 }

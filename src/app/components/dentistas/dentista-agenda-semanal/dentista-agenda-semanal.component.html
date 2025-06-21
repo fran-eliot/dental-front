@@ -1,6 +1,12 @@
 <div class="main-update-professional-container">
   <h2>Agenda Semanal</h2>
 
+  <div class="semana-nav">
+    <button class="semana-btn" (click)="semanaAnterior()" [disabled]="semanaOffset === 0">← Semana anterior</button>
+    <div class="rango-semana">{{ getRangoSemana() }}</div>
+    <button class="semana-btn" (click)="semanaSiguiente()">Semana siguiente →</button>
+  </div>
+
   <div *ngIf="loading" class="loading">
     <mat-spinner diameter="30"></mat-spinner>
     <span>Cargando citas...</span>

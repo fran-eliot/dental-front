@@ -7,6 +7,7 @@ import { Patient } from '../../model/Patient';
 import { Treatment } from '../../model/Treatment';
 import { Slot } from '../../model/Slot';
 import { PaginatedAppointment } from '../../model/PaginatedAppointment';
+import { AppointmentResponseDto } from '../../model/AppointmentResponseDto';
 
 @Injectable({
   providedIn: 'root'
@@ -68,7 +69,7 @@ export class AppointmentsService {
     return this.http.get<any[]>(`${this.apiUrlAppointments}/reservas/all`, { params });
   }
 
-  getAppointmentsByDates(filters: {professional_id: number, start_date: string, end_date: string}): Observable<any[]> {
+  getAppointmentsByDates(filters: {professional_id: number, start_date: string, end_date: string}): Observable<AppointmentResponseDto[]> {
     let params = new HttpParams();
 
     if (filters.professional_id) {
@@ -80,8 +81,9 @@ export class AppointmentsService {
     if (filters.end_date) {
       params = params.set('end_date', filters.end_date);
     }
+    console.log('Params:', params.toString()); // Para depurar los parámetros
 
-    return this.http.get<any[]>(`${this.apiUrlReservasByDates}`, { params });
+    return this.http.get<AppointmentResponseDto[]>(`${this.apiUrlReservasByDates}`, { params });
   }
 
   //metodo para crear nuevas reservas
