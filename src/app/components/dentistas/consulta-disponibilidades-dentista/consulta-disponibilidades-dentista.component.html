@@ -11,7 +11,10 @@
     <option value="tarde">Tarde</option>
   </select>
 
-  <div *ngIf="loading">Cargando disponibilidades...</div>
+  <div *ngIf="loading" class="loading">
+      <mat-spinner diameter="30"></mat-spinner>
+      <span>Cargando disponibilidades...</span>
+  </div>
   <div *ngIf="error" class="error">{{ error }}</div>
 
   <table *ngIf="!loading && filtrarDisponibilidades().length > 0">

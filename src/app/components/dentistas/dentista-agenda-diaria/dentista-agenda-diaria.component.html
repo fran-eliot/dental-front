@@ -1,7 +1,10 @@
 <div class="main-update-professional-container">
   <h2>Agenda Diaria</h2>
 
-  <div *ngIf="loading">Cargando citas...</div>
+  <div *ngIf="loading" class="loading">
+    <mat-spinner diameter="30"></mat-spinner>
+    <span>Cargando citas...</span>
+  </div>
   <div *ngIf="error" class="error">{{ error }}</div>
 
   <table *ngIf="citasHoy.length > 0; else sinCitas">
@@ -10,15 +13,25 @@
         <th>Hora</th>
         <th>Paciente</th>
         <th>Tratamiento</th>
+        <td>Motivo</td>
         <th>Estado</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let cita of citasHoy">
-        <td>{{ formatHour(cita.date) }}</td>
-        <td>{{ cita.patient?.fullName || 'Desconocido' }}</td>
-        <td>{{ cita.treatment?.name || 'N/A' }}</td>
-        <td>{{ cita.status }}</td>
+        <td>{{ formatDate(cita.fecha_cita) }}</td>
+        <td>{{ formatHour(cita.hora_inicio) }}</td>
+        <td>
+          <div class="paciente-wrapper">
+            <span>{{ cita.paciente || 'N/A' }}</span>
+            <button class="detalle-btn" (click)="abrirHistorial(cita.paciente_id)">
+              <mat-icon>visibility</mat-icon>
+            </button>
+          </div>
+        </td>
+        <td>{{ cita.tratamiento }}</td>
+        <td>{{ cita.motivo_cancelacion }}</td>
+        <td>{{ cita.estado }}</td>
       </tr>
     </tbody>
   </table>

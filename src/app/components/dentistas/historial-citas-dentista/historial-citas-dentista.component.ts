@@ -3,12 +3,16 @@ import { Component, OnInit } from '@angular/core';
 import * as dayjsLib from 'dayjs';
 const dayjs = dayjsLib.default;
 import { AppointmentsService } from '../../../service/appointment/appointments.service';
-import { Appointment } from '../../../model/Appoinment';
 import { AppointmentResponseDto } from '../../../model/AppointmentResponseDto';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialog } from '@angular/material/dialog';
+import { HistorialCitasPacienteModalComponent } from '../historial-citas-paciente-modal/historial-citas-paciente-modal.component';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-historial-citas-dentista',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,MatIconModule,MatProgressSpinner,FormsModule],
   templateUrl: './historial-citas-dentista.component.html',
   styleUrl: './historial-citas-dentista.component.css'
 })
@@ -17,8 +21,9 @@ export class HistorialCitasDentistaComponent implements OnInit {
   citas: AppointmentResponseDto[] = [];
   error = '';
   loading = true;
+  filtroPaciente: string = '';
 
-  constructor(private appointmentService: AppointmentsService) {}
+  constructor(private appointmentService: AppointmentsService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.cargarHistorial();
@@ -42,7 +47,9 @@ export class HistorialCitasDentistaComponent implements OnInit {
       end_date: fechaFin
     }).subscribe({
       next: (data) => {
-        this.citas = data.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+        this.citas = data
+        .filter(c => dayjs(c.fecha_cita).isBefore(dayjs(), 'day'))
+        .sort((a, b) => new Date(b.fecha_cita).getTime() - new Date(a.fecha_cita).getTime());
         this.loading = false;
       },
       error: () => {
@@ -59,4 +66,17 @@ export class HistorialCitasDentistaComponent implements OnInit {
   formatHour(time: string): string {
     return time.slice(0, 5); // "09:00:00" => "09:00"
   }
+
+  abrirHistorial(patientId: number): void {
+    this.dialog.open(HistorialCitasPacienteModalComponent, {
+      width: '700px',
+      data: { patientId }
+    });
+  }
+
+  get citasFiltradas(): AppointmentResponseDto[] {
+  return this.citas.filter(cita =>
+    cita.paciente?.toLowerCase().includes(this.filtroPaciente.toLowerCase())
+  );
+}
 }

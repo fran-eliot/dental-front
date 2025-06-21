@@ -1,3 +1,4 @@
+import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import * as dayjsLib from 'dayjs';
@@ -6,18 +7,21 @@ import { Appointment } from '../../../model/Appoinment';
 import { AppointmentsService } from '../../../service/appointment/appointments.service';
 import { Router, RouterOutlet } from '@angular/router';
 import { ProfessionalService } from '../../../service/professional/professional.service';
+import { AppointmentResponseDto } from '../../../model/AppointmentResponseDto';
+import { HistorialCitasPacienteModalComponent } from '../historial-citas-paciente-modal/historial-citas-paciente-modal.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-dentist-dashboard',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MatIconModule],
   templateUrl: './dentist-dashboard.component.html',
   styleUrl: './dentist-dashboard.component.css'
 })
 
 export class DentistDashboardComponent implements OnInit {
   dentistName = '';
-  todayAppointments: Appointment[] = [];
+  todayAppointments: AppointmentResponseDto[] = [];
   loading:boolean = true;
   error = '';
   today: string =  dayjs().format('YYYY-MM-DD');
@@ -27,11 +31,12 @@ export class DentistDashboardComponent implements OnInit {
     year: 'numeric',
     month: 'long',
     day: 'numeric'
-});
+  });
 
   constructor(private appointmentService: AppointmentsService,
     private professionalService: ProfessionalService,
-    private router: Router){}
+    private router: Router,
+    private dialog: MatDialog){}
 
 
   ngOnInit(): void {
@@ -49,7 +54,6 @@ export class DentistDashboardComponent implements OnInit {
         if (professional && professional.id_professionals) {
           const professionalId = professional.id_professionals;
           const dentistName = professional.name_professionals+" "+professional.last_name_professionals || 'Dentista Desconocido';
-          console.log()
           console.log('Professional ID:', professionalId);
           console.log('DentistName:', dentistName);
           localStorage.setItem('professional_id', professionalId.toString());
@@ -97,33 +101,16 @@ export class DentistDashboardComponent implements OnInit {
     return dayjs(date).format('HH:mm');
   }
 
-  getPatientName(patient_id: number):string {
-    const patient = this.patients.find(p => p.id === patient_id);
-    return patient ? `Paciente ${patient.name}` : 'Paciente Desconocido';
-  }
 
-  getTreatmentName(treatment_id: number): string {
-    const treatment = this.todayAppointments.find(a => a.treatments_id === treatment_id);
-    return treatment ? `Tratamiento ${treatment.treatments_id}` : 'Tratamiento Desconocido';
-  }
   isToday(date: string): boolean {
     return dayjs(date).isSame(dayjs(), 'day');
   }
 
-  viewAppointmentDetails(appointment: Appointment): void {
-    // Aquí puedes implementar la lógica para mostrar los detalles de la cita
-    console.log('Detalles de la cita:', appointment);
-  }
-
-  cancelAppointment(id_appointment: number): void {
-    // Aquí puedes implementar la lógica para cancelar la cita
-    console.log('Cancelar cita:', id_appointment);
-    // Por ejemplo, podrías abrir un modal de confirmación y luego llamar a un servicio para cancelar la cita
-  }
-
-  rescheduleAppointment(id_appointment: number): void {
-    // Aquí puedes implementar la lógica para reprogramar la cita
-    console.log('Reprogramar cita:', id_appointment);
+  abrirHistorial(patientId: number): void {
+    this.dialog.open(HistorialCitasPacienteModalComponent, {
+      width: '700px',
+      data: { patientId }
+    });
   }
 
 }

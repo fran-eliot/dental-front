@@ -1,7 +1,10 @@
 <h2 mat-dialog-title class="modal-title">Historial de Citas</h2>
 
-<mat-dialog-content class="modal-content">
-  <div *ngIf="loading" class="loading">Cargando historial...</div>
+<mat-dialog-content class="dialog-content-wrapper">
+    <div *ngIf="loading" class="loading">
+      <mat-spinner diameter="30"></mat-spinner>
+      <span>Cargando historial...</span>
+    </div>
   <div *ngIf="error" class="error">{{ error }}</div>
 
   <table *ngIf="!loading && citas.length > 0" class="historial-table">

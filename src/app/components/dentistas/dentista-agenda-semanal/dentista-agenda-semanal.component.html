@@ -1,28 +1,42 @@
 <div class="main-update-professional-container">
   <h2>Agenda Semanal</h2>
 
-  <div *ngIf="loading">Cargando citas...</div>
+  <div *ngIf="loading" class="loading">
+    <mat-spinner diameter="30"></mat-spinner>
+    <span>Cargando citas...</span>
+  </div>
   <div *ngIf="error" class="error">{{ error }}</div>
 
   <ng-container *ngIf="!loading && !error">
     <div *ngFor="let dia of getDiasCitas()">
-      <h3>{{ dia }}</h3>
+      <h3>{{ formatFecha(dia)}}</h3>
 
       <table *ngIf="citasPorDia[dia].length > 0; else sinCitas">
         <thead>
           <tr>
+            <th>Fecha</th>
             <th>Hora</th>
             <th>Paciente</th>
             <th>Tratamiento</th>
+            <th>Motivo</th>
             <th>Estado</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let cita of citasPorDia[dia]">
-            <td>{{ formatHour(cita.date) }}</td>
-            <td>{{ cita.patient?.fullName }}</td>
-            <td>{{ cita.treatment?.name || 'N/A' }}</td>
-            <td>{{ cita.status }}</td>
+            <td>{{ formatDate(cita.fecha_cita) }}</td>
+            <td>{{ formatHour(cita.hora_inicio) }}</td>
+            <td>
+              <div class="paciente-wrapper">
+                <span>{{ cita.paciente || 'N/A' }}</span>
+                <button class="detalle-btn" (click)="abrirHistorial(cita.paciente_id)">
+                  <mat-icon>visibility</mat-icon>
+                </button>
+              </div>
+            </td>
+            <td>{{ cita.tratamiento }}</td>
+            <td>{{ cita.motivo_cancelacion }}</td>
+            <td>{{ cita.estado }}</td>
           </tr>
         </tbody>
       </table>

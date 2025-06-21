@@ -3,15 +3,16 @@ import { Component, OnInit } from '@angular/core';
 import * as dayjsLib from 'dayjs';
 const dayjs = dayjsLib.default;
 import { AvailabitlityService } from '../../../service/availability/availabitlity.service';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Status } from '../../../model/Status';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
   selector: 'app-consulta-disponibilidades-dentista',
   standalone: true,
-  imports: [FormsModule,CommonModule],
+  imports: [CommonModule,MatProgressSpinner,FormsModule],
   templateUrl: './consulta-disponibilidades-dentista.component.html',
   styleUrl: './consulta-disponibilidades-dentista.component.css'
 })
