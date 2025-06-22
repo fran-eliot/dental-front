@@ -1,55 +1,104 @@
 <div class="main-update-professional-container">
   <h2>Agenda Semanal</h2>
 
+  <!-- Navegación de la semana -->
   <div class="semana-nav">
-    <button class="semana-btn" (click)="semanaAnterior()" [disabled]="semanaOffset === 0">← Semana anterior</button>
+    <button class="semana-btn" (click)="semanaAnterior()">← Semana anterior</button>
     <div class="rango-semana">{{ getRangoSemana() }}</div>
     <button class="semana-btn" (click)="semanaSiguiente()">Semana siguiente →</button>
   </div>
 
+  <!-- Cargando -->
   <div *ngIf="loading" class="loading">
     <mat-spinner diameter="30"></mat-spinner>
     <span>Cargando citas...</span>
   </div>
+
+  <!-- Error -->
   <div *ngIf="error" class="error">{{ error }}</div>
 
+  <!-- Contenido principal -->
   <ng-container *ngIf="!loading && !error">
-    <div *ngFor="let dia of getDiasCitas()">
-      <h3>{{ formatFecha(dia)}}</h3>
 
-      <table *ngIf="citasPorDia[dia].length > 0; else sinCitas">
-        <thead>
-          <tr>
-            <th>Fecha</th>
-            <th>Hora</th>
-            <th>Paciente</th>
-            <th>Tratamiento</th>
-            <th>Motivo</th>
-            <th>Estado</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let cita of citasPorDia[dia]" [ngClass]="getEstadoClass(cita.estado)">
-            <td>{{ formatDate(cita.fecha_cita) }}</td>
-            <td>{{ formatHour(cita.hora_inicio) }}</td>
-            <td>
-              <div class="paciente-wrapper">
-                <span>{{ cita.paciente || 'N/A' }}</span>
-                <button class="detalle-btn" (click)="abrirHistorial(cita.paciente_id)">
-                  <mat-icon>visibility</mat-icon>
+    <!-- No hay citas en toda la semana -->
+    <div *ngIf="sinCitasEnSemana()" class="mensaje-vacio">
+      <mat-icon class="icono-vacio">event_busy</mat-icon>
+      <span>No hay citas para esta semana.</span>
+    </div>
+
+    <!-- Hay citas -->
+    <div *ngIf="!sinCitasEnSemana()">
+
+      <!-- Selector de días -->
+      <div class="dias-semana-selector">
+        <button *ngFor="let dia of getDiasCitas()"
+                (click)="diaSeleccionado = dia"
+                [class.activo]="dia === diaSeleccionado">
+          {{ formatDate(dia) }}
+        </button>
+      </div>
+
+      <!-- Citas del día seleccionado -->
+      <div *ngIf="diaSeleccionado">
+        <h3>{{ formatFecha(diaSeleccionado) }}</h3>
+
+        <!-- No hay citas en el día -->
+        <div *ngIf="citasPorDia[diaSeleccionado]?.length === 0" class="mensaje-vacio">
+          <mat-icon class="icono-vacio">event_busy</mat-icon>
+          <span>No hay citas para este día.</span>
+        </div>
+
+        <!-- Tabla de citas si existen -->
+        <table *ngIf="citasPorDia[diaSeleccionado]?.length > 0" class="tabla-citas">
+          <thead>
+            <tr>
+              <th>Hora</th>
+              <th>Hora de Inicio</th>
+              <th>Paciente</th>
+              <th>Tratamiento</th>
+              <th>Estado</th>
+              <th>Notas / Motivo</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let cita of citasPorDia[diaSeleccionado]" [ngClass]="getEstadoClass(cita.estado)">
+              <td>{{ formatDate(cita.fecha_cita) }}</td>
+              <td>{{ formatHour(cita.hora_inicio) }}</td>
+              <td>
+                <div class="paciente-wrapper">
+                  <span>{{ cita.paciente || 'N/A' }}</span>
+                  <button class="detalle-btn" (click)="abrirHistorial(cita.paciente_id)">
+                    <mat-icon>visibility</mat-icon>
+                  </button>
+                </div>
+              </td>
+              <td>{{ cita.tratamiento }}</td>
+              <td>{{ cita.estado }}</td>
+              <td>
+                <input [(ngModel)]="cita.motivo_cancelacion"
+                      (blur)="actualizarCita(cita)"
+                      [placeholder]="cita.estado === 'anulada' ? 'Motivo de cancelación' : 'Nota de consulta'" />
+              </td>
+              <td class="acciones">
+                <button *ngIf="cita.estado === 'confirmada'"
+                        (click)="cita.estado = 'realizada'; actualizarCita(cita)"
+                        class="realizar-btn">
+                  Marcar como realizada
                 </button>
-              </div>
-            </td>
-            <td>{{ cita.tratamiento }}</td>
-            <td>{{ cita.motivo_cancelacion }}</td>
-            <td>{{ cita.estado }}</td>
-          </tr>
-        </tbody>
-      </table>
 
-      <ng-template #sinCitas>
-        <p>No hay citas para esta semana.</p>
-      </ng-template>
+                <button *ngIf="cita.estado === 'pendiente'"
+                        (click)="cita.estado = 'anulada'; actualizarCita(cita)"
+                        class="cancelar-btn">
+                  Cancelar cita
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </ng-container>
 </div>
+
+

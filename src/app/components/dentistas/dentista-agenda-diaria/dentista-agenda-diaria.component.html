@@ -7,14 +7,21 @@
   </div>
   <div *ngIf="error" class="error">{{ error }}</div>
 
-  <table *ngIf="citasHoy.length > 0; else sinCitas">
+  <div *ngIf="citasHoy.length === 0" @fadeInOut class="mensaje-vacio">
+    <mat-icon class="icono-vacio">event_busy</mat-icon>
+    <span>No hay citas programadas para hoy.</span>
+  </div>
+
+  <table *ngIf="citasHoy.length > 0">
     <thead>
       <tr>
         <th>Hora</th>
+        <th>Hora de Inicio</th>
         <th>Paciente</th>
         <th>Tratamiento</th>
-        <td>Motivo</td>
         <th>Estado</th>
+        <th>Notas / Motivo</th>
+        <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
@@ -30,14 +37,28 @@
           </div>
         </td>
         <td>{{ cita.tratamiento }}</td>
-        <td>{{ cita.motivo_cancelacion }}</td>
         <td>{{ cita.estado }}</td>
+        <td>
+          <input [(ngModel)]="cita.motivo_cancelacion"
+                (blur)="actualizarCita(cita)"
+                [placeholder]="cita.estado === 'anulada' ? 'Motivo de cancelación' : 'Nota de consulta'" />
+        </td>
+        <td class="acciones">
+          <button *ngIf="cita.estado === 'confirmada'"
+                  (click)="cita.estado = 'realizada'; actualizarCita(cita)"
+                  class="realizar-btn">
+            Marcar como realizada
+          </button>
+
+          <button *ngIf="cita.estado === 'pendiente'"
+                  (click)="cita.estado = 'anulada'; actualizarCita(cita)"
+                  class="cancelar-btn">
+            Cancelar cita
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>
 
-  <ng-template #sinCitas>
-    <p>No tienes citas programadas para hoy.</p>
-  </ng-template>
 </div>
 

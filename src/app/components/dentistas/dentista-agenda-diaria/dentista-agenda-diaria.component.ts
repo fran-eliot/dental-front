@@ -8,13 +8,27 @@ import { HistorialCitasPacienteModalComponent } from '../historial-citas-pacient
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { FormsModule } from '@angular/forms';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-dentista-agenda-diaria',
   standalone: true,
-  imports: [CommonModule,MatIconModule,MatProgressSpinner],
+  imports: [CommonModule,MatIconModule,MatProgressSpinner,FormsModule,MatSnackBarModule],
   templateUrl: './dentista-agenda-diaria.component.html',
-  styleUrl: './dentista-agenda-diaria.component.css'
+  styleUrl: './dentista-agenda-diaria.component.css',
+  animations: [
+    trigger('fadeInOut', [
+      transition(':enter', [ // Al aparecer
+        style({ opacity: 0 }),
+        animate('300ms ease-in', style({ opacity: 1 }))
+      ]),
+      transition(':leave', [ // Al desaparecer
+        animate('300ms ease-out', style({ opacity: 0 }))
+      ])
+    ])
+  ]
 })
 export class DentistaAgendaDiariaComponent implements OnInit {
   citasHoy: AppointmentResponseDto[] = [];
@@ -24,7 +38,8 @@ export class DentistaAgendaDiariaComponent implements OnInit {
   patients: any[] = [];
 
   constructor(
-    private appointmentService: AppointmentsService, private dialog: MatDialog) {}
+    private appointmentService: AppointmentsService, private dialog: MatDialog,
+      private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     const professionalId:number = Number(localStorage.getItem('professionalId'));
@@ -48,8 +63,6 @@ export class DentistaAgendaDiariaComponent implements OnInit {
           this.loading = false;
         }
       });
-
-
   }
 
   formatDate(date: string): string {
@@ -80,6 +93,30 @@ export class DentistaAgendaDiariaComponent implements OnInit {
       default:
         return '';
     }
+  }
+
+  actualizarCita(cita: AppointmentResponseDto) {
+    const nota = cita.motivo_cancelacion?.trim() || '';
+    const updateData = {
+      status_appointments: cita.estado,
+      cancellation_reason_appointments: nota
+    };
+
+   this.appointmentService.updateAppointmentStatus(cita.id_reserva, updateData)
+    .subscribe({
+      next: () => {
+        this.snackBar.open('Cita actualizada con éxito', 'Cerrar', {
+          duration: 3000,
+          panelClass: ['snackbar-success']
+        });
+      },
+      error: () => {
+        this.snackBar.open('Error al actualizar la cita', 'Cerrar', {
+          duration: 3000,
+          panelClass: ['snackbar-error']
+        });
+      }
+    });
   }
 
 }
