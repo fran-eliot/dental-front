@@ -1,10 +1,20 @@
-.dashboard-container {
+::ng-deep .snackbar-success {
+  background-color: #4caf50;
+  color: white;
+}
+
+::ng-deep .snackbar-error {
+  background-color: #e53935;
+  color: white;
+}
+
+.main-update-professional-container {
   max-width: 1000px;
   margin: 30px auto;
-  padding: 30px;
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(10px);
   border-radius: 20px;
+  padding: 30px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
   color: var(--text-color);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -14,74 +24,87 @@ h2 {
   font-size: 1.8rem;
   text-align: center;
   color: var(--primary-color);
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
-.dashboard-summary h3 {
-  font-size: 1.4rem;
+h3 {
+  font-size: 1.3rem;
   color: var(--primary-color);
-  margin-bottom: 1.2rem;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(0, 195, 178, 0.2);
+  padding-bottom: 0.25rem;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  color: var(--primary-color);
+  font-weight: 500;
+  justify-content: center;
+}
+
+.error {
+  color: #b71c1c;
+  font-weight: bold;
+  margin-top: 1rem;
   text-align: center;
 }
 
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-li {
-  background-color: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(0, 195, 178, 0.2);
-  border-radius: 1rem;
-  padding: 1rem 1.5rem;
-  margin-bottom: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
-  transition: transform 0.2s ease;
-}
-
-li:hover {
-  transform: scale(1.01);
-  background-color: rgba(255, 255, 255, 1);
-}
-
-.appt-time {
-  font-weight: 600;
-  color: var(--primary-color);
-  font-size: 1.1rem;
-}
-
-.appt-patient {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-weight: 500;
-  color: var(--text-color);
-}
-
-.historial-btn {
-  align-self: flex-start;
-  padding: 4px 10px;
-  border: 1px solid var(--primary-color);
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
   background-color: white;
-  color: var(--primary-color);
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
-.historial-btn:hover {
+thead {
   background-color: var(--primary-color);
   color: white;
 }
 
-.appt-info {
-  color: #374151;
+th, td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
   font-size: 0.95rem;
+}
+
+tr:hover {
+  background-color: rgba(0, 195, 178, 0.08);
+}
+
+.paciente-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 10px 14px;
+  border-radius: 12px;
+  box-shadow: inset 0 0 2px rgba(255, 255, 255, 0.2);
+  color: var(--text-color);
+  font-weight: 500;
+  font-size: 0.85rem;
+}
+
+.detalle-btn {
+  padding: 4px;
+  border: 1px solid black;
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: var(--primary-color);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.detalle-btn:hover {
+  background-color: #ffffff;
+  color: var(--secondary-color);
+  border-color: var(--secondary-color);
 }
 
 p {
@@ -107,3 +130,54 @@ p {
 .estado-realizada {
   background-color: rgba(0, 195, 178, 0.1) !important; /* tono del primary-color */
 }
+
+.realizar-btn {
+  padding: 6px 10px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+}
+
+.realizar-btn:hover {
+  background-color: var(--secondary-color);
+}
+
+.cancelar-btn {
+  padding: 6px 10px;
+  background-color: #e53935;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+}
+
+.cancelar-btn:hover {
+  background-color: #c62828;
+}
+
+.mensaje-vacio {
+  margin: 2rem 0;
+  padding: 1rem;
+  background-color: rgba(255, 235, 59, 0.1); /* amarillo suave */
+  color: #444;
+  text-align: center;
+  border: 1px dashed #ccc;
+  border-radius: 8px;
+  font-style: italic;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.icono-vacio {
+  color: #f57c00; /* naranja oscuro */
+  font-size: 28px;
+}
+

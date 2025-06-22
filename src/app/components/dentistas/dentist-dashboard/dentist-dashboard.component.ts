@@ -1,3 +1,4 @@
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
@@ -10,13 +11,27 @@ import { ProfessionalService } from '../../../service/professional/professional.
 import { AppointmentResponseDto } from '../../../model/AppointmentResponseDto';
 import { HistorialCitasPacienteModalComponent } from '../historial-citas-paciente-modal/historial-citas-paciente-modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { trigger, transition, style, animate } from '@angular/animations';
+import { FormsModule } from '@angular/forms';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-dentist-dashboard',
   standalone: true,
-  imports: [CommonModule, MatIconModule],
+  imports: [CommonModule, MatIconModule, MatSnackBarModule, FormsModule, MatProgressSpinner ],
   templateUrl: './dentist-dashboard.component.html',
-  styleUrl: './dentist-dashboard.component.css'
+  styleUrl: './dentist-dashboard.component.css',
+  animations: [
+      trigger('fadeInOut', [
+        transition(':enter', [ // Al aparecer
+          style({ opacity: 0 }),
+          animate('300ms ease-in', style({ opacity: 1 }))
+        ]),
+        transition(':leave', [ // Al desaparecer
+          animate('300ms ease-out', style({ opacity: 0 }))
+        ])
+      ])
+    ]
 })
 
 export class DentistDashboardComponent implements OnInit {
@@ -25,7 +40,6 @@ export class DentistDashboardComponent implements OnInit {
   loading:boolean = true;
   error = '';
   today: string =  dayjs().format('YYYY-MM-DD');
-  patients: any[] = [];
   todayFormateado: string = new Date(this.today).toLocaleDateString('es-ES', {
     weekday: 'long',
     year: 'numeric',
@@ -36,7 +50,8 @@ export class DentistDashboardComponent implements OnInit {
   constructor(private appointmentService: AppointmentsService,
     private professionalService: ProfessionalService,
     private router: Router,
-    private dialog: MatDialog){}
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar){}
 
 
   ngOnInit(): void {
@@ -75,15 +90,7 @@ export class DentistDashboardComponent implements OnInit {
               }
             });
 
-          this.appointmentService.getPatients().subscribe({
-            next: (patients) => {
-              this.patients = patients;
-            },
-            error: () => {
-              this.error = 'Error al cargar los pacientes.';
-              this.loading = false;
-            }
-          });
+
         } else {
           this.error = 'No se pudo obtener el ID del profesional.';
           this.loading = false;
@@ -96,6 +103,9 @@ export class DentistDashboardComponent implements OnInit {
     });
   }
 
+  formatDate(date: string): string {
+    return dayjs(date).format('DD/MM/YYYY');
+  }
 
   formatHour(date: string): string {
     return dayjs(date).format('HH:mm');
@@ -127,6 +137,31 @@ export class DentistDashboardComponent implements OnInit {
         return '';
     }
   }
+
+  actualizarCita(cita: AppointmentResponseDto) {
+    const nota = cita.motivo_cancelacion?.trim() || '';
+    const updateData = {
+      status_appointments: cita.estado,
+      cancellation_reason_appointments: nota
+    };
+
+   this.appointmentService.updateAppointmentStatus(cita.id_reserva, updateData)
+    .subscribe({
+      next: () => {
+        this.snackBar.open('Cita actualizada con éxito', 'Cerrar', {
+          duration: 3000,
+          panelClass: ['snackbar-success']
+        });
+      },
+      error: () => {
+        this.snackBar.open('Error al actualizar la cita', 'Cerrar', {
+          duration: 3000,
+          panelClass: ['snackbar-error']
+        });
+      }
+    });
+  }
+
 
 }
 

@@ -1,34 +1,65 @@
-<div class="dashboard-container">
+<div class="main-update-professional-container">
   <h2>Bienvenido, Dr./Dra. {{ dentistName }}</h2>
+  <h3>Citas para hoy ({{ todayFormateado }})</h3>
 
-  <section class="dashboard-summary">
-    <h3>Citas para hoy ({{ todayFormateado }})</h3>
+  <div *ngIf="loading" class="loading">
+    <mat-spinner diameter="30"></mat-spinner>
+    <span>Cargando citas...</span>
+  </div>
+  <div *ngIf="error" class="error">{{ error }}</div>
 
-    <div *ngIf="todayAppointments.length > 0; else noAppointments">
-      <ul>
-        <li *ngFor="let appt of todayAppointments" [ngClass]="getEstadoClass(appt.estado)">
-          <span class="appt-time">{{ formatHour(appt.hora_inicio) }}</span>
+  <div *ngIf="todayAppointments.length === 0" @fadeInOut class="mensaje-vacio">
+    <mat-icon class="icono-vacio">event_busy</mat-icon>
+    <span>No hay citas programadas para hoy.</span>
+  </div>
 
-          <span class="appt-patient">
-            {{ appt.paciente || 'N/A' }}
-            <button class="historial-btn" (click)="abrirHistorial(appt.paciente_id)">
-              <mat-icon>event-note</mat-icon>
+    <table *ngIf="todayAppointments.length > 0">
+      <thead>
+        <tr>
+          <th>Hora</th>
+          <th>Paciente</th>
+          <th>Tratamiento</th>
+          <th>Estado</th>
+          <th>Notas / Motivo</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cita of todayAppointments" [ngClass]="getEstadoClass(cita.estado)">
+          <td>{{ formatDate(cita.fecha_cita) }}</td>
+          <td>{{ formatHour(cita.hora_inicio) }}</td>
+          <td>
+            <div class="paciente-wrapper">
+              <span>{{ cita.paciente || 'N/A' }}</span>
+              <button class="detalle-btn" (click)="abrirHistorial(cita.paciente_id)">
+                <mat-icon>visibility</mat-icon>
+              </button>
+            </div>
+          </td>
+          <td>{{ cita.tratamiento }}</td>
+          <td>{{ cita.estado }}</td>
+          <td>
+            <input [(ngModel)]="cita.motivo_cancelacion"
+                  (blur)="actualizarCita(cita)"
+                  [placeholder]="cita.estado === 'anulada' ? 'Motivo de cancelación' : 'Nota de consulta'" />
+          </td>
+          <td class="acciones">
+            <button *ngIf="cita.estado === 'confirmada'"
+                    (click)="cita.estado = 'realizada'; actualizarCita(cita)"
+                    class="realizar-btn">
+              Marcar como realizada
             </button>
-          </span>
 
-          <span class="appt-info">
-            {{ appt.tratamiento || 'N/A' }} -
-            {{ appt.motivo_cancelacion || 'N/A' }} -
-            {{ appt.estado || 'N/A' }}
-          </span>
-        </li>
-      </ul>
-    </div>
+            <button *ngIf="cita.estado === 'pendiente'"
+                    (click)="cita.estado = 'anulada'; actualizarCita(cita)"
+                    class="cancelar-btn">
+              Cancelar cita
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
-    <ng-template #noAppointments>
-      <p>No tienes citas para hoy.</p>
-    </ng-template>
-  </section>
 </div>
 
 
