@@ -55,7 +55,6 @@ export class NewAppointmentsComponent implements OnInit {
       duration_minutes_appointments: [null, Validators.required],
       slot_id: ['', Validators.required],
       date_appointments: ['', Validators.required],
-      //time_appointments: ['', Validators.required],
       status_appointments: ['pendiente', Validators.required],
       cancellation_reason_appointments: [''],
       created_by_appointments: ['admin']
