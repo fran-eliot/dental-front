@@ -11,6 +11,12 @@ export class Appointment {
   cancellation_reason_appointments?: string;
   created_by_appointments?: string;
 
+   //Estas son las propiedades que vienen del backend
+  patient?: any;
+  professional?: any;
+  treatment?: any;
+  slot?: any;
+
   constructor(
     patient_id: number,
     professional_id: number,

@@ -30,6 +30,7 @@ import { roleGuard } from './role.guard';
 import { PatientsDashboardComponent } from './views/patients-dashboard/patients-dashboard.component';
 import { ContactComponent } from './views/contact/contact.component';
 import { QuienessomosComponent } from './views/quienessomos/quienessomos.component';
+import { ServiciosComponent } from './views/servicios/servicios.component';
 
 export const routes: Routes = [
   {
@@ -43,6 +44,10 @@ export const routes: Routes = [
   {
     path:'quienes-somos',
     component: QuienessomosComponent
+  },
+  {
+    path:'servicios',
+    component: ServiciosComponent
   },
   {
     path:'login',
@@ -107,6 +112,8 @@ export const routes: Routes = [
   },
   {
     path: 'dentista',
+    canActivate: [authGuard, roleGuard],
+    data: { roles: ['dentista', 'admin'] },
     component: DentistaLayoutComponent,
     children: [
       { path: '', redirectTo: 'agenda-diaria', pathMatch: 'full' },
@@ -116,26 +123,6 @@ export const routes: Routes = [
       { path: 'disponibilidades', component: ConsultaDisponibilidadesDentistaComponent },
     ]
   },
-
-  /*{
-    path: 'disponibilidades',
-    component: DisponibilidadesDashboardComponent,
-    children: [
-      { path: '', component: SelectorDisponibilidadesComponent }, // o cualquier otro selector
-      { path: ':id/:date', component: ListaDisponibilidadesComponent },
-      { path: 'generar', component: GeneradorDisponibilidadesComponent },
-      { path: 'limpiar', component: LimpiezaDisponibilidadesComponent }
-    ]
-  },
-
-  {
-    path: 'dashboard/disponibilidades/consulta',
-    component: ConsultaDisponibilidadesComponent
-  },
-  {
-    path: 'dashboard/slots-libres/consulta',
-    component: SlotsLibresComponent
-  }*/
 
 ]
 

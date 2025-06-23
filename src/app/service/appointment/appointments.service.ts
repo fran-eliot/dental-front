@@ -37,6 +37,11 @@ export class AppointmentsService {
     return this.http.get<Treatment[]>(`${this.apiUrlTreatments}/all`);
   }
 
+  //Obtener las reservas para verificar la si se puede hacer la reserva
+  getAllAppointmentsComplete(): Observable<Appointment[]> {
+    return this.http.get<Appointment[]>(`${this.apiUrlAppointments}/reservas/todas`);
+  }
+
   //metodo para traer las reservas
   getAppointments(filters: {professional_id?: number, date_appointments?: string, page?: number, pageSize?: number}): Observable<PaginatedAppointment> {
     let params = new HttpParams();
@@ -58,7 +63,7 @@ export class AppointmentsService {
   }
 
   //traer todas las reservas sin paginación(dentistas dashboard)
-  getAppointmentsAll(filters: {professional_id: number, date_appointments: string}):Observable<any[]> {
+  getAppointmentsAll(filters: {professional_id?: number, date_appointments?: string}):Observable<any[]> {
     const params: any = {};
     if (filters.professional_id) {
       params.professional_id = filters.professional_id.toString();
