@@ -60,15 +60,16 @@ export class AppointmentsComponent implements OnInit {
   ngOnInit(): void {
     this.loadProfessionals();
 
-    // Escucha los cambios del select turno
+    // Cuando cambie turno, reseteamos página y recargamos
     this.filterForm.get('turno')?.valueChanges.subscribe(() => {
       this.filterByPeriod();
     });
 
-    //Escucha los cambios del patient
+    // Cuando cambie paciente, reseteamos página y recargamos
     this.filterForm.get('patient_name')?.valueChanges.subscribe(() => {
-    this.filterByPeriod();
-  });
+      this.filterByPeriod();
+    });
+
   }
 
   loadProfessionals() {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterModule } from '@angular/router';import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';import { CommonModule, formatDate } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { Patient } from '../../../../model/Patient';
 import { Professional } from '../../../../model/Professional';
@@ -170,19 +170,24 @@ export class NewAppointmentsComponent implements OnInit {
     }
 
     const formValue = this.appointmentForm.value;
+    const patientId = Number(formValue.patient_id);
+    const slotId = Number(formValue.slot_id);
+    const formDate = formatDate(formValue.date_appointments, 'yyyy-MM-dd', 'en-ES');
 
     // 1. Traer todas las reservas para validar
     this.appointmentsService.getAllAppointmentsComplete().subscribe({
       next: (allAppointments) => {
+        console.table(allAppointments);
+        console.log('Form values:', formValue);
         // 2. Filtrar reservas que coincidan en paciente, fecha y slot
         const existing = allAppointments.find(app =>
-          app.patient.patient_id === formValue.patient_id &&
-          //app.professional_id !== formValue.professional_id &&
-          app.date_appointments === formValue.date_appointments &&
-          app.slot.slot_id === formValue.slot_id &&
-          app.status_appointments.toLowerCase() !== 'cancelada'  // solo si no está cancelada
+          Number(app.patient?.id_patients) === patientId &&
+          Number(app.slot?.id) === slotId &&
+          formatDate(app.date_appointments, 'yyyy-MM-dd', 'en-ES') === formDate &&
+          app.status_appointments.toLowerCase() !== 'cancelada'
         );
-        console.log("Existe reserva de paciente", existing);
+
+        console.log('Resultado del find:', existing);
 
         if (existing) {
           // 3. Ya existe reserva activa para ese paciente, slot y fecha
@@ -214,7 +219,7 @@ export class NewAppointmentsComponent implements OnInit {
           },
           error: (err) => {
             console.error('Error al crear la reserva:', err);
-            this.errorMessage = 'Ocurrió un error al crear la reserva. Ajusta la hora';
+            this.errorMessage = 'Ocurrió un error al crear la reserva. Revisa el tiempo del tratamiento';
           }
         });
       },
