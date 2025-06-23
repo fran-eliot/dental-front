@@ -37,6 +37,11 @@ export class AppointmentsService {
     return this.http.get<Treatment[]>(`${this.apiUrlTreatments}/all`);
   }
 
+  //Obtener las reservas para verificar la si se puede hacer la reserva
+  getAllAppointmentsComplete(): Observable<Appointment[]> {
+    return this.http.get<Appointment[]>(`${this.apiUrlAppointments}/reservas/todas`);
+  }
+
   //metodo para traer las reservas
   getAppointments(filters: {professional_id?: number, date_appointments?: string, page?: number, pageSize?: number}): Observable<PaginatedAppointment> {
     let params = new HttpParams();
@@ -58,7 +63,7 @@ export class AppointmentsService {
   }
 
   //traer todas las reservas sin paginación(dentistas dashboard)
-  getAppointmentsAll(filters: {professional_id: number, date_appointments: string}):Observable<any[]> {
+  getAppointmentsAll(filters: {professional_id?: number, date_appointments?: string}):Observable<any[]> {
     const params: any = {};
     if (filters.professional_id) {
       params.professional_id = filters.professional_id.toString();
@@ -69,17 +74,17 @@ export class AppointmentsService {
     return this.http.get<any[]>(`${this.apiUrlAppointments}/reservas/all`, { params });
   }
 
-  getAppointmentsByDates(filters: {professional_id: number, start_date: string, end_date: string}): Observable<AppointmentResponseDto[]> {
+  getAppointmentsByDates(filters: {start_date: string, end_date: string, professional_id: number}): Observable<AppointmentResponseDto[]> {
     let params = new HttpParams();
 
-    if (filters.professional_id) {
-      params = params.set('professional_id', filters.professional_id.toString());
-    }
     if (filters.start_date) {
-      params = params.set('start_date', filters.start_date);
+      params = params.set('startDate', filters.start_date);
     }
     if (filters.end_date) {
-      params = params.set('end_date', filters.end_date);
+      params = params.set('endDate', filters.end_date);
+    }
+    if (filters.professional_id) {
+      params = params.set('professional_id', filters.professional_id.toString());
     }
     console.log('Params:', params.toString()); // Para depurar los parámetros
 

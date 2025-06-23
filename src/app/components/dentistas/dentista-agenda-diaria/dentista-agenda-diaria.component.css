@@ -1,3 +1,13 @@
+::ng-deep .snackbar-success {
+  background-color: #4caf50;
+  color: white;
+}
+
+::ng-deep .snackbar-error {
+  background-color: #e53935;
+  color: white;
+}
+
 .main-update-professional-container {
   max-width: 1000px;
   margin: 30px auto;
@@ -11,9 +21,19 @@
 }
 
 h2 {
+  font-size: 1.8rem;
   text-align: center;
   color: var(--primary-color);
-  margin-bottom: 20px;
+  margin-bottom: 1.5rem;
+}
+
+h3 {
+  font-size: 1.3rem;
+  color: var(--primary-color);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(0, 195, 178, 0.2);
+  padding-bottom: 0.25rem;
 }
 
 .loading {
@@ -109,4 +129,54 @@ p {
 
 .estado-realizada {
   background-color: rgba(0, 195, 178, 0.1) !important; /* tono del primary-color */
+}
+
+.realizar-btn {
+  padding: 6px 10px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+}
+
+.realizar-btn:hover {
+  background-color: var(--secondary-color);
+}
+
+.cancelar-btn {
+  padding: 6px 10px;
+  background-color: #e53935;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+}
+
+.cancelar-btn:hover {
+  background-color: #c62828;
+}
+
+.mensaje-vacio {
+  margin: 2rem 0;
+  padding: 1rem;
+  background-color: rgba(255, 235, 59, 0.1); /* amarillo suave */
+  color: #444;
+  text-align: center;
+  border: 1px dashed #ccc;
+  border-radius: 8px;
+  font-style: italic;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.icono-vacio {
+  color: #f57c00; /* naranja oscuro */
+  font-size: 28px;
 }

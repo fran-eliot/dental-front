@@ -11,13 +11,27 @@ import { HistorialCitasPacienteModalComponent } from '../historial-citas-pacient
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { trigger, transition, style, animate } from '@angular/animations';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-dentista-agenda-semanal',
   standalone: true,
-  imports: [MatIconModule,MatProgressSpinner,CommonModule],
+  imports: [MatIconModule, MatProgressSpinner, CommonModule, MatSnackBarModule, FormsModule],
   templateUrl: './dentista-agenda-semanal.component.html',
-  styleUrl: './dentista-agenda-semanal.component.css'
+  styleUrl: './dentista-agenda-semanal.component.css',
+  animations: [
+    trigger('fadeInOut', [
+      transition(':enter', [ // Al aparecer
+        style({ opacity: 0 }),
+        animate('300ms ease-in', style({ opacity: 1 }))
+      ]),
+      transition(':leave', [ // Al desaparecer
+        animate('300ms ease-out', style({ opacity: 0 }))
+      ])
+    ])
+  ]
 })
 
 export class DentistaAgendaSemanalComponent implements OnInit {
@@ -28,9 +42,10 @@ export class DentistaAgendaSemanalComponent implements OnInit {
   startOfWeek!: Dayjs;
   endOfWeek!: Dayjs;
   semanaOffset = 0; // Offset para navegar entre semanas
+  diaSeleccionado: string;
 
   constructor(
-    private appointmentService: AppointmentsService, private dialog: MatDialog
+    private appointmentService: AppointmentsService, private dialog: MatDialog, private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -52,6 +67,8 @@ export class DentistaAgendaSemanalComponent implements OnInit {
         next: (data) => {
           this.citasSemana = data;
           this.organizarCitasPorDia();
+          const dias = this.getDiasCitas();
+          this.diaSeleccionado = dias.length > 0 ? dias[0] : '';
           this.loading = false;
         },
         error: () => {
@@ -64,7 +81,7 @@ export class DentistaAgendaSemanalComponent implements OnInit {
   organizarCitasPorDia(): void {
     this.citasPorDia = {};
     for (const cita of this.citasSemana) {
-      const fecha = dayjs(cita.fecha_cita).format('YYYY-MM-DD');
+      const fecha = dayjs(cita.fecha_cita).format('YYYY-MM-DD'); // asegurar formato
       if (!this.citasPorDia[fecha]) {
         this.citasPorDia[fecha] = [];
       }
@@ -127,6 +144,34 @@ export class DentistaAgendaSemanalComponent implements OnInit {
       default:
         return '';
     }
+  }
+
+  actualizarCita(cita: AppointmentResponseDto) {
+    const nota = cita.motivo_cancelacion?.trim() || '';
+    const updateData = {
+      status_appointments: cita.estado,
+      cancellation_reason_appointments: nota
+    };
+
+   this.appointmentService.updateAppointmentStatus(cita.id_reserva, updateData)
+    .subscribe({
+      next: () => {
+        this.snackBar.open('Cita actualizada con éxito', 'Cerrar', {
+          duration: 3000,
+          panelClass: ['snackbar-success']
+        });
+      },
+      error: () => {
+        this.snackBar.open('Error al actualizar la cita', 'Cerrar', {
+          duration: 3000,
+          panelClass: ['snackbar-error']
+        });
+      }
+    });
+  }
+
+  sinCitasEnSemana(): boolean {
+    return Object.keys(this.citasPorDia).length === 0;
   }
 
 }

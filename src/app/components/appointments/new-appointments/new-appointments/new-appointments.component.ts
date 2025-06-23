@@ -22,6 +22,7 @@ export class NewAppointmentsComponent implements OnInit {
 
   appointmentForm!: FormGroup;
   patients: Patient[] = [];
+  appointments: Appointment[] = [];
   professionals: Professional[] = [];
   treatments: Treatment[] = [];
   availableSlot: Slot[] = [];
@@ -163,40 +164,67 @@ export class NewAppointmentsComponent implements OnInit {
     this.successMessage = '';
     this.errorMessage = '';
 
-    if (this.appointmentForm.valid) {
-      const formValue = this.appointmentForm.value;
-
-      const newAppointment: Appointment = {
-        patient_id: formValue.patient_id,
-        professional_id: formValue.professional_id,
-        treatments_id: formValue.treatments_id,
-        slot_id: formValue.slot_id,
-        date_appointments: formValue.date_appointments,
-        duration_minutes_appointments: formValue.duration_minutes_appointments,
-        status_appointments: formValue.status_appointments?.toLowerCase() || 'pendiente',
-        cancellation_reason_appointments: formValue.cancellation_reason_appointments,
-        created_by_appointments: formValue.created_by_appointments?.toLowerCase() || 'admin'
-      };
-
-      this.appointmentsService.postNewAppointment(newAppointment).subscribe({
-        next: () => {
-          this.successMessage = '¡Reserva creada correctamente!';
-          this.appointmentForm.reset();
-          this.patientSearchControl.setValue('');
-          this.selectedPatient = null;
-          this.filteredPatients = [];
-          this.availableSlot = [];
-        },
-        error: (err) => {
-          console.error('Error al crear la reserva:', err);
-          this.errorMessage = 'Ocurrió un error al crear la reserva. Intenta nuevamente.';
-        }
-      });
-
-    } else {
+    if (!this.appointmentForm.valid) {
       this.errorMessage = 'Por favor, completa todos los campos requeridos.';
+      return;
     }
+
+    const formValue = this.appointmentForm.value;
+
+    // 1. Traer todas las reservas para validar
+    this.appointmentsService.getAllAppointmentsComplete().subscribe({
+      next: (allAppointments) => {
+        // 2. Filtrar reservas que coincidan en paciente, fecha y slot
+        const existing = allAppointments.find(app =>
+          app.patient.patient_id === formValue.patient_id &&
+          //app.professional_id !== formValue.professional_id &&
+          app.date_appointments === formValue.date_appointments &&
+          app.slot.slot_id === formValue.slot_id &&
+          app.status_appointments.toLowerCase() !== 'cancelada'  // solo si no está cancelada
+        );
+        console.log("Existe reserva de paciente", existing);
+
+        if (existing) {
+          // 3. Ya existe reserva activa para ese paciente, slot y fecha
+          this.errorMessage = 'El paciente ya tiene una reserva en esa fecha y hora.';
+          return;
+        }
+
+        // 4. Si no existe, crea la reserva
+        const newAppointment: Appointment = {
+          patient_id: formValue.patient_id,
+          professional_id: formValue.professional_id,
+          treatments_id: formValue.treatments_id,
+          slot_id: formValue.slot_id,
+          date_appointments: formValue.date_appointments,
+          duration_minutes_appointments: formValue.duration_minutes_appointments,
+          status_appointments: formValue.status_appointments?.toLowerCase() || 'pendiente',
+          cancellation_reason_appointments: formValue.cancellation_reason_appointments,
+          created_by_appointments: formValue.created_by_appointments?.toLowerCase() || 'admin'
+        };
+
+        this.appointmentsService.postNewAppointment(newAppointment).subscribe({
+          next: () => {
+            this.successMessage = '¡Reserva creada correctamente!';
+            this.appointmentForm.reset();
+            this.patientSearchControl.setValue('');
+            this.selectedPatient = null;
+            this.filteredPatients = [];
+            this.availableSlot = [];
+          },
+          error: (err) => {
+            console.error('Error al crear la reserva:', err);
+            this.errorMessage = 'Ocurrió un error al crear la reserva. Ajusta la hora';
+          }
+        });
+      },
+      error: (err) => {
+        console.error('Error al traer las reservas:', err);
+        this.errorMessage = 'No se pudieron verificar las reservas existentes. Intenta nuevamente.';
+      }
+    });
   }
+
   //Para el modal del historico del paciente
   getAllAppointementsByPatient():void{
     if (!this.selectedPatient?.id_patients) return;
@@ -225,6 +253,4 @@ export class NewAppointmentsComponent implements OnInit {
     this.patientSearchControl.setValue(`${patient.name_patients} ${patient.last_name_patients}`);
     this.closeNewPatientModal();
   }
-
-
 }

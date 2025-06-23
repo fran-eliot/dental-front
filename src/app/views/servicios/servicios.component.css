@@ -1,0 +1,38 @@
+.main-servicios-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+  padding: 40px 20px;
+  background-color: transparent;
+}
+
+.servicio-card {
+  background: rgb(249, 249,249);
+  border: 1px solid #e1e1e1;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.servicio-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.servicio-card h3 {
+  margin: 0 0 12px;
+  font-size: 1.25rem;
+  color: var(--text-color);
+  text-align: center;
+}
+
+.servicio-card p {
+  margin: 6px 0;
+  font-size: 0.85rem;
+  color: var(--text-color, #333);
+}
+
+.servicio-card p strong {
+  color: var(--secondary-color, #555);
+}
