@@ -47,7 +47,27 @@
   text-align: center;
   user-select: none;
 }
+.treatment-table input[type="text"]{
+  width: 100%;
+  min-width: 100px;
+  max-width: 180px;
+  box-sizing: border-box;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 3px solid rgba(0, 195, 178, 0.3);
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--text-color);
+  font-size: 0.8rem;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+  outline: none;
+  margin-top: 10px;
+}
 
+.treatment-table input[type="checkbox"]{
+  transform: scale(1.2);
+  cursor: pointer;
+  accent-color: var(--secondary-color);
+}
 .treatment-table tbody tr:nth-child(odd) {
   background-color: rgba(255, 255, 255, 0.07);
 }
@@ -56,6 +76,21 @@
   background-color: rgba(0, 195, 178, 0.05);
 }
 
+.treatment-table button {
+  background-color: var(--primary-color);
+  border: none;
+  padding: 8px 14px;
+  border-radius: 10px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-right: 15px;
+}
+
+.treatment-table button:hover {
+  background-color: var(--secondary-color);
+}
 /*.treatment-table .status .active {
   color: #00e676;
   font-weight: bold;

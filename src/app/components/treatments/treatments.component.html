@@ -12,18 +12,44 @@
           <th>Duración (min)</th>
           <th>Precio (€)</th>
           <th>Activo</th>
+          <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let treatment of treatments">
+        <tr *ngFor="let treatment of treatments ; let i=index">
           <td>{{ treatment.name_treatments }}</td>
           <td>{{ treatment.type_treatments || '---' }}</td>
           <td>{{ treatment.duration_minutes_treatments }}</td>
-          <td>{{ treatment.price_treatments | currency:'EUR' }}</td>
-          <td class="status">
-            <span [class.active]="treatment.is_active_treatments" [class.inactive]="!treatment.is_active_treatments">
+
+          <td>
+            <input #inputName type="text" *ngIf="editIndex === i" [(ngModel)]="treatment.price_treatments" />
+            <span *ngIf="editIndex !== i">{{ treatment.price_treatments }}</span>
+          </td>
+          <td>
+            <input
+              type="checkbox"
+              *ngIf="editIndex === i"
+              [(ngModel)]="treatment.is_active_treatments"
+            />
+            <span *ngIf="editIndex !== i">
               {{ treatment.is_active_treatments ? 'Sí' : 'No' }}
             </span>
+          </td>
+          <td>
+            <div class="actions-container">
+              <!-- Botón editar o guardar -->
+              <button *ngIf="editIndex !== i" (click)="startEdit(i)" title="Editar usuario">
+                <i class="fa-solid fa-pen"></i>
+              </button>
+              <ng-container *ngIf="editIndex === i">
+                <button (click)="updateTreatmentById(treatment.id_treatments, treatment)" title="Guardar cambios">
+                  <i class="fa-solid fa-floppy-disk"></i>
+                </button>
+                <button (click)="cancelEdit()" title="Cancelar edición">
+                  <i class="fa-solid fa-xmark"></i>
+                </button>
+              </ng-container>
+            </div>
           </td>
         </tr>
       </tbody>
