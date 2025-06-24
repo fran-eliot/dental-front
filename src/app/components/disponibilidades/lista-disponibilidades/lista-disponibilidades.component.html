@@ -18,7 +18,14 @@
       </select>
     </div>
   </div>
-  <table class="professional-table" *ngIf="filtrarDisponibilidades().length > 0; else sinDatos">
+
+  <!-- 🔄 Spinner de carga -->
+  <div *ngIf="loading" class="loading">
+    <mat-spinner diameter="30"></mat-spinner>
+    <span>Cargando disponibilidades...</span>
+  </div>
+
+  <table class="professional-table" *ngIf="!loading && filtrarDisponibilidades().length > 0; else sinDatos">
     <thead>
       <tr>
         <th>Hora</th>

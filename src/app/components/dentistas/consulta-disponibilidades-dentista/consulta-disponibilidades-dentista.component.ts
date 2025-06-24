@@ -7,12 +7,13 @@ import { CommonModule } from '@angular/common';
 import { Status } from '../../../model/Status';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { FormsModule } from '@angular/forms';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 @Component({
   selector: 'app-consulta-disponibilidades-dentista',
   standalone: true,
-  imports: [CommonModule,MatProgressSpinner,FormsModule],
+  imports: [CommonModule,MatProgressSpinner,FormsModule, MatSnackBarModule],
   templateUrl: './consulta-disponibilidades-dentista.component.html',
   styleUrl: './consulta-disponibilidades-dentista.component.css'
 })
@@ -25,7 +26,9 @@ export class ConsultaDisponibilidadesDentistaComponent implements OnInit {
   fechaSeleccionada: string = dayjs().format('YYYY-MM-DD');
   statusValues = Object.values(Status);
 
-  constructor(private availabilityService: AvailabitlityService) {}
+  constructor(private availabilityService: AvailabitlityService,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
     this.cargarDisponibilidades();
@@ -73,15 +76,23 @@ export class ConsultaDisponibilidadesDentistaComponent implements OnInit {
   }
 
   updateStatus(id: number, status: Status) {
-    this.availabilityService.updateStatus(id, status)
-      .subscribe({
-        next: () => {
-          const availability = this.disponibilidades.find(a => a.id === id);
-          if (availability) availability.status = status;
-          alert('Estado actualizado correctamente');
-        },
-        error: () => alert('Error al actualizar estado')
-      });
+    this.availabilityService.updateStatus(id, status).subscribe({
+      next: () => {
+        const availability = this.disponibilidades.find(a => a.id === id);
+        if (availability) availability.status = status;
+
+        this.snackBar.open('Estado actualizado correctamente', 'Cerrar', {
+          duration: 3000,
+          panelClass: ['snackbar-success']
+        });
+      },
+      error: () => {
+        this.snackBar.open('Error al actualizar estado', 'Cerrar', {
+          duration: 3000,
+          panelClass: ['snackbar-error']
+        });
+      }
+    });
   }
 
   getEstadoClass(status: string): string {

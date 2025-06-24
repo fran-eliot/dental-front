@@ -3,14 +3,17 @@
   <label for="fechaLimite">Eliminar todas las disponibilidades anteriores a</label>
   <input type="date" id="fechaLimite" [(ngModel)]="fechaLimite" />
 
-  <button (click)="limpiar()" class="accion-btn">
+  <!-- Botón deshabilitado mientras carga -->
+  <button (click)="limpiar()" class="accion-btn" [disabled]="loading">
     <i class="fa-solid fa-trash"></i> Limpiar Disponibilidades
   </button>
 
-  <p *ngIf="mensaje" class="mensaje-accion" [ngClass]="{ 'exito': success, 'error': !success }">
-    <i class="fa-solid" [ngClass]="{ 'fa-circle-check': success, 'fa-triangle-exclamation': !success }"></i>
-    {{ mensaje }}
-  </p>
+  <!-- Spinner -->
+  <div *ngIf="loading" class="loading">
+    <mat-spinner diameter="30"></mat-spinner>
+    <span>Eliminando disponibilidades...</span>
+  </div>
+
 </div>
 
 

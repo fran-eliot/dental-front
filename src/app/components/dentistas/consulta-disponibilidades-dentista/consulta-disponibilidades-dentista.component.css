@@ -92,3 +92,13 @@ tr:hover {
 .estado-no-disponible {
   background-color: rgba(0, 0, 255, 0.2) !important;
 }
+
+.snackbar-success {
+  background-color: #4caf50;
+  color: white;
+}
+
+.snackbar-error {
+  background-color: #f44336;
+  color: white;
+}

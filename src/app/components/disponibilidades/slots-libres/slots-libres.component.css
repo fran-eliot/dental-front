@@ -263,3 +263,9 @@ select:focus {
   border-color: var(--primary-color);
   background: rgba(255, 255, 255, 0.3);
 }
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}

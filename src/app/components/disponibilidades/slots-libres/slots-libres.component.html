@@ -30,6 +30,11 @@
       <button type="submit">Buscar</button>
     </div>
   </form>
+
+  <!-- Spinner de carga -->
+  <div *ngIf="loading" class="spinner-container">
+    <mat-spinner diameter="40"></mat-spinner>
+  </div>
   <!-- Tabla de resultados -->
   <table class="professional-table" *ngIf="filtrarSlots()?.length > 0; else noSlots">
     <thead>

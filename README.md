@@ -1,9 +1,16 @@
 # 🦷 Clínica Dental - Frontend
 
-![Angular](https://img.shields.io/badge/Angular-17-DD0031?logo=angular&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.4-3178C6?logo=typescript&logoColor=white)
-![RxJS](https://img.shields.io/badge/RxJS-7.8-B7178C?logo=reactivex&logoColor=white)
-![JWT Auth](https://img.shields.io/badge/Auth-JWT-000000?logo=jsonwebtokens)
+![Angular](https://img.shields.io/badge/Angular-17.1.0-DD0031?style=for-the-badge&logo=angular&logoColor=white)
+![RxJS](https://img.shields.io/badge/RxJS-7.8.0-B7178C?style=for-the-badge&logo=reactivex&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.3.2-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Day.js](https://img.shields.io/badge/day.js-1.11.13-FFCA28?style=for-the-badge&logo=javascript&logoColor=black)
+![JWT Decode](https://img.shields.io/badge/jwt--decode-4.0.0-000000?style=for-the-badge)
+![FontAwesome](https://img.shields.io/badge/FontAwesome-6.7.2-339AF0?style=for-the-badge&logo=fontawesome&logoColor=white)
+![Material](https://img.shields.io/badge/Angular%20Material-17.3.10-1976D2?style=for-the-badge&logo=angular&logoColor=white)
+![Zone.js](https://img.shields.io/badge/Zone.js-0.14.3-8E44AD?style=for-the-badge)
+![Angular CLI](https://img.shields.io/badge/Angular_CLI-17.1.2-DD0031?style=for-the-badge&logo=angular&logoColor=white)
+![Jasmine](https://img.shields.io/badge/Jasmine-5.1-8A4182?style=for-the-badge&logo=jasmine&logoColor=white)
+![Karma](https://img.shields.io/badge/Karma-6.4.0-28A745?style=for-the-badge&logo=karma&logoColor=white)
 ![NestJS Backend](https://img.shields.io/badge/Backend-NestJS-E0234E?logo=nestjs&logoColor=white)
 ![CSS](https://img.shields.io/badge/Styles-CSS3-264de4?logo=css3&logoColor=white)
 ![LocalStorage](https://img.shields.io/badge/Storage-localStorage-orange)
@@ -16,12 +23,27 @@ Este es el frontend del sistema de gestión de una clínica dental. Desarrollado
 
 ## 🚀 Tecnologías principales
 
-- [Angular 17](https://angular.io/)
-- [RxJS](https://rxjs.dev/)
-- [TypeScript](https://www.typescriptlang.org/)
-- CSS nativo para estilos
-- JWT para autenticación y control de roles
+## 🚀 Tecnologías principales
+
+- [Angular 17](https://angular.io/) (core, router, animations, forms)
+- [Angular Material 17](https://material.angular.io/)
+- [RxJS 7.8](https://rxjs.dev/)
+- [TypeScript 5.3](https://www.typescriptlang.org/)
+- [Day.js](https://day.js.org/) para manejo de fechas
+- [JWT Decode](https://github.com/auth0/jwt-decode) para decodificar tokens y control de roles
+- [FontAwesome 6](https://fontawesome.com/) para iconos
+- [Zone.js](https://github.com/angular/zone.js) para gestión de zonas de ejecución en Angular
+- CSS nativo para estilos personalizados
 - `localStorage` para persistencia de sesión
+
+---
+
+### 🧪 Herramientas de desarrollo
+
+- [Angular CLI](https://angular.io/cli) para scaffolding y build
+- [TypeScript](https://www.typescriptlang.org/) como lenguaje principal
+- [Jasmine](https://jasmine.github.io/) + [Karma](https://karma-runner.github.io/) para testing
+
 
 ---
 

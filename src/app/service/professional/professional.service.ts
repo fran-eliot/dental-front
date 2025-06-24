@@ -10,11 +10,16 @@ export class ProfessionalService {
   urlAllProfessionals: string = "http://localhost:3000/professionals/all";
   urlUpdateProfessionals: string = "http://localhost:3000/professionals/actualizacion";
   urlGetProfessionalByIdUser: string = "http://localhost:3000/professionals/por-user";
-  
+  urlGetActiveProfessionals: string = "http://localhost:3000/professionals/activos";
+
   constructor(private http:HttpClient) {}
 
   getProfessionals():Observable<Professional[]>{
     return this.http.get<Professional[]>(this.urlAllProfessionals);
+  }
+
+  getActiveProfessionals(): Observable<Professional[]> {
+    return this.http.get<Professional[]>(this.urlGetActiveProfessionals);
   }
 
   updateProfessionals(id_professionals:number, professional: Professional):Observable<Professional>{
