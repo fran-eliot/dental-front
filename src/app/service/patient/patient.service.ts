@@ -34,4 +34,5 @@ export class PatientService {
   createPatient(patient: Patient): Observable<Patient> {
     return this.http.post<Patient>(`${this.apiUrlPatients}/alta`, patient);
   }
+
 }
