@@ -26,7 +26,9 @@
     <button type="submit" class="boton-generar">Generar Disponibilidades</button>
   </form>
 
-  <div *ngIf="mensaje" [ngClass]="{ 'mensaje-generador': true, 'exito': success, 'error': !success }">
-    {{ mensaje }}
+  <div *ngIf="loading" class="loading">
+    <mat-spinner diameter="30"></mat-spinner>
+    <span>Generando disponibilidades mensuales...</span>
   </div>
+
 </div>

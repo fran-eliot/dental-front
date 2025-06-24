@@ -75,17 +75,22 @@ input[type="date"]:focus {
   margin-right: auto;
 }
 
-/* Estilo para éxito */
-.exito {
-  background-color: rgba(0, 195, 178, 0.2);
-  color: #00897b;
-  border: 1px solid #00bfa5;
+.loading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 1rem;
+  font-weight: bold;
+  color: var(--primary-color);
 }
 
-/* Estilo para error */
-.error {
-  background-color: rgba(255, 0, 0, 0.1);
-  color: #c62828;
-  border: 1px solid #ef5350;
+.snackbar-success {
+  background-color: #4caf50; /* verde */
+  color: #fff;
+}
+
+.snackbar-error {
+  background-color: #f44336; /* rojo */
+  color: #fff;
 }
 

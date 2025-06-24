@@ -1,39 +1,53 @@
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AvailabitlityService } from '../../../service/availability/availabitlity.service';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-limpieza-disponibilidades',
   standalone: true,
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule,FormsModule, MatProgressSpinnerModule, MatSnackBarModule],
   templateUrl: './limpieza-disponibilidades.component.html',
   styleUrl: './limpieza-disponibilidades.component.css'
 })
 export class LimpiezaDisponibilidadesComponent {
   fechaLimite: string = '';
-  mensaje = '';
-  success = false;
+  loading: boolean = false;
 
-  constructor(private availabilityService: AvailabitlityService) {}
+  constructor(private availabilityService: AvailabitlityService,
+    private snackBar: MatSnackBar
+  ) {}
 
   limpiar() {
     if (!this.fechaLimite) {
-      this.mensaje = 'Debes seleccionar una fecha válida.';
-      this.success = false;
+      this.snackBar.open('Debes seleccionar una fecha válida.', 'Cerrar', {
+        duration: 3000,
+        panelClass: ['snackbar-error']
+      });
       return;
     }
 
+    this.loading = true;
+
     this.availabilityService.cleanOld(this.fechaLimite).subscribe({
       next: () => {
-        this.success = true;
-        this.mensaje = 'Disponibilidades anteriores eliminadas correctamente.';
+        this.loading = false;
+        this.snackBar.open('Disponibilidades anteriores eliminadas correctamente.', 'Cerrar', {
+          duration: 3000,
+          panelClass: ['snackbar-success']
+        });
       },
       error: (err) => {
-        this.success = false;
-        this.mensaje = 'Error al eliminar disponibilidades.';
+        this.loading = false;
         console.error(err);
+        this.snackBar.open('Error al eliminar disponibilidades.', 'Cerrar', {
+          duration: 3000,
+          panelClass: ['snackbar-error']
+        });
       }
     });
   }
+
 }
