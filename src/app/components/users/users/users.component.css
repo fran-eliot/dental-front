@@ -47,7 +47,9 @@
 }
 
 .user-table input[type="text"],
-.user-table input[type="password"] {
+.user-table input[type="password"],
+.user-table input[type="email"],
+.user-table select{
   width: 100%;
   min-width: 100px;
   max-width: 180px;

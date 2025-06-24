@@ -9,11 +9,11 @@
   color: var(--text-color);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
-  form {
+  /*form {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 20px;
-  }
+  }*/
 }
 
 .form-group {
@@ -61,6 +61,11 @@
   font-size: 0.9rem;
   backdrop-filter: blur(5px);
   transition: all 0.3s ease;
+}
+.form-group input[type='checkbox']{
+  transform: scale(1.2);
+  cursor: pointer;
+  accent-color: var(--secondary-color);
 }
 
 .form-group select:focus,

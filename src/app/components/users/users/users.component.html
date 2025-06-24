@@ -23,7 +23,10 @@
         <!-- Rol -->
         <td>
           <ng-container *ngIf="editIndex === i; else showRol">
-            <input type="text" [(ngModel)]="user.rol_users" />
+            <select [(ngModel)]="user.rol_users">
+              <option value="admin">admin</option>
+              <option value="dentista">dentista</option>
+            </select>
           </ng-container>
           <ng-template #showRol>
             {{ user.rol_users }}

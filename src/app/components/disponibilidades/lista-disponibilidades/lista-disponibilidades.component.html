@@ -34,6 +34,7 @@
         <td>{{ a.status }}</td>
         <td>
           <select [value]="a.status" (change)="updateStatus(a.id, $any($event.target).value)">
+            <option>-</option>
             <option *ngFor="let status of statusValues" [value]="status">{{ status }}</option>
           </select>
         </td>
