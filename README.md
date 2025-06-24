@@ -20,7 +20,7 @@ Este es el frontend del sistema de gestión de una clínica dental. Desarrollado
 - [RxJS](https://rxjs.dev/)
 - [TypeScript](https://www.typescriptlang.org/)
 - CSS nativo para estilos
-- JWT para autenticación
+- JWT para autenticación y control de roles
 - `localStorage` para persistencia de sesión
 
 ---
@@ -49,6 +49,7 @@ La aplicación se abrirá automáticamente en:
 
 ## 📁 Estructura de carpetas
 
+```plaintext
 src/
 ├── app/
 │   ├── appointments/
@@ -80,7 +81,7 @@ src/
 │   ├── treatments/
 │   ├── unauthorized/
 │   └── users/
-
+```
 
 ---
 
@@ -92,7 +93,7 @@ src/
 
 - El token se incluye automáticamente en los headers de las peticiones HTTP mediante interceptores.
 
-Authorization: Bearer <jwt_token>
+    Authorization: Bearer <jwt_token>
 
 - El sistema protege rutas según roles: admin, dentista (futura mejora: paciente).
 
@@ -106,10 +107,10 @@ Authorization: Bearer <jwt_token>
 - Todos los endpoints utilizan peticiones HTTP estándar (GET, POST, PATCH, DELETE) y consumen las rutas expuestas en el backend.
 
 - El repositorio del backend está disponible aquí:
-👉 Clínica Dental - Backend (NestJS): https://github.com/fran-eliot/dental-back
+    👉 Clínica Dental - Backend (NestJS): https://github.com/fran-eliot/dental-back
 
 - Los endpoints están documentados vía Swagger en el backend:
-📌 http://localhost:3000/api
+    📌 http://localhost:3000/api
 
 ---
 
@@ -119,11 +120,11 @@ Authorization: Bearer <jwt_token>
 
 - Existe una hoja de estilo base compartida (custom-theme.scss) para mantener consistencia visual entre componentes:
 
- - Fondo semitransparente
+    - Fondo semitransparente
 
- - Bordes redondeados y sombras suaves
+    - Bordes redondeados y sombras suaves
 
- - Colores definidos por variables :root
+    - Colores definidos por variables :root
 
 - Estética moderna, limpia y orientada a usabilidad para personal clínico y administrativo.
 
@@ -206,9 +207,9 @@ Authorization: Bearer <jwt_token>
 
 ## 🧑‍💻 Autores
 
-ste proyecto ha sido desarrollado como parte de un sistema completo de gestión clínica dental, para el curso "Desarrollo Frontend con Angular" de Fundación Adecco.
+Este proyecto ha sido desarrollado como parte de un sistema completo de gestión de una clínica dental, para el curso "Desarrollo Frontend con Angular" de Fundación Adecco.
 
 Los autores del proyecto son:
-- Ainhoa Alonso: -[Ainhoa Alonso] (https://github.com/AinhoaAlonso)
-- Fran Ramírez: -[Fran Ramírez] (https://github.com/fran-eliot)
-- Asusalin Abou: -[Asusalin Abou] (https://github.com/asusalin)
+- [Ainhoa Alonso](https://github.com/AinhoaAlonso)
+- [Fran Ramírez](https://github.com/fran-eliot)
+- [Asusalin Abou](https://github.com/asusalin)
