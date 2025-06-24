@@ -18,9 +18,9 @@ urlBase: string = 'http://localhost:3000/treatments';
     return this.http.get<Treatment[]>(url);
   }
 
-
   createTreatment(treatment: Treatment): Observable<Treatment> {
     return this.http.post<Treatment>(`${this.urlBase}/alta`, treatment);
 
    }
+
 }
