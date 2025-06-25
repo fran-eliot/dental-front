@@ -23,8 +23,6 @@ Este es el frontend del sistema de gestión de una clínica dental. Desarrollado
 
 ## 🚀 Tecnologías principales
 
-## 🚀 Tecnologías principales
-
 - [Angular 17](https://angular.io/) (core, router, animations, forms)
 - [Angular Material 17](https://material.angular.io/)
 - [RxJS 7.8](https://rxjs.dev/)
@@ -129,7 +127,7 @@ src/
 - Todos los endpoints utilizan peticiones HTTP estándar (GET, POST, PATCH, DELETE) y consumen las rutas expuestas en el backend.
 
 - El repositorio del backend está disponible aquí:
-    👉 Clínica Dental - Backend (NestJS): https://github.com/fran-eliot/dental-back
+    👉 [Clínica Dental - Backend (NestJS)](https://github.com/fran-eliot/dental-back)
 
 - Los endpoints están documentados vía Swagger en el backend:
     📌 http://localhost:3000/api
@@ -216,15 +214,44 @@ src/
 
 ---
 
-# 🖼️ Capturas  de pantallas
+# 🖼️ Capturas de Pantalla
 
-| Pantalla                                                     | Descripción                         |
-| ------------------------------------------------------------ | ----------------------------------- |
-| ![Login](./docs/screenshots/login.png)                       | Pantalla de acceso al sistema       |
-| ![Agenda semanal](./docs/screenshots/agenda-semanal.png)     | Agenda semanal de un dentista       |
-| ![Disponibilidades](./docs/screenshots/disponibilidades.png) | Lista de disponibilidades semanales |
-| ![Nueva cita](./docs/screenshots/nueva-cita.png)             | Creación de una nueva cita          |
-| ![Historial](./docs/screenshots/historial.png)               | Historial de citas de un paciente   |
+## 🧭 Vistas Comunes
+
+| Pantalla                                              | Descripción                                 |
+|-------------------------------------------------------|---------------------------------------------|
+| ![Pantalla de Inicio](./docs/screenshots/inicio.png)  | Pantalla principal tras el login            |
+| ![Login](./docs/screenshots/login.png)                | Pantalla de acceso al sistema               |
+| ![Servicios](./docs/screenshots/servicios.png)        | Listado general de tratamientos             |
+
+## 👩‍💼 Vistas de Secretaria / Administrador
+
+| Pantalla                                                               | Descripción                                           |
+|------------------------------------------------------------------------|-------------------------------------------------------|
+| ![Nuevo Paciente](./docs/screenshots/nuevo-paciente.png)              | Formulario para registrar un nuevo paciente           |
+| ![Datos Paciente](./docs/screenshots/datos-paciente.png)              | Ficha con información del paciente                    |
+| ![Listado de Reservas](./docs/screenshots/listado-reservas.png)       | Vista general de todas las citas agendadas            |
+| ![Nueva Reserva](./docs/screenshots/nueva-reserva.png)                | Creación de una nueva cita                            |
+| ![Gestión de Disponibilidades](./docs/screenshots/gestion-disponibilidades.png) | Administración de disponibilidades semanales         |
+| ![Generar Disponibilidades](./docs/screenshots/generar-disponibilidades.png)     | Generación mensual automática de disponibilidades     |
+| ![Limpiar Disponibilidades](./docs/screenshots/limpieza-disponibilidades.png)    | Eliminación de disponibilidades antiguas              |
+| ![Nuevo Tratamiento](./docs/screenshots/nuevo-tratamiento.png)        | Formulario para crear un tratamiento                  |
+| ![Gestión de Tratamientos](./docs/screenshots/gestion-tratamientos.png) | Lista de tratamientos disponibles                    |
+| ![Modificar Dentista](./docs/screenshots/modificar-dentista.png)      | Edición de datos de un profesional                    |
+| ![Servicios](./docs/screenshots/servicios.png)                         | Listado de servicios ofertados por la clínica         |
+
+---
+
+## 🦷 Vistas de Profesional / Dentista
+
+| Pantalla                                                                  | Descripción                                           |
+|---------------------------------------------------------------------------|-------------------------------------------------------|
+| ![Agenda Diaria](./docs/screenshots/agenda-diaria.png)                   | Citas asignadas al dentista para el día actual       |
+| ![Agenda Semanal](./docs/screenshots/agenda-semanal.png)                 | Vista semanal de la agenda del dentista              |
+| ![Disponibilidades del Dentista](./docs/screenshots/gestion-disponibilidades-dentista.png) | Consulta de slots libres desde el panel del dentista |
+| ![Historial de Citas del Dentista](./docs/screenshots/historial-citas-dentista.png) | Historial de pacientes atendidos por el profesional  |
+| ![Historial del Paciente](./docs/screenshots/historial-paciente.png)           | Citas anteriores de un paciente  
+      |
 
 
 ## 🧑‍💻 Autores
