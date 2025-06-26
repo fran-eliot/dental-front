@@ -17,7 +17,23 @@
 ![Status](https://img.shields.io/badge/Project-Frontend-blueviolet)
 ![License](https://img.shields.io/badge/License-Educational-lightgrey)
 
-Este es el frontend del sistema de gestión de una clínica dental. Desarrollado con **Angular 17**, se conecta con el backend NestJS para ofrecer funcionalidades como gestión de citas, pacientes, profesionales, disponibilidades y autenticación con JWT.
+Este es el frontend del sistema de gestión de una clínica dental. Desarrollado con **Angular 17**, se conecta a un backend NestJS para ofrecer funcionalidades como gestión de citas, pacientes, profesionales, disponibilidades y autenticación con JWT.
+
+---
+
+## 📚 Índice
+
+1. [🚀 Tecnologías principales](#-tecnologías-principales)
+2. [🧪 Herramientas de desarrollo](#-herramientas-de-desarrollo)
+3. [⚙️ Requisitos del sistema](#️-requisitos-del-sistema)
+4. [▶️ Instalación y ejecución](#️-instalación-y-ejecución)
+5. [📁 Estructura de carpetas](#-estructura-de-carpetas)
+6. [🔐 Autenticación](#-autenticación)
+7. [🌐 Comunicación con Backend](#-comunicación-con-backend)
+8. [🎨 Estilos](#-estilos)
+9. [🧩 Componentes clave](#-componentes-clave)
+10. [📝 Esquema de Roles y Flujo](#-esquema-de-roles-y-flujo)
+11. [🖼️ Capturas de Pantalla](#️-capturas-de-pantalla)
 
 ---
 
@@ -36,7 +52,7 @@ Este es el frontend del sistema de gestión de una clínica dental. Desarrollado
 
 ---
 
-### 🧪 Herramientas de desarrollo
+## 🧪 Herramientas de desarrollo
 
 - [Angular CLI](https://angular.io/cli) para scaffolding y build
 - [TypeScript](https://www.typescriptlang.org/) como lenguaje principal
@@ -113,7 +129,9 @@ src/
 
 - El token se incluye automáticamente en los headers de las peticiones HTTP mediante interceptores.
 
+```http
     Authorization: Bearer <jwt_token>
+```
 
 - El sistema protege rutas según roles: admin, dentista (futura mejora: paciente).
 
@@ -150,15 +168,15 @@ src/
 
 ---
 
-## 🧩 Componentes clave
+# 🧩 Componentes clave
 
-# 📅 Appointments
+## 📅 Appointments
 
 - historical-appointments
 
 - new-appointments
 
-# 🧑‍⚕️ Dentistas
+## 🧑‍⚕️ Dentistas
 
 - consulta-disponibilidades-dentista
 
@@ -176,7 +194,7 @@ src/
 
 - historial-citas-paciente-modal
 
-# 📆 Disponibilidades
+## 📆 Disponibilidades
 
 - consulta-disponibilidades
 
@@ -196,7 +214,7 @@ src/
 
 - slots-libres-preview
 
-# 👤 Usuarios y otros
+## 👤 Usuarios y otros
 
 - login
 
@@ -214,6 +232,12 @@ src/
 
 ---
 
+# 📝 Esquema de Roles y Flujo
+
+A continuación se muestra un esquema simplificado con el flujo de navegación y acciones permitidas para los dos roles principales de la aplicación (Secretaria/Admin y Profesional/Dentista):
+
+![Esquema de flujo](./docs/screenshots/flujo-roles.png)
+
 # 🖼️ Capturas de Pantalla
 
 ## 🧭 Vistas Comunes
@@ -222,7 +246,7 @@ src/
 |-------------------------------------------------------|---------------------------------------------|
 | ![Pantalla de Inicio](./docs/screenshots/inicio.png)  | Pantalla principal tras el login            |
 | ![Login](./docs/screenshots/login.png)                | Pantalla de acceso al sistema               |
-| ![Servicios](./docs/screenshots/servicios.png)        | Listado general de tratamientos             |
+| ![Servicios](./docs/screenshots/servicios.png)        | Listado general de servicios  ofrecidos     |
 
 ## 👩‍💼 Vistas de Secretaria / Administrador
 
@@ -238,7 +262,7 @@ src/
 | ![Nuevo Tratamiento](./docs/screenshots/nuevo-tratamiento.png)        | Formulario para crear un tratamiento                  |
 | ![Gestión de Tratamientos](./docs/screenshots/gestion-tratamientos.png) | Lista de tratamientos disponibles                    |
 | ![Modificar Dentista](./docs/screenshots/modificar-dentista.png)      | Edición de datos de un profesional                    |
-| ![Servicios](./docs/screenshots/servicios.png)                         | Listado de servicios ofertados por la clínica         |
+        
 
 ---
 
@@ -253,8 +277,26 @@ src/
 | ![Historial del Paciente](./docs/screenshots/historial-paciente.png)           | Citas anteriores de un paciente  
       |
 
+---
 
-## 🧑‍💻 Autores
+# 📄 Presentación en PDF
+
+Puedes consultar la presentación general de la aplicación (incluye contexto, objetivos, estructura y funcionalidades principales) en el siguiente documento:
+
+📘 [Ver presentación en PDF](./docs/clinica_dental_smyle.pdf)
+
+---
+
+# 🔮 Mejoras Futuras
+
+- Rol "Paciente" con login propio
+- Notificaciones por email
+- Filtrado avanzado por tipo de tratamiento
+- Internacionalización (i18n)
+
+---
+
+# 🧑‍💻 Autores
 
 Este proyecto ha sido desarrollado como parte de un sistema completo de gestión de una clínica dental, para el curso "Desarrollo Frontend con Angular" de Fundación Adecco.
 
